@@ -10,13 +10,16 @@ namespace Whetstone.Core.Contracts
     /// Value type keeping the semantics of an optional value.
     /// </summary>
     /// <typeparam name="T">The type of the contained value.</typeparam>
+    /// <remarks>
+    /// A <see langword="default"/> <see cref="Optional{T}"/> is always absent.
+    /// </remarks>
     [PublicAPI]
     public readonly partial struct Optional<T> : IEquatable<Optional<T>>
     {
         /// <summary>
         /// The exception message string for "optional is absent".
         /// </summary>
-        const string C_Absent = "Optional is absent.";
+        const string C_Absent = @"Optional is absent.";
 
         /// <summary>
         /// Get a present <see cref="Optional{T}"/>.
@@ -49,6 +52,9 @@ namespace Whetstone.Core.Contracts
         /// <summary>
         /// Unpacks the contained value.
         /// </summary>
+        /// <remarks>
+        /// Behaviour is undefined if <see cref="IsPresent"/> is <see langword="false"/>.
+        /// </remarks>
         internal T Unpack
         {
             [Pure]
@@ -100,6 +106,7 @@ namespace Whetstone.Core.Contracts
 
         #region System.Object overrides
         /// <inheritdoc />
+        /// <remarks>See <see cref="Equals(Optional{T})"/> for details on equality.</remarks>
         [Pure]
         public override bool Equals(object AOther)
         {
