@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -14,7 +15,7 @@ namespace Whetstone.Core.Contracts
     /// A <see langword="default"/> <see cref="Optional{T}"/> is always absent.
     /// </remarks>
     [PublicAPI]
-    public readonly partial struct Optional<T> : IEquatable<Optional<T>>
+    public readonly partial struct Optional<T> : IEnumerable<T>, IEquatable<Optional<T>>
     {
         /// <summary>
         /// The exception message string for "optional is absent".
@@ -82,6 +83,22 @@ namespace Whetstone.Core.Contracts
             => IsPresent && Unpack is TOut res
                 ? Optional<TOut>.Present(res)
                 : Optional<TOut>.Absent;
+
+        #region IEnumerable
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        #endregion
+
+        #region IEnumerable<T>
+        /// <inheritdoc />
+        [Pure]
+        public IEnumerator<T> GetEnumerator()
+        {
+            if (IsPresent)
+            {
+                yield return Unpack;
+            }
+        }
+        #endregion
 
         #region IEquatable<Optional<T>>
         /// <inheritdoc />

@@ -107,17 +107,5 @@ namespace Whetstone.Core.Contracts
                 Is.EqualTo(1)
             );
         }
-
-        [Test]
-        public void AsEnumerable_Absent_IsEmpty()
-        {
-            Assert.That(_FNone.AsEnumerable(), Is.Empty);
-        }
-
-        [Test]
-        public void AsEnumerable_Present_YieldsValue()
-        {
-            CollectionAssert.AreEqual(_FOne.AsEnumerable(), new[] {1});
-        }
     }
 }

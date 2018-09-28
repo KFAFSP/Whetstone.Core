@@ -58,6 +58,18 @@ namespace Whetstone.Core.Contracts
             Assert.That(Optional<object>.Present(1).ThatIs<string>().IsPresent, Is.False);
         }
 
+        [Test]
+        public void GetEnumerator_Absent_IsEmpty()
+        {
+            Assert.That(_FNone, Is.Empty);
+        }
+
+        [Test]
+        public void GetEnumerator_Present_YieldsValue()
+        {
+            CollectionAssert.AreEqual(_FOne, new[] { 1 });
+        }
+
         [TestCaseSource(nameof(EqualsOptionalTestCases))]
         public bool Equals_Optional(Optional<int> ALhs, Optional<int> ARhs)
             => ALhs.Equals(ARhs);

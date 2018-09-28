@@ -95,24 +95,5 @@ namespace Whetstone.Core.Contracts
         [Pure]
         public static T OrDefault<T>(this Optional<T> AOptional, T ADefault = default)
             => AOptional.IsPresent ? AOptional.Unpack : ADefault;
-
-        /// <summary>
-        /// Get an <see cref="IEnumerable{T}"/> wrapping the present value.
-        /// </summary>
-        /// <typeparam name="T">The value type.</typeparam>
-        /// <param name="AOptional">The <see cref="Optional{T}"/>.</param>
-        /// <returns>
-        /// An empty <see cref="IEnumerable{T}"/> if the value is absent; otherwise an
-        /// <see cref="IEnumerable{T}"/> that only contains the present value.
-        /// </returns>
-        [Pure]
-        [NotNull]
-        public static IEnumerable<T> AsEnumerable<T>(this Optional<T> AOptional)
-        {
-            if (AOptional.IsPresent)
-            {
-                yield return AOptional.Unpack;
-            }
-        }
     }
 }
