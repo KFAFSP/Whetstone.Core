@@ -15,7 +15,7 @@ namespace Whetstone.Core.Contracts
     /// A <see langword="default"/> <see cref="Optional{T}"/> is always absent.
     /// </remarks>
     [PublicAPI]
-    public readonly partial struct Optional<T> : IEnumerable<T>, IEquatable<Optional<T>>
+    public readonly struct Optional<T> : IEnumerable<T>, IEquatable<Optional<T>>
     {
         /// <summary>
         /// The exception message string for "optional is absent".
@@ -190,7 +190,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="ARhs">The right hand side.</param>
         /// <returns>
         /// <see langword="true"/> if <paramref name="ALhs"/> and <paramref name="ARhs"/> are
-        /// equal; oterhwise <see langword="false"/>.
+        /// equal; otherwise <see langword="false"/>.
         /// </returns>
         [Pure]
         public static bool operator ==(Optional<T> ALhs, Optional<T> ARhs) => ALhs.Equals(ARhs);
@@ -201,7 +201,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="ARhs">The right hand side.</param>
         /// <returns>
         /// <see langword="true"/> if <paramref name="ALhs"/> and <paramref name="ARhs"/> are
-        /// unequal; oterhwise <see langword="false"/>.
+        /// unequal; otherwise <see langword="false"/>.
         /// </returns>
         [Pure]
         public static bool operator !=(Optional<T> ALhs, Optional<T> ARhs) => !ALhs.Equals(ARhs);
