@@ -7,21 +7,8 @@ namespace Whetstone.Core.Contracts
 {
     public static partial class Range
     {
-        /// <summary>
-        /// Make a <see cref="Range{T}"/> between two values.
-        /// </summary>
+        /// <inheritdoc cref="Range{T}.Of(T, bool, T, bool)"/>
         /// <typeparam name="T">The type that implements <see cref="IComparable{T}"/>.</typeparam>
-        /// <param name="ALower">The lower bound of the range.</param>
-        /// <param name="AIncludesLower">Whether the lower bound is included.</param>
-        /// <param name="AUpper">The upper bound of the range.</param>
-        /// <param name="AIncludesUpper">Whether the upper bound is included.</param>
-        /// <returns>
-        /// A <see cref="Range{T}"/> between <paramref name="ALower"/> and
-        /// <paramref name="AUpper"/>.
-        /// </returns>
-        /// <remarks>
-        /// For more information, see <see cref="Range{T}.Of(T, bool, T, bool)"/>.
-        /// </remarks>
         [ExcludeFromCodeCoverage]
         [Pure]
         public static Range<T> Of<T>(

@@ -8,23 +8,14 @@ namespace Whetstone.Core.Contracts
 {
     public static partial class Optional
     {
-        /// <summary>
-        /// Get an absent <see cref="Optional{T}"/>.
-        /// </summary>
+        /// <inheritdoc cref="Optional{T}.Absent"/>
         /// <typeparam name="T">The value type.</typeparam>
-        /// <returns>An absent <see cref="Optional{T}"/>.</returns>
         [ExcludeFromCodeCoverage]
         [Pure]
         public static Optional<T> Absent<T>() => Optional<T>.Absent;
 
-        /// <summary>
-        /// Get a present <see cref="Optional{T}"/>.
-        /// </summary>
+        /// <inheritdoc cref="Optional{T}.Present(T)"/>
         /// <typeparam name="T">The value type.</typeparam>
-        /// <param name="AValue">The present value.</param>
-        /// <returns>
-        /// A present <see cref="Optional{T}"/> with value <paramref name="AValue"/>.
-        /// </returns>
         [ExcludeFromCodeCoverage]
         [Pure]
         public static Optional<T> Present<T>([NoEnumeration] T AValue)
@@ -44,6 +35,20 @@ namespace Whetstone.Core.Contracts
         public static Optional<T> IfNotNull<T>([NoEnumeration] this T AValue) where T : class
             => ReferenceEquals(AValue, null) ? Optional<T>.Absent : Optional<T>.Present(AValue);
 
+        /// <summary>
+        /// Evaluate a <see cref="Predicate{T}"/> on a value.
+        /// </summary>
+        /// <typeparam name="T">The value type.</typeparam>
+        /// <param name="AValue">The value.</param>
+        /// <param name="APredicate">The <see cref="Predicate{T}"/>.</param>
+        /// <returns>
+        /// An absent <see cref="Optional{T}"/> if <paramref name="AValue"/> does not match
+        /// <paramref name="APredicate"/>; otherwise a present <see cref="Optional{T}"/> with value
+        /// <paramref name="AValue"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="APredicate"/> is <see langword="null"/>.
+        /// </exception>
         [ExcludeFromCodeCoverage]
         [Pure]
         public static Optional<T> If<T>(
