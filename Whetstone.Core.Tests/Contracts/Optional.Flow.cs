@@ -7,7 +7,11 @@ using NUnit.Framework;
 
 namespace Whetstone.Core.Contracts
 {
-    public partial class OptionalTests
+    [TestFixture]
+    [TestOf(typeof(OptionalFlow))]
+    [Category("Contracts")]
+    [Category("Optional")]
+    public sealed class OptionalFlowTests
     {
         static readonly Optional<int> _FNone = Optional<int>.Absent;
         static readonly Optional<int> _FOne = Optional<int>.Present(1);

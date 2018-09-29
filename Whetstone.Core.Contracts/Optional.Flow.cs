@@ -4,7 +4,11 @@ using JetBrains.Annotations;
 
 namespace Whetstone.Core.Contracts
 {
-    public static partial class Optional
+    /// <summary>
+    /// Provides declarative-flow extension methods for the <see cref="Optional"/> type.
+    /// </summary>
+    [PublicAPI]
+    public static class OptionalFlow
     {
         /// <summary>
         /// Check whether the present value matches a <see cref="Predicate{T}"/>.
@@ -29,7 +33,7 @@ namespace Whetstone.Core.Contracts
 
             return AOptional.IsPresent && APredicate(AOptional.Unpack)
                 ? AOptional
-                : Absent<T>();
+                : Optional.Absent<T>();
         }
 
         /// <summary>
@@ -78,8 +82,8 @@ namespace Whetstone.Core.Contracts
             Require.NotNull(AFunc, nameof(AFunc));
 
             return AOptional.IsPresent
-                ? Present(AFunc(AOptional.Unpack))
-                : Absent<TOut>();
+                ? Optional.Present(AFunc(AOptional.Unpack))
+                : Optional.Absent<TOut>();
         }
 
         /// <summary>
