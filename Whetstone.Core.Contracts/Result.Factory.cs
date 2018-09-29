@@ -18,6 +18,4 @@ namespace Whetstone.Core.Contracts
         [Pure]
         public static Result<T> Fail<T>([NotNull] Exception AError) => Result<T>.Fail(AError);
     }
-
-    public partial struct Result<T> { }
 }
