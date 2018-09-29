@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 using JetBrains.Annotations;
 
@@ -92,6 +93,83 @@ namespace Whetstone.Core.Contracts
 
                 return FError ?? UninitializedError;
             }
+        }
+
+        /// <summary>
+        /// Throw <see cref="Error"/> if this <see cref="Result"/> is erroneous.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        public void ThrowIfError()
+        {
+            if (!IsSuccess) throw UnpackError;
+        }
+
+        /// <summary>
+        /// Perform an <see cref="Action"/> if this <see cref="Result"/> is successful.
+        /// </summary>
+        /// <param name="AHandler">The <see cref="Action"/>.</param>
+        /// <returns><c>this</c>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AHandler"/> is <see langword="null"/>.
+        /// </exception>
+        public Result OnSuccess(
+            [NotNull] [InstantHandle] Action AHandler
+        )
+        {
+            Require.NotNull(AHandler, nameof(AHandler));
+
+            if (IsSuccess)
+            {
+                AHandler();
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Perform an <see cref="Action"/> on the contained <see cref="Error"/> if this
+        /// <see cref="Result"/> is erroneous.
+        /// </summary>
+        /// <param name="AHandler">The <see cref="Action{T}"/>.</param>
+        /// <returns><c>this</c>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AHandler"/> is <see langword="null"/>.
+        /// </exception>
+        public Result OnError(
+            [NotNull] [InstantHandle] Action<Exception> AHandler
+        )
+        {
+            Require.NotNull(AHandler, nameof(AHandler));
+
+            if (!IsSuccess)
+            {
+                AHandler(UnpackError);
+            }
+
+            return this;
+        }
+        /// <summary>
+        /// Perform an <see cref="Action"/> on the contained <see cref="Error"/> if this
+        /// <see cref="Result"/> is erroneous and <see cref="Error"/> has a specific type.
+        /// </summary>
+        /// <typeparam name="TException">The <see cref="Exception"/> type.</typeparam>
+        /// <param name="AHandler">The <see cref="Action{T}"/>.</param>
+        /// <returns><c>this</c>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AHandler"/> is <see langword="null"/>.
+        /// </exception>
+        public Result OnError<TException>(
+            [NotNull] [InstantHandle] Action<TException> AHandler
+        ) where TException : Exception
+        {
+            Require.NotNull(AHandler, nameof(AHandler));
+
+            if (!IsSuccess && UnpackError is TException error)
+            {
+                AHandler(error);
+            }
+
+            return this;
         }
 
         #region IEquatable<Result>
@@ -301,6 +379,83 @@ namespace Whetstone.Core.Contracts
 
                 return FError ?? Result.UninitializedError;
             }
+        }
+
+        /// <summary>
+        /// Throw <see cref="Error"/> if this <see cref="Result{T}"/> is erroneous.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
+        public void ThrowIfError()
+        {
+            if (!IsSuccess) throw UnpackError;
+        }
+
+        /// <summary>
+        /// Perform an <see cref="Action"/> if this <see cref="Result{T}"/> is successful.
+        /// </summary>
+        /// <param name="AHandler">The <see cref="Action"/>.</param>
+        /// <returns><c>this</c>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AHandler"/> is <see langword="null"/>.
+        /// </exception>
+        public Result<T> OnSuccess(
+            [NotNull] [InstantHandle] Action<T> AHandler
+        )
+        {
+            Require.NotNull(AHandler, nameof(AHandler));
+
+            if (IsSuccess)
+            {
+                AHandler(UnpackValue);
+            }
+
+            return this;
+        }
+
+        /// <summary>
+        /// Perform an <see cref="Action"/> on the contained <see cref="Error"/> if this
+        /// <see cref="Result{T}"/> is erroneous.
+        /// </summary>
+        /// <param name="AHandler">The <see cref="Action{T}"/>.</param>
+        /// <returns><c>this</c>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AHandler"/> is <see langword="null"/>.
+        /// </exception>
+        public Result<T> OnError(
+            [NotNull] [InstantHandle] Action<Exception> AHandler
+        )
+        {
+            Require.NotNull(AHandler, nameof(AHandler));
+
+            if (!IsSuccess)
+            {
+                AHandler(UnpackError);
+            }
+
+            return this;
+        }
+        /// <summary>
+        /// Perform an <see cref="Action"/> on the contained <see cref="Error"/> if this
+        /// <see cref="Result{T}"/> is erroneous and <see cref="Error"/> has a specific type.
+        /// </summary>
+        /// <typeparam name="TException">The <see cref="Exception"/> type.</typeparam>
+        /// <param name="AHandler">The <see cref="Action{T}"/>.</param>
+        /// <returns><c>this</c>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AHandler"/> is <see langword="null"/>.
+        /// </exception>
+        public Result<T> OnError<TException>(
+            [NotNull] [InstantHandle] Action<TException> AHandler
+        ) where TException : Exception
+        {
+            Require.NotNull(AHandler, nameof(AHandler));
+
+            if (!IsSuccess && UnpackError is TException error)
+            {
+                AHandler(error);
+            }
+
+            return this;
         }
 
         #region IEquatable<Result>
