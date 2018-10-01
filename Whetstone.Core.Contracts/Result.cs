@@ -221,7 +221,7 @@ namespace Whetstone.Core.Contracts
         [Pure]
         public override string ToString() => IsSuccess
             ? "OK"
-            : $"ERROR({UnpackError})";
+            : $"ERROR({UnpackError.Message})";
         #endregion
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace Whetstone.Core.Contracts
         /// will be absent. Otherwise it contains the non-<see langword="null"/> error.
         /// </remarks>
         [ItemNotNull]
-        public Optional<Exception> Error => IsSuccess ? Optional.Present(UnpackError) : default;
+        public Optional<Exception> Error => !IsSuccess ? Optional.Present(UnpackError) : default;
 
         /// <summary>
         /// Implicitly get the <see cref="IsSuccess"/> value of this <see cref="Result"/>.
@@ -512,7 +512,7 @@ namespace Whetstone.Core.Contracts
         [Pure]
         public override string ToString() => IsSuccess
             ? $"OK({UnpackValue})"
-            : $"ERROR({UnpackError})";
+            : $"ERROR({UnpackError.Message})";
         #endregion
 
         /// <summary>
@@ -524,7 +524,7 @@ namespace Whetstone.Core.Contracts
         /// </summary>
         /// <inheritdoc cref="Result.Error" select="remarks"/>
         [ItemNotNull]
-        public Optional<Exception> Error => IsSuccess ? Optional.Present(UnpackError) : default;
+        public Optional<Exception> Error => !IsSuccess ? Optional.Present(UnpackError) : default;
         /// <summary>
         /// Get the successful value of this <see cref="Result{T}"/>; otherwise throws the contained
         /// <see cref="Exception"/>.
@@ -538,6 +538,14 @@ namespace Whetstone.Core.Contracts
         /// <param name="AResult">The <see cref="Result{T}"/>.</param>
         [Pure]
         public static implicit operator bool(Result<T> AResult) => AResult.IsSuccess;
+
+        /// <summary>
+        /// Explicitly get the <see cref="Value"/> of this <see cref="Result{T}"/>.
+        /// </summary>
+        /// <param name="AResult">The <see cref="Result{T}"/>.</param>
+        /// <exception cref="Exception">The <see cref="Result{T}"/> is erroneous.</exception>
+        [Pure]
+        public static explicit operator T(Result<T> AResult) => AResult.Value;
 
         /// <summary>
         /// Implicitly initialize a successful <see cref="Result{T}"/>.
