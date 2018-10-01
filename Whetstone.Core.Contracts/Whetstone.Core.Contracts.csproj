@@ -18,8 +18,11 @@
     <DocumentationFile>D:\Repos\Whetstone.Core\Whetstone.Core.Contracts\Whetstone.Core.Contracts.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Repos\Whetstone.Core\Whetstone.Core.Contracts\Whetstone.Core.Contracts.xml</DocumentationFile>
+    <DocumentationFile>D:\Repos\Whetstone.Core\Whetstone.Core.Contracts\Whetstone.Core.Contracts.doc.xml</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Whetstone.Core.Contracts.doc.xml" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="10.2.1" />
   </ItemGroup>
