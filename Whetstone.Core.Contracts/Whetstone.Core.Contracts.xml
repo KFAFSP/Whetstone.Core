@@ -1,0 +1,910 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Whetstone.Core.Contracts</name>
+    </assembly>
+    <members>
+        <member name="T:Whetstone.Core.Contracts.Optional`1">
+            <summary>
+            Value type keeping the semantics of an optional value.
+            </summary>
+            <typeparam name="T">The type of the contained value.</typeparam>
+        </member>
+        <member name="F:Whetstone.Core.Contracts.Optional`1.C_Absent">
+            <summary>
+            The exception message string for "optional is absent".
+            </summary>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.Present(`0)">
+            <summary>
+            Get a present <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.
+            </summary>
+            <param name="AValue">The present value.</param>
+            <returns>
+            A present <see cref="T:Whetstone.Core.Contracts.Optional`1"/> with value <paramref name="AValue"/>.
+            </returns>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Optional`1.Absent">
+            <summary>
+            Get an absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.
+            </summary>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.#ctor(`0)">
+            <summary>
+            Initialize a present <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.
+            </summary>
+            <param name="AValue">The present value.</param>
+        </member>
+        <member name="F:Whetstone.Core.Contracts.Optional`1.FValue">
+            <summary>
+            The contained value.
+            </summary>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Optional`1.Unpack">
+            <summary>
+            Unpacks the contained value.
+            </summary>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.ThatIs``1">
+            <summary>
+            Try to perform a cast on this <see cref="T:Whetstone.Core.Contracts.Optional`1"/>'s contained value.
+            </summary>
+            <typeparam name="TOut">The cast target type.</typeparam>
+            <returns>
+            An absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/> if the value is absent or mismatching; otherwise a
+            present <see cref="T:Whetstone.Core.Contracts.Optional`1"/> with the casted non-<see langword="null"/> result.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.Equals(Whetstone.Core.Contracts.Optional{`0})">
+            <inheritdoc />
+            <remarks>
+            Two <see cref="T:Whetstone.Core.Contracts.Optional`1"/> instances are equal if either both are absent or both are
+            present and their contained <see cref="P:Whetstone.Core.Contracts.Optional`1.Value"/>s are equal using the default
+            (<see cref="P:System.Collections.Generic.EqualityComparer`1.Default"/>) equality comparison.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.GetHashCode">
+            <inheritdoc />
+            <remarks>
+            The hash code of an absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/> is <c>0</c>, while a present
+            <see cref="T:Whetstone.Core.Contracts.Optional`1"/> will have the same hash code as the default hashing function
+            (<see cref="P:System.Collections.Generic.EqualityComparer`1.Default"/>) for it's contained <see cref="P:Whetstone.Core.Contracts.Optional`1.Value"/>
+            yields.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.ToString">
+            <inheritdoc />
+            <remarks>
+            An absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/> will return a string that indicates it's type and
+            absence, while a present <see cref="T:Whetstone.Core.Contracts.Optional`1"/> will simply delegate to it's
+            contained <see cref="P:Whetstone.Core.Contracts.Optional`1.Value"/>.
+            </remarks>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Optional`1.IsPresent">
+            <summary>
+            Gets a value indicating whether the optional value is present.
+            </summary>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Optional`1.Value">
+            <summary>
+            Gets the value if present; otherwise throws an <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Optional is absent.</exception>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.op_Implicit(`0)~Whetstone.Core.Contracts.Optional{`0}">
+            <summary>
+            Implicitly initialize a present <see cref="T:Whetstone.Core.Contracts.Optional`1"/> from a value.
+            </summary>
+            <param name="AValue">The present value.</param>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.op_Explicit(Whetstone.Core.Contracts.Optional{`0})~`0">
+            <summary>
+            Explicitly unwrap the <see cref="P:Whetstone.Core.Contracts.Optional`1.Value"/> of an <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.
+            </summary>
+            <param name="AOptional">The <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.</param>
+            <exception cref="T:System.InvalidOperationException">
+            <paramref name="AOptional"/> is absent.
+            </exception>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.op_Equality(Whetstone.Core.Contracts.Optional{`0},Whetstone.Core.Contracts.Optional{`0})">
+            <summary>
+            Check whether two <see cref="T:Whetstone.Core.Contracts.Optional`1"/> instances are equal.
+            </summary>
+            <param name="ALhs">The left hand side.</param>
+            <param name="ARhs">The right hand side.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="ALhs"/> and <paramref name="ARhs"/> are
+            equal; oterhwise <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional`1.op_Inequality(Whetstone.Core.Contracts.Optional{`0},Whetstone.Core.Contracts.Optional{`0})">
+            <summary>
+            Check whether two <see cref="T:Whetstone.Core.Contracts.Optional`1"/> instances are unequal.
+            </summary>
+            <param name="ALhs">The left hand side.</param>
+            <param name="ARhs">The right hand side.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="ALhs"/> and <paramref name="ARhs"/> are
+            unequal; oterhwise <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="T:Whetstone.Core.Contracts.Optional">
+            <summary>
+            Provides static convenience methods for using the <see cref="T:Whetstone.Core.Contracts.Optional`1"/> generic type
+            with inferred type arguments.
+            </summary>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.Absent``1">
+            <summary>
+            Get an absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <returns>An absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.</returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.Present``1(``0)">
+            <summary>
+            Get a present <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="AValue">The present value.</param>
+            <returns>
+            A present <see cref="T:Whetstone.Core.Contracts.Optional`1"/> with value <paramref name="AValue"/>.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.IfNotNull``1(``0)">
+            <summary>
+            Get an <see cref="T:Whetstone.Core.Contracts.Optional`1"/> that is present on non-<see langword="null"/>.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="AValue">The value.</param>
+            <returns>
+            A present <see cref="T:Whetstone.Core.Contracts.Optional`1"/> with value <paramref name="AValue"/> if it is
+            non-<see langword="null"/>; otherwise <see cref="P:Whetstone.Core.Contracts.Optional`1.Absent"/>.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.IfIs``1(System.Object)">
+            <summary>
+            Try to perform a cast on a value.
+            </summary>
+            <typeparam name="T">The cast target type.</typeparam>
+            <returns>
+            An absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/> if the value is mismatching; otherwise a present
+            <see cref="T:Whetstone.Core.Contracts.Optional`1"/> with the casted non-<see langword="null"/> result.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.IfAny``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Get an <see cref="T:Whetstone.Core.Contracts.Optional`1"/> containing the first value in an
+            <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="AEnumerable">The <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</param>
+            <returns>
+            An absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/> if <paramref name="AEnumerable"/> is empty;
+            otherwise a present <see cref="T:Whetstone.Core.Contracts.Optional`1"/> that contains the first value in
+            <paramref name="AEnumerable"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AEnumerable"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.That``1(Whetstone.Core.Contracts.Optional{``0},System.Predicate{``0})">
+            <summary>
+            Check whether the present value matches a <see cref="T:System.Predicate`1"/>.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="AOptional">The <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.</param>
+            <param name="APredicate">The <see cref="T:System.Predicate`1"/>.</param>
+            <returns>
+            An absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/> if the value is absent or mismatching; otherwise
+            <paramref name="AOptional"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="APredicate"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.Forward``1(Whetstone.Core.Contracts.Optional{``0},System.Action{``0})">
+            <summary>
+            Execute an <see cref="T:System.Action`1"/> on the present value.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="AOptional">The <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.</param>
+            <param name="AAction">The <see cref="T:System.Action`1"/>.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AAction"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.Map``2(Whetstone.Core.Contracts.Optional{``0},System.Func{``0,``1})">
+            <summary>
+            Map the present value using a <see cref="T:System.Func`2"/>.
+            </summary>
+            <typeparam name="TIn">The input type.</typeparam>
+            <typeparam name="TOut">The output type.</typeparam>
+            <param name="AOptional">The <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.</param>
+            <param name="AFunc">The <see cref="T:System.Func`2"/>.</param>
+            <returns>
+            An absent <see cref="T:Whetstone.Core.Contracts.Optional`1"/> if the value is absent; otherwise a present
+            <see cref="T:Whetstone.Core.Contracts.Optional`1"/> containing the result of applying <paramref name="AFunc"/> to
+            the present value.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AFunc"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.OrDefault``1(Whetstone.Core.Contracts.Optional{``0},``0)">
+            <summary>
+            Get the present value or a default.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="AOptional">The <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.</param>
+            <param name="ADefault">The default value.</param>
+            <returns>
+            <paramref name="ADefault"/> if the value is absent; otherwise the present value.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Optional.AsEnumerable``1(Whetstone.Core.Contracts.Optional{``0})">
+            <summary>
+            Get an <see cref="T:System.Collections.Generic.IEnumerable`1"/> wrapping the present value.
+            </summary>
+            <typeparam name="T">The value type.</typeparam>
+            <param name="AOptional">The <see cref="T:Whetstone.Core.Contracts.Optional`1"/>.</param>
+            <returns>
+            An empty <see cref="T:System.Collections.Generic.IEnumerable`1"/> if the value is absent; otherwise an
+            <see cref="T:System.Collections.Generic.IEnumerable`1"/> that only contains the present value.
+            </returns>
+        </member>
+        <member name="T:Whetstone.Core.Contracts.Range`1">
+            <summary>
+            Represents a range between to values of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <remarks>
+            <para>
+            <c>default(Range<typeparamref name="T"/>)</c> is guaranteed to be an exclusive and empty
+            range, specifically the (<c>default</c>, <c>default</c>) range.
+            </para>
+            <para>
+            Note that special semantics concerning the emptiness of <see cref="T:Whetstone.Core.Contracts.Range`1"/> apply since
+            the limitation on <typeparamref name="T"/> is only that it must implement the
+            <see cref="T:System.IComparable`1"/> interface. See <see cref="P:Whetstone.Core.Contracts.Range`1.IsEmpty"/> for details.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.Contains(`0)">
+            <summary>
+            Check whether the specified value is within this range.
+            </summary>
+            <param name="ATest">The value.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="ATest"/> is within this range;
+            <see langword="false"/> otherwise.
+            </returns>
+            <remarks>
+            Ranges that have the value <see langword="true"/> for <see cref="P:Whetstone.Core.Contracts.Range`1.IsEmpty"/> are
+            definitely empty and will always return <see langword="false"/>.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.Contains(Whetstone.Core.Contracts.Range{`0})">
+            <summary>
+            Check whether the specified <see cref="T:Whetstone.Core.Contracts.Range`1"/> is within this range.
+            </summary>
+            <param name="ATest">The <see cref="T:Whetstone.Core.Contracts.Range`1"/>.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="ATest"/> is within this range;
+            <see langword="false"/> otherwise.
+            </returns>
+            <remarks>
+            <para>
+            Ranges that have the value <see langword="true"/> for <see cref="P:Whetstone.Core.Contracts.Range`1.IsEmpty"/> are
+            definitely empty and will always return <see langword="false"/>.
+            </para>
+            <para>
+            Supplying an empty <paramref name="ATest"/> range however may still result in it being
+            contained since only the bounds are checked.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.Of(`0,System.Boolean,`0,System.Boolean)">
+            <summary>
+            Make a <see cref="T:Whetstone.Core.Contracts.Range`1"/> between two values.
+            </summary>
+            <param name="ALower">The lower bound of the range.</param>
+            <param name="AIncludesLower">Whether the lower bound is included.</param>
+            <param name="AUpper">The upper bound of the range.</param>
+            <param name="AIncludesUpper">Whether the upper bound is included.</param>
+            <returns>
+            A <see cref="T:Whetstone.Core.Contracts.Range`1"/> between <paramref name="ALower"/> and
+            <paramref name="AUpper"/>.
+            </returns>
+            <remarks>
+            Any combination of parameters produces a valid <see cref="T:Whetstone.Core.Contracts.Range`1"/>, but the strong
+            criteria for emptiness (see <see cref="P:Whetstone.Core.Contracts.Range`1.IsEmpty"/>) are checked by this method
+            and flagged for the resulting range if applicable. No information will be lost, but
+            empty <see cref="T:Whetstone.Core.Contracts.Range`1"/>s do receive special treatment.
+            </remarks>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Range`1.Empty">
+            <summary>
+            Get an empty <see cref="T:Whetstone.Core.Contracts.Range`1"/> of (<c>default</c>, <c>default</c>).
+            </summary>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.#ctor(Whetstone.Core.Contracts.RangeFlags,`0,`0)">
+            <summary>
+            Initialize a new <see cref="T:Whetstone.Core.Contracts.Range`1"/>.
+            </summary>
+            <param name="AFlags">The <see cref="T:Whetstone.Core.Contracts.RangeFlags"/>.</param>
+            <param name="ALower">The lower bound.</param>
+            <param name="AUpper">The upper bound.</param>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.CompareWith(`0)">
+            <summary>
+            Compare a value to both bounds of the range.
+            </summary>
+            <param name="ATest">The value.</param>
+            <returns>
+            <list type="table">
+            <listheader>
+            </listheader>
+            <item>
+            <term>-1</term>
+            <description><paramref name="ATest"/> is below the lower bound.</description>
+            </item>
+            <item>
+            <term>0</term>
+            <description><paramref name="ATest"/> is inside the range.</description>
+            </item>
+            <item>
+            <term>1</term>
+            <description><paramref name="ATest"/> is above the lower bound.</description>
+            </item>
+            </list>
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.Equals(Whetstone.Core.Contracts.Range{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.ToString">
+            <inheritdoc />
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Range`1.Flags">
+            <summary>
+            Get the <see cref="T:Whetstone.Core.Contracts.RangeFlags"/>.
+            </summary>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Range`1.Lower">
+            <summary>
+            Get the lower bound.
+            </summary>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Range`1.Upper">
+            <summary>
+            Get the upper bound.
+            </summary>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Range`1.IsEmpty">
+            <summary>
+            Get a value indicating whether the range is empty.
+            </summary>
+            <remarks>
+            <para>
+            Since this type does not require a bijective N &lt;-&gt; <typeparamref name="T"/>
+            mapping to be present, successors or predecessors of the <see cref="P:Whetstone.Core.Contracts.Range`1.Lower"/> or
+            <see cref="P:Whetstone.Core.Contracts.Range`1.Upper"/> bound are not known to it. Only ranges that violate the strong
+            emptiness criteria are known to be empty; all others may or may not be empty.
+            </para>
+            <para>
+            Specifically, two strong criteria are checked and represented by this property:
+            <list type="bullet">
+            <item><description>
+            Any range {a, b} (any inclusion/exclusion) where a > b is empty.
+            </description></item>
+            <item><description>
+            Any range {a, a} (any inclusion/exclusion) EXCEPT [a, a] (fully inclusive) is empty.
+            </description></item>
+            </list>
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Range`1.IncludesLower">
+            <summary>
+            Get a value indicating whether the <see cref="P:Whetstone.Core.Contracts.Range`1.Lower"/> bound is included in the range.
+            </summary>
+        </member>
+        <member name="P:Whetstone.Core.Contracts.Range`1.IncludesUpper">
+            <summary>
+            Get a value indicating whether the <see cref="P:Whetstone.Core.Contracts.Range`1.Upper"/> bound is included in the range.
+            </summary>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.op_Equality(Whetstone.Core.Contracts.Range{`0},Whetstone.Core.Contracts.Range{`0})">
+            <summary>
+            Check whether two <see cref="T:Whetstone.Core.Contracts.Range`1"/> instances are equal.
+            </summary>
+            <param name="ALhs">The left hand side.</param>
+            <param name="ARhs">The right hand side.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="ALhs"/> is equal to <paramref name="ARhs"/>;
+            otherwise <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.op_Inequality(Whetstone.Core.Contracts.Range{`0},Whetstone.Core.Contracts.Range{`0})">
+            <summary>
+            Check whether two <see cref="T:Whetstone.Core.Contracts.Range`1"/> instances are unequal.
+            </summary>
+            <param name="ALhs">The left hand side.</param>
+            <param name="ARhs">The right hand side.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="ALhs"/> is unequal to <paramref name="ARhs"/>;
+            otherwise <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.MustBeEmpty(`0,System.Boolean,`0,System.Boolean)">
+            <summary>
+            Check whether a specified range must be empty.
+            </summary>
+            <param name="ALower">The lower bound of the range.</param>
+            <param name="AIncludesLower">Whether the lower bound is included.</param>
+            <param name="AUpper">The upper bound of the range.</param>
+            <param name="AIncludesUpper">Whether the upper bound is included.</param>
+            <returns>
+            <see langword="true"/> if one of the strong emptiness criteria applies;
+            <see langword="false"/> otherwise.
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.CompareToInternal(`0)">
+            <summary>
+            Compare a value that is known to be non-<see langword="null"/> to both bounds of the
+            range.
+            </summary>
+            <param name="ATest">The value.</param>
+            <returns>
+            <list type="table">
+            <listheader>
+            </listheader>
+            <item>
+            <term>-1</term>
+            <description><paramref name="ATest"/> is below the lower bound.</description>
+            </item>
+            <item>
+            <term>0</term>
+            <description><paramref name="ATest"/> is inside the range.</description>
+            </item>
+            <item>
+            <term>1</term>
+            <description><paramref name="ATest"/> is above the lower bound.</description>
+            </item>
+            </list>
+            </returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.Intersect(Whetstone.Core.Contracts.Range{`0}@,Whetstone.Core.Contracts.Range{`0}@)">
+            <summary>
+            Get the intersection of two <see cref="T:Whetstone.Core.Contracts.Range`1"/>s.
+            </summary>
+            <param name="ALhs">The left hand side operand.</param>
+            <param name="ARhs">The right hand side operand.</param>
+            <returns>
+            A new <see cref="T:Whetstone.Core.Contracts.Range`1"/> that is the intersection of <paramref name="ALhs"/> and
+            <paramref name="ARhs"/>.
+            </returns>
+            <remarks>
+            <para>
+            Although an empty range might be contained in another range, empty ranges always yield
+            empty intersections with other ranges.
+            </para>
+            <para>
+            Optimized for the quantitative intersection result. If only the qualitative result is
+            needed, use <see cref="M:Whetstone.Core.Contracts.Range`1.Intersects(Whetstone.Core.Contracts.Range{`0})"/> instead.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range`1.Intersects(Whetstone.Core.Contracts.Range{`0})">
+            <summary>
+            Check whether the specified <see cref="T:Whetstone.Core.Contracts.Range`1"/> intersects this range.
+            </summary>
+            <param name="ATest">The <see cref="T:Whetstone.Core.Contracts.Range`1"/>.</param>
+            <returns>
+            <see langword="true"/> if <paramref name="ATest"/> intersects this range;
+            <see langword="false"/> otherwise.
+            </returns>
+            <remarks>
+            <para>
+            Although an empty range might be contained in another range, empty ranges cannot
+            intersect with any range.
+            </para>
+            <para>
+            Optimized for the qualitative intersection result. If the actual intersection range is
+            required, use <see cref="M:Whetstone.Core.Contracts.Range`1.Intersect(Whetstone.Core.Contracts.Range{`0}@,Whetstone.Core.Contracts.Range{`0}@)"/> instead.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Whetstone.Core.Contracts.Range">
+            <summary>
+            Provides static convenience methods for using the <see cref="T:Whetstone.Core.Contracts.Range`1"/> generic type with
+            inferred type arguments.
+            </summary>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range.Of``1(``0,System.Boolean,``0,System.Boolean)">
+            <summary>
+            Make a <see cref="T:Whetstone.Core.Contracts.Range`1"/> between two values.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ALower">The lower bound of the range.</param>
+            <param name="AIncludesLower">Whether the lower bound is included.</param>
+            <param name="AUpper">The upper bound of the range.</param>
+            <param name="AIncludesUpper">Whether the upper bound is included.</param>
+            <returns>
+            A <see cref="T:Whetstone.Core.Contracts.Range`1"/> between <paramref name="ALower"/> and
+            <paramref name="AUpper"/>.
+            </returns>
+            <remarks>
+            For more information, see <see cref="M:Whetstone.Core.Contracts.Range`1.Of(`0,System.Boolean,`0,System.Boolean)"/>.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range.WithLower``1(Whetstone.Core.Contracts.Range{``0},``0)">
+            <summary>
+            Make a new <see cref="T:Whetstone.Core.Contracts.Range`1"/> with a different lower bound.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ARange">The <see cref="T:Whetstone.Core.Contracts.Range`1"/>.</param>
+            <param name="ALower">The new lower bound.</param>
+            <returns>A copy of <paramref name="ARange"/> with a different lower bound.</returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range.WithLower``1(Whetstone.Core.Contracts.Range{``0},System.Boolean)">
+            <summary>
+            Make a new <see cref="T:Whetstone.Core.Contracts.Range`1"/> with a different lower bound.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ARange">The <see cref="T:Whetstone.Core.Contracts.Range`1"/>.</param>
+            <param name="AIncludesLower">Whether the lower bound is included.</param>
+            <returns>A copy of <paramref name="ARange"/> with a different lower bound.</returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range.WithLower``1(Whetstone.Core.Contracts.Range{``0},``0,System.Boolean)">
+            <summary>
+            Make a new <see cref="T:Whetstone.Core.Contracts.Range`1"/> with a different lower bound.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ARange">The <see cref="T:Whetstone.Core.Contracts.Range`1"/>.</param>
+            <param name="ALower">The new lower bound.</param>
+            <param name="AIncludesLower">Whether the lower bound is included.</param>
+            <returns>A copy of <paramref name="ARange"/> with a different lower bound.</returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range.WithUpper``1(Whetstone.Core.Contracts.Range{``0},``0)">
+            <summary>
+            Make a new <see cref="T:Whetstone.Core.Contracts.Range`1"/> with a different upper bound.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ARange">The <see cref="T:Whetstone.Core.Contracts.Range`1"/>.</param>
+            <param name="AUpper">The new upper bound.</param>
+            <returns>A copy of <paramref name="ARange"/> with a different upper bound.</returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range.WithUpper``1(Whetstone.Core.Contracts.Range{``0},System.Boolean)">
+            <summary>
+            Make a new <see cref="T:Whetstone.Core.Contracts.Range`1"/> with a different upper bound.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ARange">The <see cref="T:Whetstone.Core.Contracts.Range`1"/>.</param>
+            <param name="AIncludesUpper">Whether the upper bound is included.</param>
+            <returns>A copy of <paramref name="ARange"/> with a different upper bound.</returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range.WithUpper``1(Whetstone.Core.Contracts.Range{``0},``0,System.Boolean)">
+            <summary>
+            Make a new <see cref="T:Whetstone.Core.Contracts.Range`1"/> with a different upper bound.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ARange">The <see cref="T:Whetstone.Core.Contracts.Range`1"/>.</param>
+            <param name="AUpper">The new upper bound.</param>
+            <param name="AIncludesUpper">Whether the upper bound is included.</param>
+            <returns>A copy of <paramref name="ARange"/> with a different upper bound.</returns>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Range.Intersect``1(Whetstone.Core.Contracts.Range{``0}@,Whetstone.Core.Contracts.Range{``0}@)">
+            <summary>
+            Get the intersection of two <see cref="T:Whetstone.Core.Contracts.Range`1"/>s.
+            </summary>
+            <param name="ALhs">The left hand side operand.</param>
+            <param name="ARhs">The right hand side operand.</param>
+            <returns>
+            A new <see cref="T:Whetstone.Core.Contracts.Range`1"/> that is the intersection of <paramref name="ALhs"/> and
+            <paramref name="ARhs"/>.
+            </returns>
+            <remarks>
+            For more information, see <see cref="M:Whetstone.Core.Contracts.Range`1.Intersect(Whetstone.Core.Contracts.Range{`0}@,Whetstone.Core.Contracts.Range{`0}@)"/>.
+            </remarks>
+        </member>
+        <member name="T:Whetstone.Core.Contracts.RangeFlags">
+            <summary>
+            Internal enumeration of property bit-flags for <see cref="T:Whetstone.Core.Contracts.Range`1"/> structs.
+            </summary>
+        </member>
+        <member name="F:Whetstone.Core.Contracts.RangeFlags.Empty">
+            <summary>
+            Indicates that the range is empty.
+            </summary>
+        </member>
+        <member name="F:Whetstone.Core.Contracts.RangeFlags.MayNotBeEmpty">
+            <summary>
+            Indicates that the range may not be empty.
+            </summary>
+        </member>
+        <member name="F:Whetstone.Core.Contracts.RangeFlags.IncludesLower">
+            <summary>
+            Indicates that the lower bound is included.
+            </summary>
+        </member>
+        <member name="F:Whetstone.Core.Contracts.RangeFlags.IncludesUpper">
+            <summary>
+            Indicates that the upper bound is included.
+            </summary>
+        </member>
+        <member name="T:Whetstone.Core.Contracts.Require">
+            <summary>
+            Provides static methods for uniformly handling contract validation.
+            </summary>
+        </member>
+        <member name="F:Whetstone.Core.Contracts.Require.C_InvalidArgType">
+            <summary>
+            The exception message string for "invalid argument type".
+            </summary>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Require.Is``1(System.Object,System.String)">
+            <summary>
+            Require that a parameter is an instance of a specific type.
+            </summary>
+            <typeparam name="T">The instance type.</typeparam>
+            <param name="AParam">The parameter value.</param>
+            <param name="AParamName">The parameter name.</param>
+            <returns><paramref name="AParam"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AParam"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="AParam"/> has an invalid type.
+            </exception>
+            <remarks>
+            This method is annotated with the <see cref="T:System.Diagnostics.DebuggerHiddenAttribute"/> and therefore
+            not part of the stack-trace of the exception that it throws.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Require.IsConstrainedBy``1(System.Object,System.String)">
+            <summary>
+            Require that a parameter is constrained to a specific generic type constraint.
+            </summary>
+            <typeparam name="T">The instance type.</typeparam>
+            <param name="AParam">The parameter value.</param>
+            <param name="AParamName">The parameter name.</param>
+            <returns><paramref name="AParam"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AParam"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="AParam"/> has an invalid type.
+            </exception>
+            <remarks>
+            <para>
+            The difference between this method and <see cref="M:Whetstone.Core.Contracts.Require.Is``1(System.Object,System.String)"/> lies in the
+            treatment of <see langword="null"/> parameters. For reference types,
+            <see langword="null"/> is propagated without error. For value types, an
+            <see cref="T:System.ArgumentNullException"/> is thrown.
+            </para>
+            <para>
+            This method is annotated with the <see cref="T:System.Diagnostics.DebuggerHiddenAttribute"/> and therefore
+            not part of the stack-trace of the exception that it throws.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.Require.NotNull``1(``0,System.String)">
+            <summary>
+            Require that a parameter is not-<see langword="null"/>.
+            </summary>
+            <typeparam name="T">The parameter type.</typeparam>
+            <param name="AParam">The parameter value.</param>
+            <param name="AParamName">The parameter name.</param>
+            <returns><paramref name="AParam"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AParam"/> is <see langword="null"/>.
+            </exception>
+            <remarks>
+            This method is annotated with the <see cref="T:System.Diagnostics.DebuggerHiddenAttribute"/> and therefore
+            not part of the stack-trace of the exception that it throws.
+            </remarks>
+        </member>
+        <member name="T:Whetstone.Core.Contracts.WeakOrdering">
+            <summary>
+            Provides static methods for working with types that implement the
+            <see cref="T:System.IComparable`1"/> interface.
+            </summary>
+            <remarks>
+            <para>
+            Types that implement the <see cref="T:System.IComparable`1"/> interface define a weak-ordering of
+            their instances. This helper class allows for the user to perform weak-ordering specific
+            operations on these types without the need for implementation support on their side.
+            </para>
+            <para>
+            Works for <see cref="T:System.ValueType"/> and reference type implementors of the interface.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.Compare``1(``0,``0)">
+            <summary>
+            Compare two instances of comparable types.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ALhs">The left hand side operand.</param>
+            <param name="ARhs">The right hand side operand.</param>
+            <returns>
+            <list type="table">
+            <listheader>
+            <term>Value</term>
+            <description>Meaning</description>
+            </listheader>
+            <item>
+            <term><c>&lt;0</c></term>
+            <description><paramref name="ALhs"/> is less than <paramref name="ARhs"/>.</description>
+            </item>
+            <item>
+            <term><c>0</c></term>
+            <description><paramref name="ALhs"/> is equal to <paramref name="ARhs"/>.</description>
+            </item>
+            <item>
+            <term><c>&gt;0</c></term>
+            <description>
+            <paramref name="ALhs"/> is greater than <paramref name="ARhs"/>.
+            </description>
+            </item>
+            </list>
+            </returns>
+            <remarks>
+            Correctly deals with <see langword="null"/> parameters as opposed to a simple call to
+            <see cref="M:System.IComparable`1.CompareTo(`0)"/>. This handling only applies if
+            <typeparamref name="T"/> is a reference type.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.Max``1(``0,``0)">
+            <summary>
+            Get the maximum of two instances of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ALhs">The left hand side operand.</param>
+            <param name="ARhs">The right hand side operand.</param>
+            <returns>
+            <paramref name="ALhs"/> if it is greater than or equal to <paramref name="ARhs"/>;
+            otherwise <paramref name="ARhs"/>.
+            </returns>
+            <remarks>
+            This implementation has a left-bias, which means that in the event of a tie it will
+            pick <paramref name="ALhs"/> over <paramref name="ARhs"/>. Depending on the
+            implementation of <typeparamref name="T"/> this might be semantically different from
+            a right-bias, but as the weak-ordering is concerned both are the same.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.MaxIndex``1(``0[])">
+            <summary>
+            Find the index of the greatest value in an array of instances of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="AItems">The items.</param>
+            <returns>
+            The index of the greatest value in <paramref name="AItems"/>; or <c>-1</c> if
+            <paramref name="AItems"/> is empty.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AItems"/> is <see langword="null"/>.
+            </exception>
+            <remarks>
+            This implementation is a slightly more optimized version of performing a linear search
+            on <paramref name="AItems"/> since it handles quick-skip on reaching
+            <see langword="null"/> for reference type <typeparamref name="T"/>s.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.Max``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Get the maximum of an <see cref="T:System.Collections.Generic.IEnumerable`1"/> of instances of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="AOperands">The operands.</param>
+            <returns>The first, greatest operand in <paramref name="AOperands"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AOperands"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException"><paramref name="AOperands"/> is empty.</exception>
+            <remarks>
+            This implementation is a slightly more optimized version of folding
+            <paramref name="AOperands"/> with <see cref="M:Whetstone.Core.Contracts.WeakOrdering.Max``1(``0,``0)"/> since it handles quick-skip
+            of <see langword="null"/> for reference type <typeparamref name="T"/>s.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.Max``1(``0[])">
+            <summary>
+            Get the maximum of an array of instances of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="AItems">The array of items.</param>
+            <returns>The first, greatest item in <paramref name="AItems"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AItems"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException"><paramref name="AItems"/> is empty.</exception>
+            <remarks>
+            Uses the <see cref="M:Whetstone.Core.Contracts.WeakOrdering.MaxIndex``1(``0[])"/> method to find the maximum using an optimized
+            linear search.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.Min``1(``0,``0)">
+            <summary>
+            Get the minimum of two instances of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="ALhs">The left hand side operand.</param>
+            <param name="ARhs">The right hand side operand.</param>
+            <returns>
+            <paramref name="ALhs"/> if it is less than or equal to <paramref name="ARhs"/>;
+            otherwise <paramref name="ARhs"/>.
+            </returns>
+            <remarks>
+            This implementation has a left-bias, which means that in the event of a tie it will
+            pick <paramref name="ALhs"/> over <paramref name="ARhs"/>. Depending on the
+            implementation of <typeparamref name="T"/> this might be semantically different from
+            a right-bias, but as the weak-ordering is concerned both are the same.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.MinIndex``1(``0[])">
+            <summary>
+            Find the index of the least value in an array of instances of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="AItems">The items.</param>
+            <returns>
+            The index of the least value in <paramref name="AItems"/>; or <c>-1</c> if
+            <paramref name="AItems"/> is empty.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AItems"/> is <see langword="null"/>.
+            </exception>
+            <remarks>
+            This implementation is a slightly more optimized version of performing a linear search
+            on <paramref name="AItems"/> since it handles quick-exit on reaching
+            <see langword="null"/> for reference type <typeparamref name="T"/>s.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.Min``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Get the minimum of an <see cref="T:System.Collections.Generic.IEnumerable`1"/> of instances of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="AOperands">The operands.</param>
+            <returns>The first, least operand in <paramref name="AOperands"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AOperands"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException"><paramref name="AOperands"/> is empty.</exception>
+            <remarks>
+            This implementation is a slightly more optimized version of folding
+            <paramref name="AOperands"/> with <see cref="M:Whetstone.Core.Contracts.WeakOrdering.Min``1(``0,``0)"/> since it handles quick-exit
+            on reaching <see langword="null"/> for reference type <typeparamref name="T"/>s.
+            </remarks>
+        </member>
+        <member name="M:Whetstone.Core.Contracts.WeakOrdering.Min``1(``0[])">
+            <summary>
+            Get the minimum of an array of instances of a comparable type.
+            </summary>
+            <typeparam name="T">The type that implements <see cref="T:System.IComparable`1"/>.</typeparam>
+            <param name="AItems">The array of items.</param>
+            <returns>The first, least item in <paramref name="AItems"/>.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="AItems"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException"><paramref name="AItems"/> is empty.</exception>
+            <remarks>
+            Uses the <see cref="M:Whetstone.Core.Contracts.WeakOrdering.MinIndex``1(``0[])"/> method to find the minimum using an optimized
+            linear search.
+            </remarks>
+        </member>
+    </members>
+</doc>
