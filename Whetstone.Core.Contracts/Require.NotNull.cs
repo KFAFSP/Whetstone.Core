@@ -8,7 +8,7 @@ namespace Whetstone.Core.Contracts
     public static partial class Require
     {
         /// <summary>
-        /// Require that a parameter is not-<see langword="null"/>.
+        /// Require that a parameter is not <see langword="null"/>.
         /// </summary>
         /// <typeparam name="T">The parameter type.</typeparam>
         /// <param name="AParam">The parameter value.</param>
