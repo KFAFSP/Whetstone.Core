@@ -17,19 +17,21 @@ namespace Whetstone.Core.Contracts
         /// </summary>
         /// <param name="ACondition">The assertion condition.</param>
         /// <param name="AMessage">An optional assertion message.</param>
+        /// <param name="ADetail">An optional detail message.</param>
         [ContractAnnotation("ACondition: false => halt")]
         [AssertionMethod]
         [DebuggerHidden]
         [Conditional("DEBUG")]
         public static void That(
             [AssertionCondition(AssertionConditionType.IS_TRUE)] bool ACondition,
-            [CanBeNull] string AMessage = null
+            [CanBeNull] string AMessage = null,
+            [CanBeNull] string ADetail = null
         )
         {
             Debug.Assert(
                 ACondition,
                 AMessage ?? "Assertion failed.",
-                "This indicates a severe logic error."
+                ADetail ?? "This indicates a severe logic error."
             );
         }
     }
