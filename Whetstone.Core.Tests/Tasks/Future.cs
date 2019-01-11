@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 using NUnit.Framework;
 
@@ -152,7 +153,7 @@ namespace Whetstone.Core.Tasks
         }
 
         [Test]
-        public void WaitAsync_Ended_ReturnsCompletedTask()
+        public void WaitAsync_Exists_ReturnsCompletedTask()
         {
             using (var future = Future.Of(1))
             {
@@ -164,7 +165,7 @@ namespace Whetstone.Core.Tasks
         }
 
         [Test]
-        public void WaitAsync_NotEnded_WaitsForEnd()
+        public void WaitAsync_DoesNotExist_WaitsForEnd()
         {
             using (var future = new Future<int>())
             {
@@ -186,6 +187,20 @@ namespace Whetstone.Core.Tasks
             future.Dispose();
 
             TaskAssert.Faulted<ObjectDisposedException>(future.WaitAsync());
+        }
+
+        [Test]
+        public void WaitAsync_DoesNotExist_Cancelable()
+        {
+            using (var cts = new CancellationTokenSource())
+            using (var future = new Future<int>())
+            {
+                var awaiter = future.WaitAsync(cts.Token);
+
+                TaskAssert.DoesNotEnd(awaiter);
+                cts.Cancel();
+                TaskAssert.Cancelled(awaiter);
+            }
         }
     }
 }

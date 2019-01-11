@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 using NUnit.Framework;
 
@@ -53,6 +54,20 @@ namespace Whetstone.Core.Tasks
                 TaskAssert.DoesNotEnd(awaiter);
                 trigger.Fire();
                 TaskAssert.Completed(awaiter);
+            }
+        }
+
+        [Test]
+        public void WaitAsync_Cancelable()
+        {
+            using (var cts = new CancellationTokenSource())
+            using (var trigger = new Trigger())
+            {
+                var awaiter = trigger.WaitAsync(cts.Token);
+
+                TaskAssert.DoesNotEnd(awaiter);
+                cts.Cancel();
+                TaskAssert.Cancelled(awaiter);
             }
         }
 

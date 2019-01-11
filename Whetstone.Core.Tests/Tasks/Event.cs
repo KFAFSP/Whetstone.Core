@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 using NUnit.Framework;
 
@@ -63,6 +64,20 @@ namespace Whetstone.Core.Tasks
                     TaskAssert.Completed(awaiter),
                     Is.EqualTo(1)
                 );
+            }
+        }
+
+        [Test]
+        public void WaitAsync_Cancelable()
+        {
+            using (var cts = new CancellationTokenSource())
+            using (var evt = new Event<int>())
+            {
+                var awaiter = evt.WaitAsync(cts.Token);
+
+                TaskAssert.DoesNotEnd(awaiter);
+                cts.Cancel();
+                TaskAssert.Cancelled(awaiter);
             }
         }
 

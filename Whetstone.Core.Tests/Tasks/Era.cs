@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 using NUnit.Framework;
 
@@ -123,6 +124,20 @@ namespace Whetstone.Core.Tasks
             era.Dispose();
 
             TaskAssert.Faulted<ObjectDisposedException>(era.WaitAsync());
+        }
+
+        [Test]
+        public void WaitAsync_NotEnded_Cancelable()
+        {
+            using (var cts = new CancellationTokenSource())
+            using (var era = new Era())
+            {
+                var awaiter = era.WaitAsync(cts.Token);
+
+                TaskAssert.DoesNotEnd(awaiter);
+                cts.Cancel();
+                TaskAssert.Cancelled(awaiter);
+            }
         }
     }
 }
