@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Whetstone.Core.Contracts\Whetstone.Core.Contracts.csproj" />
+    <ProjectReference Include="..\Whetstone.Core.Tasks\Whetstone.Core.Tasks.csproj" />
   </ItemGroup>
 
 </Project>

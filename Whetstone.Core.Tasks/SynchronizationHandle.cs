@@ -23,7 +23,7 @@ namespace Whetstone.Core.Tasks
         }
 
         /// <summary>
-        /// When overridden in a deriving class, releases the handle.
+        /// When overridden in a derived class, releases the handle.
         /// </summary>
         protected abstract void Release();
 
