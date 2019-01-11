@@ -23,6 +23,8 @@ namespace Whetstone.Core.Tasks
         /// <summary>
         /// Special context ID that indicates no context.
         /// </summary>
+        // NOTE: This is bullshit.
+        // ReSharper disable once RedundantCast
         public const long C_NoId = ((long)C_NoThreadId << 32) | (long)C_NoTaskId;
 
         static int _FLastThreadId = C_NoThreadId - 1;
@@ -55,6 +57,8 @@ namespace Whetstone.Core.Tasks
         /// <remarks>
         /// Can never be <see cref="C_NoId"/>.
         /// </remarks>
+        // NOTE: This is bullshit.
+        // ReSharper disable once RedundantCast
         public static long CurrentId => ((long)CurrentThreadId << 32) | (long)CurrentTaskId;
     }
 }

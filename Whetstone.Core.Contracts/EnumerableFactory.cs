@@ -44,6 +44,8 @@ namespace Whetstone.Core.Contracts
             {
                 yield return AItem;
             }
+            // NOTE: This is intended behavior.
+            // ReSharper disable once IteratorNeverReturns
         }
 
         /// <summary>

@@ -3,6 +3,8 @@ using System.Threading;
 
 using NUnit.Framework;
 
+// ReSharper disable AssignmentIsFullyDiscarded
+
 namespace Whetstone.Core.Tasks
 {
     [TestFixture]

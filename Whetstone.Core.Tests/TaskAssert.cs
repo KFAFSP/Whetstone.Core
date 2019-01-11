@@ -98,7 +98,7 @@ namespace Whetstone.Core
             {
                 switch (error.InnerException)
                 {
-                    case TaskCanceledException tce:
+                    case TaskCanceledException _:
                         Assert.Fail(@"Task was cancelled.");
                         break;
 
@@ -138,7 +138,7 @@ namespace Whetstone.Core
             {
                 switch (error.InnerException)
                 {
-                case TaskCanceledException tce:
+                case TaskCanceledException _:
                     Assert.Fail(@"Task was cancelled.");
                     break;
 

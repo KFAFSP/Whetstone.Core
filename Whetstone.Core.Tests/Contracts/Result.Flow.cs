@@ -50,7 +50,8 @@ namespace Whetstone.Core.Contracts
         [Test]
         public void AndThenTry_ContinuationNull_ThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => Result.Ok().AndThenTry((Action)null));
+            Action action = null;
+            Assert.Throws<ArgumentNullException>(() => Result.Ok().AndThenTry(action));
         }
         [Test]
         public void AndThenTry_Erroneous_PropagatesError()

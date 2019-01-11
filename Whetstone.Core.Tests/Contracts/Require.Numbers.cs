@@ -2,6 +2,10 @@
 
 using NUnit.Framework;
 
+// NOTE: ReSharper does not deal well with these generate files.
+// ReSharper disable errors
+// ReSharper disable All
+
 namespace Whetstone.Core.Contracts
 {
     public partial class RequireTests

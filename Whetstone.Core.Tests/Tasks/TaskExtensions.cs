@@ -36,38 +36,14 @@ namespace Whetstone.Core.Tasks
                     throw new NotImplementedException();
             }
         }
-        static Task<TResult> MakeCompletedTask<TResult>(TaskStatus AStatus)
-        {
-            switch (AStatus)
-            {
-                case TaskStatus.RanToCompletion:
-                    return Task.FromResult<TResult>(default);
-
-                case TaskStatus.Canceled:
-                    return Task.FromCanceled<TResult>(_FCanceled.Token);
-
-                case TaskStatus.Faulted:
-                    return Task.FromException<TResult>(_FFaulted);
-
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
         static async Task MakeUnendingTask()
         {
             while (true)
             {
                 await Task.Yield();
             }
-        }
-        static async Task<TResult> MakeUnendingTask<TResult>()
-        {
-            while (true)
-            {
-                await Task.Yield();
-            }
 
+            // NOTE: This is intended behavior.
             // ReSharper disable once FunctionNeverReturns
         }
 

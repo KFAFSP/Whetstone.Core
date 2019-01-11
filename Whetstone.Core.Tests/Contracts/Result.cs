@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 using NUnit.Framework;
 
+// ReSharper disable AssignmentIsFullyDiscarded
 // ReSharper disable ImpureMethodCallOnReadonlyValueField
 // ReSharper disable AssignNullToNotNullAttribute
 
@@ -14,7 +15,7 @@ namespace Whetstone.Core.Contracts
     [TestOf(typeof(Result))]
     [Category("Contracts")]
     [Category("Result")]
-    public sealed partial class ResultTests
+    public sealed class ResultTests
     {
         static readonly Exception _FError = new Exception();
         static readonly Result _FSuccessful = Result.Ok();
