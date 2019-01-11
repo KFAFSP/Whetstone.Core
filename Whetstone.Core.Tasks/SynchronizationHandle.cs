@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 using JetBrains.Annotations;
 
@@ -13,6 +14,7 @@ namespace Whetstone.Core.Tasks
     public abstract class SynchronizationHandle : IDisposable
     {
         /// <inheritdoc />
+        [ExcludeFromCodeCoverage]
         ~SynchronizationHandle()
         {
             Ensure.That(
