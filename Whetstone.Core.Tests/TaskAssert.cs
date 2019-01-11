@@ -14,6 +14,24 @@ namespace Whetstone.Core
     {
         const int C_Timeout = 10;
 
+        [NotNull]
+        public static Task Detach([NotNull] Func<Task> ADelegate)
+        {
+            Require.NotNull(ADelegate, nameof(ADelegate));
+
+            var task = Task.Run<Task>(ADelegate);
+            return task.Result;
+        }
+
+        [NotNull]
+        public static Task<TResult> Detach<TResult>([NotNull] Func<Task<TResult>> ADelegate)
+        {
+            Require.NotNull(ADelegate, nameof(ADelegate));
+
+            var task = Task.Run<Task<TResult>>(ADelegate);
+            return task.Result;
+        }
+
         public static Exception Faulted(
             IResolveConstraint AExpression,
             [NotNull] Task ATask,

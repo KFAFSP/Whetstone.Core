@@ -94,6 +94,7 @@ namespace Whetstone.Core.Tasks
                         TaskContinuationOptions.ExecuteSynchronously
                     );
 #pragma warning restore 4014
+                throw;
             }
             catch (ObjectDisposedException)
             {

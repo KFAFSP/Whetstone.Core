@@ -104,6 +104,7 @@ namespace Whetstone.Core.Tasks
                     TaskAssert.DoesNotEnd(t3);
 
                     cts.Cancel();
+                    TaskAssert.Cancelled(t2);
                     TaskAssert.DoesNotEnd(t3);
                 }
 
