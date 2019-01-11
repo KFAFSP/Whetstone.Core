@@ -48,7 +48,7 @@ namespace Whetstone.Core.Tasks
 
         #region IAwaitable
         /// <inheritdoc />
-        public Task WaitAsync(CancellationToken ACancel) => FCurrent.WaitAsync();
+        public Task WaitAsync(CancellationToken ACancel) => FCurrent.WaitAsync(ACancel);
         #endregion
     }
 }

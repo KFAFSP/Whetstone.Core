@@ -1,0 +1,100 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Diagnostics;
+
+using JetBrains.Annotations;
+
+namespace Whetstone.Core.Contracts
+{
+    public static partial class Require
+    {
+<#
+		foreach (var type in _FSigned)
+		{
+			Emit_NotNegative(type);
+			Emit_Positive(type);
+		}
+#>
+    }
+}
+<#+
+	static string[] _FSigned = new [] { "sbyte", "short", "int", "long" };
+	static string[] _FUnsigned = new [] { "byte", "ushort", "uint", "ulong" };
+
+	public void Emit_NotNegative(string AType)
+	{
+#>
+		/// <summary>
+        /// Require that a parameter is not negative.
+        /// </summary>
+        /// <param name="AParam">The parameter value.</param>
+        /// <param name="AParamName">The parameter name.</param>
+        /// <returns><paramref name="AParam"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="AParam"/> is negative.
+        /// </exception>
+        /// <remarks>
+        /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore
+        /// not part of the stack-trace of the exception that it throws.
+        /// </remarks>
+        [DebuggerHidden]
+        public static <#= AType #> NotNegative(
+            <#= AType #> AParam,
+            [NotNull] [InvokerParameterName] string AParamName
+        )
+        {
+            if (AParam < 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    AParamName,
+                    AParam,
+                    @"Value may not be negative."
+                );
+            }
+
+            return AParam;
+        }
+<#+
+	}
+
+	public void Emit_Positive(string AType)
+	{
+#>
+		/// <summary>
+        /// Require that a parameter is positive.
+        /// </summary>
+        /// <param name="AParam">The parameter value.</param>
+        /// <param name="AParamName">The parameter name.</param>
+        /// <returns><paramref name="AParam"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="AParam"/> is not positive.
+        /// </exception>
+        /// <remarks>
+        /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore
+        /// not part of the stack-trace of the exception that it throws.
+        /// </remarks>
+        [DebuggerHidden]
+        public static <#= AType #> Positive(
+            <#= AType #> AParam,
+            [NotNull] [InvokerParameterName] string AParamName
+        )
+        {
+            if (AParam <= 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    AParamName,
+                    AParam,
+                    @"Value must be positive."
+                );
+            }
+
+            return AParam;
+        }
+<#+
+	}
+#>

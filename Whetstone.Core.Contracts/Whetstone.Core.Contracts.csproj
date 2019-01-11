@@ -24,6 +24,29 @@
     <None Remove="Whetstone.Core.Contracts.doc.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Require.Numbers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Require.Numbers.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="10.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Require.Numbers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Require.Numbers.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Require.Numbers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Require.Numbers.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

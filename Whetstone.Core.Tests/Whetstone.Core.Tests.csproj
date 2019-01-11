@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Contracts\Require.Numbers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Require.Numbers.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
@@ -15,6 +23,25 @@
   <ItemGroup>
     <ProjectReference Include="..\Whetstone.Core.Contracts\Whetstone.Core.Contracts.csproj" />
     <ProjectReference Include="..\Whetstone.Core.Tasks\Whetstone.Core.Tasks.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Contracts\Require.Numbers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Require.Numbers.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Contracts\Require.Numbers.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Require.Numbers.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
