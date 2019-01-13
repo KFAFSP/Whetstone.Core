@@ -42,6 +42,8 @@ namespace Whetstone.Core.Tasks
         {
             ThrowIfDisposed();
 
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
             var ok = Interlocked.Exchange(ref FCurrent, new Era()).TryEnd();
             Ensure.That(ok, "Era contested.");
         }

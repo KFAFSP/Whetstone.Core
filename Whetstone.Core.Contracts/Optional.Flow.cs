@@ -23,6 +23,9 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="APredicate"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception">
+        /// <paramref name="APredicate"/> threw an exception.
+        /// </exception>
         [MustUseReturnValue]
         public static Optional<T> That<T>(
             this Optional<T> AOptional,
@@ -45,6 +48,7 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AAction"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception"><paramref name="AAction"/> threw an exception.</exception>
         public static void Forward<T>(
             this Optional<T> AOptional,
             [NotNull] [InstantHandle] Action<T> AAction
@@ -73,6 +77,7 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AFunc"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception"><paramref name="AFunc"/> threw an exception.</exception>
         [MustUseReturnValue]
         public static Optional<TOut> Map<TIn, TOut>(
             this Optional<TIn> AOptional,

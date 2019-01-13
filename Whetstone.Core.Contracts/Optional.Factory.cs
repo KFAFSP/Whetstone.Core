@@ -49,6 +49,9 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="APredicate"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception">
+        /// <paramref name="APredicate"/> threw an exception.
+        /// </exception>
         [ExcludeFromCodeCoverage]
         [Pure]
         public static Optional<T> If<T>(

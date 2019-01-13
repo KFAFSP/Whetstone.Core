@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
@@ -72,6 +73,9 @@ namespace Whetstone.Core.Tasks
 
         #region ISynchronizationSource
         /// <inheritdoc />
+        /// <exception cref="OperationCanceledException">
+        /// <paramref name="ACancel"/> was canceled.
+        /// </exception>
         public async Task<SynchronizationHandle> WaitAsync(CancellationToken ACancel)
         {
             ThrowIfDisposed();
@@ -80,6 +84,8 @@ namespace Whetstone.Core.Tasks
             var id = TaskContext.CurrentId;
 
             Strengthen();
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
             var previous = Interlocked.CompareExchange(
                 ref FOwner,
                 id,

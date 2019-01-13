@@ -72,12 +72,18 @@ namespace Whetstone.Core.Tasks
 
         #region ISynchronizationSource
         /// <inheritdoc />
+        /// <exception cref="OperationCanceledException">
+        /// <paramref name="ACancel"/> was canceled.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">This instance is disposed.</exception>
         public async Task<SynchronizationHandle> WaitAsync(CancellationToken ACancel)
         {
             ThrowIfDisposed();
             ACancel.ThrowIfCancellationRequested();
 
             var handle = new Handle();
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
             var predecessor = Interlocked.Exchange(ref FTail, handle);
 
             try

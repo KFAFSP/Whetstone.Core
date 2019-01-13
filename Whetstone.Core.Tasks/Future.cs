@@ -95,7 +95,11 @@ namespace Whetstone.Core.Tasks
         [Pure]
         public Optional<TValue> TryGet()
             => !IsDisposed && FSource.Task.IsCompleted
-                ? Optional.Present(FSource.Task.Result)
+                ? Optional.Present(
+                    // NOTE: Exception cannot be thrown.
+                    // ReSharper disable once ExceptionNotDocumented
+                    FSource.Task.Result
+                )
                 : Optional.Absent<TValue>();
         /// <summary>
         /// Retrieve the value.
