@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using JetBrains.Annotations;
@@ -27,6 +28,12 @@ namespace Whetstone.Core.Tasks
         /// <returns>
         /// An awaitable, cancellable <see cref="Task"/> that waits for the event.
         /// </returns>
+        /// <exception cref="OperationCanceledException">
+        /// <paramref name="ACancel"/> was canceled.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">
+        /// The <see cref="CancellationTokenSource"/> of <paramref name="ACancel"/> is disposed.
+        /// </exception>
         [NotNull]
         Task WaitAsync(CancellationToken ACancel);
     }
@@ -54,6 +61,12 @@ namespace Whetstone.Core.Tasks
         /// <returns>
         /// An awaitable, cancellable <see cref="Task{TResult}"/> that waits for the value.
         /// </returns>
+        /// <exception cref="OperationCanceledException">
+        /// <paramref name="ACancel"/> was canceled.
+        /// </exception>
+        /// <exception cref="ObjectDisposedException">
+        /// The <see cref="CancellationTokenSource"/> of <paramref name="ACancel"/> is disposed.
+        /// </exception>
         [NotNull]
         Task<TResult> WaitAsync(CancellationToken ACancel);
     }

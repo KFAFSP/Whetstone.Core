@@ -47,6 +47,9 @@ namespace Whetstone.Core.Tasks
 
         #region IAwaitable
         /// <inheritdoc />
+        /// <exception cref="OperationCanceledException">
+        /// <paramref name="ACancel"/> was canceled.
+        /// </exception>
         public async Task WaitAsync(CancellationToken ACancel)
         {
             ThrowIfDisposed();
@@ -66,6 +69,8 @@ namespace Whetstone.Core.Tasks
             }
             finally
             {
+                // NOTE: Exception cannot be thrown.
+                // ReSharper disable once ExceptionNotDocumented
                 Interlocked.Increment(ref FWaitingFor);
             }
         }

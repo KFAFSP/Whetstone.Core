@@ -29,6 +29,8 @@ namespace Whetstone.Core.Tasks
         {
             Require.NotNull(AAwaitable, nameof(AAwaitable));
 
+            // NOTE: The cancellation token is useless and can neither canceled nor be disposed.
+            // ReSharper disable once ExceptionNotDocumented
             AAwaitable.Wait(CancellationToken.None);
         }
 
@@ -37,17 +39,20 @@ namespace Whetstone.Core.Tasks
         /// </summary>
         /// <param name="AAwaitable">The <see cref="IAwaitable"/>.</param>
         /// <param name="ACancel">A <see cref="CancellationToken"/> to cancel the wait.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AAwaitable"/> is <see langword="null"/>.
+        /// </exception>
         /// <exception cref="OperationCanceledException">The wait was canceled.</exception>
         /// <exception cref="ObjectDisposedException">
         /// The <see cref="CancellationTokenSource"/> of <paramref name="ACancel"/> is disposed.
+        /// </exception>
+        /// <exception cref="Exception">
+        /// Any <see cref="Exception"/> thrown by <paramref name="AAwaitable"/>.
         /// </exception>
         /// <remarks>
         /// If required, internal exceptions that were wrapped in a <see cref="AggregateException"/>
         /// are unwrapped and rethrown.
         /// </remarks>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="AAwaitable"/> is <see langword="null"/>.
-        /// </exception>
         public static void Wait([NotNull] this IAwaitable AAwaitable, CancellationToken ACancel)
         {
             Require.NotNull(AAwaitable, nameof(AAwaitable));
@@ -76,6 +81,8 @@ namespace Whetstone.Core.Tasks
         {
             Require.NotNull(AAwaitable, nameof(AAwaitable));
 
+            // NOTE: The cancellation token is useless and can neither canceled nor be disposed.
+            // ReSharper disable once ExceptionNotDocumented
             return AAwaitable.WaitAsync(CancellationToken.None);
         }
 
@@ -91,6 +98,8 @@ namespace Whetstone.Core.Tasks
         {
             Require.NotNull(AAwaitable, nameof(AAwaitable));
 
+            // NOTE: The cancellation token is useless and can neither canceled nor be disposed.
+            // ReSharper disable once ExceptionNotDocumented
             return AAwaitable.Wait(CancellationToken.None);
         }
 
@@ -100,17 +109,20 @@ namespace Whetstone.Core.Tasks
         /// <typeparam name="TResult">The awaitable result type.</typeparam>
         /// <param name="AAwaitable">The <see cref="IAwaitable{TResult}"/>.</param>
         /// <param name="ACancel">A <see cref="CancellationToken"/> to cancel the wait.</param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AAwaitable"/> is <see langword="null"/>.
+        /// </exception>
         /// <exception cref="OperationCanceledException">The wait was canceled.</exception>
         /// <exception cref="ObjectDisposedException">
         /// The <see cref="CancellationTokenSource"/> of <paramref name="ACancel"/> is disposed.
+        /// </exception>
+        /// <exception cref="Exception">
+        /// Any <see cref="Exception"/> thrown by <paramref name="AAwaitable"/>.
         /// </exception>
         /// <remarks>
         /// If required, internal exceptions that were wrapped in a <see cref="AggregateException"/>
         /// are unwrapped and rethrown.
         /// </remarks>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="AAwaitable"/> is <see langword="null"/>.
-        /// </exception>
         public static TResult Wait<TResult>(
             [NotNull] this IAwaitable<TResult> AAwaitable,
             CancellationToken ACancel
@@ -147,6 +159,8 @@ namespace Whetstone.Core.Tasks
         {
             Require.NotNull(AAwaitable, nameof(AAwaitable));
 
+            // NOTE: The cancellation token is useless and can neither canceled nor be disposed.
+            // ReSharper disable once ExceptionNotDocumented
             return AAwaitable.WaitAsync(CancellationToken.None);
         }
 

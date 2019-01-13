@@ -74,6 +74,8 @@ namespace Whetstone.Core.Tasks
         /// </returns>
         public bool TrySet()
         {
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
             if (Interlocked.CompareExchange(
                     ref FValue,
                     C_True,
@@ -106,6 +108,8 @@ namespace Whetstone.Core.Tasks
         /// </returns>
         public bool TryReset()
         {
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
             if (Interlocked.CompareExchange(
                 ref FValue,
                 C_False,
