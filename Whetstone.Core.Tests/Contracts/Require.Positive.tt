@@ -1,0 +1,41 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="$(SolutionDir)T4\NumberType.tt" #>
+using System;
+
+using NUnit.Framework;
+
+namespace Whetstone.Core.Contracts
+{
+    public sealed partial class RequireTests
+    {
+<#
+		foreach (var type in NumberType.All) Emit(type);
+#>
+    }
+}
+<#+
+public void Emit(NumberType AType)
+{
+	if (!AType.IsSigned) return;
+#>
+		[TestCase(1)]
+		public void Positive_<#= AType.Name #>_Positive_ReturnsValue(<#= AType.Keyword #> AParam)
+		{
+			Assert.That(Require.Positive(AParam, nameof(AParam)), Is.EqualTo(AParam));
+		}
+
+		[TestCase(-1)]
+		[TestCase(0)]
+		public void Positive_<#= AType.Name #>_NegativeOrZero_ThrowsArgumentOutOfRangeException(<#= AType.Keyword #> AParam)
+		{
+			var ex = Assert.Throws<ArgumentOutOfRangeException>(
+				() => Require.Positive(AParam, nameof(AParam))
+			);
+
+			Assert.That(ex.ParamName, Is.EqualTo(nameof(AParam)));
+		}
+
+<#+
+}
+#>

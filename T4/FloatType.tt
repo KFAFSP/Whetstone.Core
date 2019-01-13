@@ -1,0 +1,50 @@
+<#+
+public abstract class FloatType : NumberType
+{
+	public sealed class Float32 : FloatType
+	{
+		public static Float32 Instance { get; } = new Float32();
+		public override string Literal(object AValue) => $"{AValue:G}f";
+		public override string Keyword => @"float";
+		public override string BoxType => @"System.Float";
+		public override int Size => 4;
+		public override bool IsSigned => true;
+		public override bool IsDynamic => false;
+		public override bool IsExact => false;
+	}
+	public sealed class Float64 : FloatType
+	{
+		public static Float64 Instance { get; } = new Float64();
+		public override string Keyword => @"double";
+		public override string BoxType => @"System.Double";
+		public override int Size => 8;
+		public override bool IsSigned => true;
+		public override bool IsDynamic => false;
+		public override bool IsExact => false;
+	}
+	public sealed class Float128 : FloatType
+	{
+		public static Float128 Instance { get; } = new Float128();
+		public override string Literal(object AValue) => $"{AValue:G}m";
+		public override string Keyword => @"decimal";
+		public override string BoxType => @"System.Decimal";
+		public override int Size => 16;
+		public override bool IsSigned => true;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+
+	public static new IEnumerable<FloatType> All
+	{
+		get
+		{
+			yield return Float32.Instance;
+			yield return Float64.Instance;
+			yield return Float128.Instance;
+		}
+	}
+
+	public override string Literal(object AValue) => $"{AValue:G}";
+
+	public override bool IsInteger => false;
+}#>

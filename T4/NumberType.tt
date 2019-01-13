@@ -1,0 +1,32 @@
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ include file="$(SolutionDir)T4\IntType.tt" #>
+<#@ include file="$(SolutionDir)T4\FloatType.tt" #><#+
+public abstract class NumberType
+{
+	public static IEnumerable<NumberType> All
+	{
+		get
+		{
+			foreach (var type in IntType.All) yield return type;
+			foreach (var type in FloatType.All) yield return type;
+		}
+	}
+
+	public virtual string Cast => $"({Keyword})";
+	public virtual string Literal(object AValue) => $"{AValue}";
+	public virtual string MaxValue => $"{Keyword}.MaxValue";
+	public virtual string MinValue => $"{Keyword}.MinValue";
+
+	public virtual string Name => GetType().Name;
+	public abstract string Keyword { get; }
+	public abstract string BoxType { get; }
+	public abstract int Size { get; }
+
+	public abstract bool IsInteger { get; }
+	public abstract bool IsSigned { get; }
+	public abstract bool IsDynamic { get; }
+	public abstract bool IsExact { get; }
+}
+#>

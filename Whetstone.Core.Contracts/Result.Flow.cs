@@ -24,6 +24,9 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AContinuation"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception">
+        /// <paramref name="AContinuation"/> threw an exception.
+        /// </exception>
         [MustUseReturnValue]
         public static Result<TOut> AndThen<TOut>(
             this Result AResult,
@@ -50,6 +53,9 @@ namespace Whetstone.Core.Contracts
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AContinuation"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="Exception">
+        /// <paramref name="AContinuation"/> threw an exception.
         /// </exception>
         [MustUseReturnValue]
         public static Result<TOut> AndThen<TIn, TOut>(

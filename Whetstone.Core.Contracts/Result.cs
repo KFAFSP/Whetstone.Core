@@ -98,6 +98,7 @@ namespace Whetstone.Core.Contracts
         /// <summary>
         /// Throw <see cref="Error"/> if this <see cref="Result"/> is erroneous.
         /// </summary>
+        /// <exception cref="Exception">The <see cref="Error"/> if any.</exception>
         [ExcludeFromCodeCoverage]
         public void ThrowIfError()
         {
@@ -384,6 +385,7 @@ namespace Whetstone.Core.Contracts
         /// <summary>
         /// Throw <see cref="Error"/> if this <see cref="Result{T}"/> is erroneous.
         /// </summary>
+        /// <exception cref="Exception">The <see cref="Error"/> if any.</exception>
         [ExcludeFromCodeCoverage]
         public void ThrowIfError()
         {
