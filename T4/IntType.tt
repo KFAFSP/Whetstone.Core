@@ -1,0 +1,114 @@
+<#+
+public abstract class IntType : NumberType
+{
+	public sealed class Int8 : IntType
+	{
+		public static Int8 Instance { get; } = new Int8();
+		public override string Keyword => @"sbyte";
+		public override string BoxType => @"System.SByte";
+		public override int Size => 1;
+		public override bool IsSigned => true;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+	public sealed class Int16 : IntType
+	{
+		public static Int16 Instance { get; } = new Int16();
+		public override string Keyword => @"short";
+		public override string BoxType => @"System.Int16";
+		public override int Size => 2;
+		public override bool IsSigned => true;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+	public sealed class Int32 : IntType
+	{
+		public static Int32 Instance { get; } = new Int32();
+		public override string Keyword => @"int";
+		public override string BoxType => @"System.Int32";
+		public override int Size => 4;
+		public override bool IsSigned => true;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+	public sealed class Int64 : IntType
+	{
+		public static Int64 Instance { get; } = new Int64();
+		public override string Literal(object AValue) => $"{AValue:D}L";
+		public override string Keyword => @"long";
+		public override string BoxType => @"System.Int64";
+		public override int Size => 8;
+		public override bool IsSigned => true;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+
+	public sealed class UInt8 : IntType
+	{
+		public static UInt8 Instance { get; } = new UInt8();
+		public override string Keyword => @"byte";
+		public override string BoxType => @"System.Byte";
+		public override int Size => 1;
+		public override bool IsSigned => false;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+	public sealed class UInt16 : IntType
+	{
+		public static UInt16 Instance { get; } = new UInt16();
+		public override string Keyword => @"ushort";
+		public override string BoxType => @"System.UInt16";
+		public override int Size => 2;
+		public override bool IsSigned => false;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+	public sealed class UInt32 : IntType
+	{
+		public static UInt32 Instance { get; } = new UInt32();
+		public override string Literal(object AValue) => $"{AValue:D}U";
+		public override string Keyword => @"uint";
+		public override string BoxType => @"System.UInt32";
+		public override int Size => 4;
+		public override bool IsSigned => false;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+	public sealed class UInt64 : IntType
+	{
+		public static UInt64 Instance { get; } = new UInt64();
+		public override string Literal(object AValue) => $"{AValue:D}UL";
+		public override string Keyword => @"ulong";
+		public override string BoxType => @"System.UInt64";
+		public override int Size => 8;
+		public override bool IsSigned => false;
+		public override bool IsDynamic => false;
+		public override bool IsExact => true;
+	}
+
+	public static new IEnumerable<IntType> All => Signed.Concat(Unsigned);
+	public static IEnumerable<IntType> Signed
+	{
+		get
+		{
+			yield return Int8.Instance;
+			yield return Int16.Instance;
+			yield return Int32.Instance;
+			yield return Int64.Instance;
+		}
+	}
+	public static IEnumerable<IntType> Unsigned
+	{
+		get
+		{
+			yield return UInt8.Instance;
+			yield return UInt16.Instance;
+			yield return UInt32.Instance;
+			yield return UInt64.Instance;
+		}
+	}
+
+	public override string Literal(object AValue) => $"{AValue:D}";
+
+	public override bool IsInteger => true;
+}#>

@@ -58,7 +58,7 @@ namespace Whetstone.Core.Contracts
         /// An <see cref="IEnumerable{T}"/> that yields <paramref name="AItem"/> exactly
         /// <paramref name="ACount"/> times.
         /// </returns>
-        /// <exception cref="ArgumentException">
+        /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="ACount"/> is less than 0.
         /// </exception>
         [NotNull]

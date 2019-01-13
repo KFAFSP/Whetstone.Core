@@ -7,7 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whetstone.Core.Contracts", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whetstone.Core.Tests", "Whetstone.Core.Tests\Whetstone.Core.Tests.csproj", "{6373F380-43A3-49F6-BC7A-026E92040130}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whetstone.Core.Tasks", "Whetstone.Core.Tasks\Whetstone.Core.Tasks.csproj", "{F69DC57E-7F47-4F30-A944-E6C72DE677B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Whetstone.Core.Tasks", "Whetstone.Core.Tasks\Whetstone.Core.Tasks.csproj", "{F69DC57E-7F47-4F30-A944-E6C72DE677B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T4", "T4", "{B08793D9-5EF1-442F-9F51-E20E532B8136}"
+	ProjectSection(SolutionItems) = preProject
+		T4\FloatType.tt = T4\FloatType.tt
+		T4\IntType.tt = T4\IntType.tt
+		T4\NumberType.tt = T4\NumberType.tt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

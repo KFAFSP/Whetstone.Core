@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -7,10 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Contracts\Require.Numbers.cs">
+    <None Include="Contracts\Require.NotNegative.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Require.Numbers.tt</DependentUpon>
+      <DependentUpon>Require.NotNegative.tt</DependentUpon>
+    </None>
+    <None Include="Contracts\Require.Positive.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Require.Positive.tt</DependentUpon>
     </None>
   </ItemGroup>
 
@@ -26,22 +31,31 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Contracts\Require.Numbers.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Require.Numbers.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Contracts\Require.Numbers.cs">
+    <Compile Update="Contracts\Require.NotNegative.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Require.Numbers.tt</DependentUpon>
+      <DependentUpon>Require.NotNegative.tt</DependentUpon>
     </Compile>
+    <Compile Update="Contracts\Require.Positive.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Require.Positive.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Contracts\Require.NotNegative.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Require.NotNegative.cs</LastGenOutput>
+    </None>
+    <None Update="Contracts\Require.Positive.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Require.Positive.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
