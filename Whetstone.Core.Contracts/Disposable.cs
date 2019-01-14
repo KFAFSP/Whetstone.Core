@@ -137,7 +137,7 @@ namespace Whetstone.Core.Contracts
         [ExcludeFromCodeCoverage]
         public void AssertNotDisposed()
         {
-            Debug.Assert(
+            Ensure.That(
                 !IsDisposed,
                 "Instance is disposed.",
                 "An operation was attempted on a disposed instance. " +

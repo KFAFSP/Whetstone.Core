@@ -61,12 +61,7 @@ namespace Whetstone.Core.Contracts
             [Pure]
             get
             {
-                Debug.Assert(
-                    IsPresent,
-                    C_Absent,
-                    "This indicates a severe logic error."
-                );
-
+                Ensure.That(IsPresent, C_Absent);
                 return FValue;
             }
         }

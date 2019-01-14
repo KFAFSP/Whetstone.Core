@@ -85,12 +85,7 @@ namespace Whetstone.Core.Contracts
         {
             get
             {
-                Debug.Assert(
-                    !IsSuccess,
-                    "Result is success.",
-                    "This indicates a logic error."
-                );
-
+                Ensure.That(!IsSuccess, "Result is success.");
                 return FError ?? UninitializedError;
             }
         }
@@ -328,11 +323,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="AError">The error.</param>
         Result([NotNull] Exception AError)
         {
-            Debug.Assert(
-                AError != null,
-                "Error is null.",
-                "This indicates a contract violation."
-            );
+            Ensure.NotNull(AError, nameof(AError));
 
             IsSuccess = false;
             FError = AError;
@@ -353,11 +344,7 @@ namespace Whetstone.Core.Contracts
         {
             get
             {
-                Debug.Assert(
-                    IsSuccess,
-                    Result.C_Error,
-                    "This indicates a logic error."
-                );
+                Ensure.That(IsSuccess, Result.C_Error);
 
                 return FValue;
             }
@@ -372,12 +359,7 @@ namespace Whetstone.Core.Contracts
         {
             get
             {
-                Debug.Assert(
-                    !IsSuccess,
-                    "Result is success.",
-                    "This indicates a logic error."
-                );
-
+                Ensure.That(!IsSuccess, "Result is success.");
                 return FError ?? Result.UninitializedError;
             }
         }
