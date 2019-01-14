@@ -128,5 +128,18 @@ namespace Whetstone.Core.Tasks
                 using (TaskAssert.Completed(t3)) { }
             }
         }
+
+        [Test]
+        public void IsAcquiredHere_Get()
+        {
+            using (var lck = new Lock())
+            {
+                Assert.That(!lck.IsAcquiredHere);
+                using (TaskAssert.Completed(lck.WaitAsync()))
+                {
+                    Assert.That(lck.IsAcquiredHere);
+                }
+            }
+        }
     }
 }

@@ -117,5 +117,9 @@ namespace Whetstone.Core.Tasks
         /// Get a value indicating whether this lock is acquired.
         /// </summary>
         public bool IsAcquired => FOwner != TaskContext.C_NoId;
+        /// <summary>
+        /// Get a value indicating whether this lock is acquired by the current context.
+        /// </summary>
+        public bool IsAcquiredHere => FOwner == TaskContext.CurrentId;
     }
 }
