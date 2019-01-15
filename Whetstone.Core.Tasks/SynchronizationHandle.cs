@@ -19,8 +19,8 @@ namespace Whetstone.Core.Tasks
         {
             Ensure.That(
                 IsReleased,
-                "Handle not released.",
-                "This indicates improper use of a synchronization handle."
+                @"Handle not released.",
+                @"The handle was garbage collected before it was released."
             );
         }
 

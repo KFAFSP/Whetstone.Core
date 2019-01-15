@@ -24,7 +24,7 @@ namespace Whetstone.Core.Tasks
         {
             var future = new Future<TValue>();
             var ok = future.TryPost(AValue);
-            Ensure.That(ok, "Future contested.");
+            Ensure.That(ok, @"Future contested.");
 
             return future;
         }

@@ -85,7 +85,7 @@ namespace Whetstone.Core.Contracts
         {
             get
             {
-                Ensure.That(!IsSuccess, "Result is success.");
+                Ensure.That(!IsSuccess, @"Result is success.");
                 return FError ?? UninitializedError;
             }
         }
@@ -359,7 +359,7 @@ namespace Whetstone.Core.Contracts
         {
             get
             {
-                Ensure.That(!IsSuccess, "Result is success.");
+                Ensure.That(!IsSuccess, @"Result is success.");
                 return FError ?? Result.UninitializedError;
             }
         }

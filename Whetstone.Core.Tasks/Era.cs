@@ -29,7 +29,7 @@ namespace Whetstone.Core.Tasks
         {
             var era = new Era();
             var ok = era.TryEnd();
-            Ensure.That(ok, "Era contested.");
+            Ensure.That(ok, @"Era contested.");
 
             return era;
         }

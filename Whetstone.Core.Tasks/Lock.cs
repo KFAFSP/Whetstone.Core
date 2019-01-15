@@ -28,7 +28,11 @@ namespace Whetstone.Core.Tasks
             /// <inheritdoc />
             protected override void Release()
             {
-                Ensure.That(FParent.FOwner == Id, "Expired handle.");
+                Ensure.That(
+                    FParent.FOwner == Id,
+                    @"Expired handle.",
+                    @"The handle might have been duplicated and released elsewhere."
+                );
 
                 FParent.Weaken();
             }

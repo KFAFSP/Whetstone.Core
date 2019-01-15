@@ -46,7 +46,7 @@ namespace Whetstone.Core.Tasks
             // ReSharper disable once ExceptionNotDocumented
             var ok = Interlocked.Exchange(ref FCurrent, new Future<TData>())
                 .TryPost(AData);
-            Ensure.That(ok, "Future contested.");
+            Ensure.That(ok, @"Future contested.");
         }
 
         #region IAwaitable

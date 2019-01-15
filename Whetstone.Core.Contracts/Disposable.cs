@@ -139,9 +139,9 @@ namespace Whetstone.Core.Contracts
         {
             Ensure.That(
                 !IsDisposed,
-                "Instance is disposed.",
-                "An operation was attempted on a disposed instance. " +
-                "This indicates a severe logic error."
+                @"Instance is disposed.",
+                @"An operation was attempted on a disposed instance. " +
+                @"This indicates a severe logic error."
             );
         }
 
