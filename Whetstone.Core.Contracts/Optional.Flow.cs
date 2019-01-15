@@ -27,6 +27,7 @@ namespace Whetstone.Core.Contracts
         /// <paramref name="APredicate"/> threw an exception.
         /// </exception>
         [MustUseReturnValue]
+        [Pure]
         public static Optional<T> That<T>(
             this Optional<T> AOptional,
             [NotNull] [InstantHandle] Predicate<T> APredicate
@@ -79,6 +80,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         /// <exception cref="Exception"><paramref name="AFunc"/> threw an exception.</exception>
         [MustUseReturnValue]
+        [Pure]
         public static Optional<TOut> Map<TIn, TOut>(
             this Optional<TIn> AOptional,
             [NotNull] [InstantHandle] Func<TIn, TOut> AFunc

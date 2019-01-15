@@ -29,12 +29,14 @@ namespace Whetstone.Core.Tasks
         /// </summary>
         /// <returns>A new <see cref="Condition"/> that is <see langword="true"/>.</returns>
         [NotNull]
+        [Pure]
         public static Condition True() => new Condition(true);
         /// <summary>
         /// Create a new <see cref="Condition"/> that is initialized to <see langword="false"/>.
         /// </summary>
         /// <returns>A new <see cref="Condition"/> that is <see langword="false"/>.</returns>
         [NotNull]
+        [Pure]
         public static Condition False() => new Condition();
 
         int FValue;

@@ -20,6 +20,7 @@ namespace Whetstone.Core.Tasks
         /// <param name="AValue">The value.</param>
         /// <returns>A new <see cref="Future{TValue}"/> with an existing value.</returns>
         [NotNull]
+        [Pure]
         public static Future<TValue> Of<TValue>(TValue AValue)
         {
             var future = new Future<TValue>();

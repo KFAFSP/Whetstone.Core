@@ -36,6 +36,7 @@ namespace Whetstone.Core.Contracts
         /// <summary>
         /// Get a successful <see cref="Result"/>.
         /// </summary>
+        [Pure]
         public static Result Ok() => new Result(null);
         /// <summary>
         /// Get an erroneous <see cref="Result"/>.
@@ -287,6 +288,7 @@ namespace Whetstone.Core.Contracts
         /// Get a successful <see cref="Result{T}"/>.
         /// </summary>
         /// <param name="AValue">The result value.</param>
+        [Pure]
         public static Result<T> Ok(T AValue) => new Result<T>(AValue);
         /// <summary>
         /// Get an erroneous <see cref="Result{T}"/>.

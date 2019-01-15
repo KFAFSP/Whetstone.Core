@@ -25,6 +25,7 @@ namespace Whetstone.Core.Tasks
         /// </summary>
         /// <returns>A new ended <see cref="Era"/>.</returns>
         [NotNull]
+        [Pure]
         public static Era Ended()
         {
             var era = new Era();
