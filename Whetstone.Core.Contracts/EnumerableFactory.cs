@@ -81,6 +81,9 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="ACondition"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception">
+        /// <paramref name="ACondition"/> threw an exception.
+        /// </exception>
         /// <remarks>
         /// <see cref="Exception"/>s thrown by <paramref name="ACondition"/> are propagated to the
         /// caller.
@@ -119,6 +122,9 @@ namespace Whetstone.Core.Contracts
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="ACondition"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="Exception">
+        /// <paramref name="ACondition"/> threw an exception.
         /// </exception>
         /// <remarks>
         /// <see cref="Exception"/>s thrown by <paramref name="ACondition"/> are propagated to the

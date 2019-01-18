@@ -46,11 +46,15 @@ namespace Whetstone.Core.Contracts
         /// <typeparam name="T">The value type.</typeparam>
         /// <param name="AOptional">The <see cref="Optional{T}"/>.</param>
         /// <param name="AAction">The <see cref="Action{T}"/>.</param>
+        /// <returns>
+        /// <see langword="true"/> if <paramref name="AAction"/> was invoked; otherwise
+        /// <see langword="false"/>.
+        /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AAction"/> is <see langword="null"/>.
         /// </exception>
         /// <exception cref="Exception"><paramref name="AAction"/> threw an exception.</exception>
-        public static void Forward<T>(
+        public static bool Forward<T>(
             this Optional<T> AOptional,
             [NotNull] [InstantHandle] Action<T> AAction
         )
@@ -60,7 +64,10 @@ namespace Whetstone.Core.Contracts
             if (AOptional.IsPresent)
             {
                 AAction(AOptional.Unpack);
+                return true;
             }
+
+            return false;
         }
 
         /// <summary>

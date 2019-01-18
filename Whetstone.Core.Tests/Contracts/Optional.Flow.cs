@@ -48,21 +48,21 @@ namespace Whetstone.Core.Contracts
         }
 
         [Test]
-        public void Forward_Absent_DoesNotInvoke()
+        public void Forward_Absent_DoesNotInvokeAndReturnsFalse()
         {
-            _FNone.Forward(X => Assert.Fail());
+            Assert.That(!_FNone.Forward(X => Assert.Fail()));
         }
 
         [Test]
-        public void Forward_Present_InvokesWithValue()
+        public void Forward_Present_InvokesWithValueAndReturnsTrue()
         {
             var invoked = false;
 
-            _FOne.Forward(X =>
+            Assert.That(_FOne.Forward(X =>
             {
                 invoked = true;
                 Assert.That(X, Is.EqualTo(1));
-            });
+            }));
             Assert.That(invoked, Is.True);
         }
 

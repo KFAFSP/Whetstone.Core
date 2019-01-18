@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 using JetBrains.Annotations;
@@ -95,7 +94,6 @@ namespace Whetstone.Core.Contracts
         /// Throw <see cref="Error"/> if this <see cref="Result"/> is erroneous.
         /// </summary>
         /// <exception cref="Exception">The <see cref="Error"/> if any.</exception>
-        [ExcludeFromCodeCoverage]
         public void ThrowIfError()
         {
             if (!IsSuccess) throw UnpackError;
@@ -109,6 +107,7 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AHandler"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception"><paramref name="AHandler"/> threw an exception.</exception>
         public Result OnSuccess(
             [NotNull] [InstantHandle] Action AHandler
         )
@@ -132,6 +131,7 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AHandler"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception"><paramref name="AHandler"/> threw an exception.</exception>
         public Result OnError(
             [NotNull] [InstantHandle] Action<Exception> AHandler
         )
@@ -155,6 +155,7 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AHandler"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception"><paramref name="AHandler"/> threw an exception.</exception>
         public Result OnError<TException>(
             [NotNull] [InstantHandle] Action<TException> AHandler
         ) where TException : Exception
@@ -370,7 +371,6 @@ namespace Whetstone.Core.Contracts
         /// Throw <see cref="Error"/> if this <see cref="Result{T}"/> is erroneous.
         /// </summary>
         /// <exception cref="Exception">The <see cref="Error"/> if any.</exception>
-        [ExcludeFromCodeCoverage]
         public void ThrowIfError()
         {
             if (!IsSuccess) throw UnpackError;
@@ -384,6 +384,7 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AHandler"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception"><paramref name="AHandler"/> threw an exception.</exception>
         public Result<T> OnSuccess(
             [NotNull] [InstantHandle] Action<T> AHandler
         )
@@ -407,6 +408,7 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AHandler"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception"><paramref name="AHandler"/> threw an exception.</exception>
         public Result<T> OnError(
             [NotNull] [InstantHandle] Action<Exception> AHandler
         )
@@ -430,6 +432,7 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentNullException">
         /// <paramref name="AHandler"/> is <see langword="null"/>.
         /// </exception>
+        /// <exception cref="Exception"><paramref name="AHandler"/> threw an exception.</exception>
         public Result<T> OnError<TException>(
             [NotNull] [InstantHandle] Action<TException> AHandler
         ) where TException : Exception
