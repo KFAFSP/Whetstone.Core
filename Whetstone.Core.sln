@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "T4", "T4", "{B08793D9-5EF1-
 		T4\NumberType.tt = T4\NumberType.tt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Whetstone.Core.Text", "Whetstone.Core.Text\Whetstone.Core.Text.csproj", "{5E996C52-857B-46D4-ACDD-91EBFA9C9509}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,10 @@ Global
 		{F69DC57E-7F47-4F30-A944-E6C72DE677B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F69DC57E-7F47-4F30-A944-E6C72DE677B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F69DC57E-7F47-4F30-A944-E6C72DE677B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E996C52-857B-46D4-ACDD-91EBFA9C9509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E996C52-857B-46D4-ACDD-91EBFA9C9509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E996C52-857B-46D4-ACDD-91EBFA9C9509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E996C52-857B-46D4-ACDD-91EBFA9C9509}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

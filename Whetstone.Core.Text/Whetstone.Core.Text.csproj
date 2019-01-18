@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/KFAFSP/Whetstone.Core/raw/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/KFAFSP/Whetstone.Core/</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Authors>Karl F. A. Friebel</Authors>
+    <Version>0.1.0</Version>
+    <Copyright>Copyright (c) Karl F. A. Friebel 2018</Copyright>
+    <PackageReleaseNotes>Development build.</PackageReleaseNotes>
+    <Description>Types for efficiently processing text.</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Repos\Whetstone.Core\Whetstone.Core.Text\Whetstone.Core.Text.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Repos\Whetstone.Core\Whetstone.Core.Text\Whetstone.Core.Text.doc.xml</DocumentationFile>
+  </PropertyGroup>
+</Project>
