@@ -40,7 +40,7 @@ namespace Whetstone.Core.Contracts
             var limit = ALength - AOffsetParam;
 
             Debug.Assert(
-                ALength >= 0 && ALength <= limit,
+                ALengthParam >= 0 && ALengthParam <= limit,
                 $@"{ALengthParamName} outside [0, {limit}].",
                 @"This indicates a contract violation."
             );
