@@ -9,6 +9,7 @@ namespace Whetstone.Core.Text
     /// <summary>
     /// Provides static extension methods for the <see cref="string"/> class.
     /// </summary>
+    [PublicAPI]
     public static class StringExtensions
     {
         /// <summary>
@@ -53,6 +54,50 @@ namespace Whetstone.Core.Text
 
             // Return the quoted string.
             return $"\"{str}\"";
+        }
+
+        /// <summary>
+        /// Get a prefix of the string.
+        /// </summary>
+        /// <param name="AString">The string.</param>
+        /// <param name="ALength">The length of the prefix.</param>
+        /// <returns>The prefix with length <paramref name="ALength"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AString"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="ALength"/> is negative or greater than the length of
+        /// <paramref name="AString"/>.
+        /// </exception>
+        [Pure]
+        [NotNull]
+        public static string Prefix([NotNull] this string AString, int ALength)
+        {
+            Require.NotNull(AString, nameof(AString));
+
+            return AString.Substring(0, ALength);
+        }
+
+        /// <summary>
+        /// Get a suffix of the string.
+        /// </summary>
+        /// <param name="AString">The string.</param>
+        /// <param name="ALength">The length of the suffix.</param>
+        /// <returns>The suffix with length <paramref name="ALength"/>.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AString"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="ALength"/> is negative or greater than the length of
+        /// <paramref name="AString"/>.
+        /// </exception>
+        [Pure]
+        [NotNull]
+        public static string Suffix([NotNull] this string AString, int ALength)
+        {
+            Require.NotNull(AString, nameof(AString));
+
+            return AString.Substring(AString.Length - ALength);
         }
     }
 }

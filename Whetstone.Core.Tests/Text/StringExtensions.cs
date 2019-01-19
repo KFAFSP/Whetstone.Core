@@ -7,6 +7,8 @@ using NUnit.Framework;
 
 using Whetstone.Core.Contracts;
 
+// ReSharper disable AssignNullToNotNullAttribute
+
 namespace Whetstone.Core.Text
 {
     [TestFixture]
@@ -27,10 +29,6 @@ namespace Whetstone.Core.Text
         public string Excerpt_ShortString_ReturnsQuotedString(string AInput)
             => AInput.Excerpt(10);
 
-        [TestCaseSource(nameof(ExcerptLongStringTestCases))]
-        public string Excerpt_LongString_ReturnsExcerptQuote(string AInput)
-            => AInput.Excerpt(10);
-
         [UsedImplicitly]
         static IEnumerable ExcerptShortStringTestCases
         {
@@ -47,6 +45,10 @@ namespace Whetstone.Core.Text
             }
         }
 
+        [TestCaseSource(nameof(ExcerptLongStringTestCases))]
+        public string Excerpt_LongString_ReturnsExcerptQuote(string AInput)
+            => AInput.Excerpt(10);
+
         [UsedImplicitly]
         static IEnumerable ExcerptLongStringTestCases
         {
@@ -58,5 +60,53 @@ namespace Whetstone.Core.Text
                     .Returns("\"0000000000\" + 90 char(s)");
             }
         }
+
+        [Test]
+        public void Prefix_Null_ThrowsArgumentNullException()
+        {
+            string str = null;
+
+            Assert.Throws<ArgumentNullException>(
+                () => _ = str.Prefix(0)
+            );
+        }
+
+        [TestCase("abc", -1)]
+        [TestCase("abc", 4)]
+        public void Prefix_OutOfRange_ThrowsArgumentOutOfRangeException(string AInput, int ALength)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _ = AInput.Prefix(ALength)
+            );
+        }
+
+        [TestCase("abc", 0, ExpectedResult = "")]
+        [TestCase("abc", 2, ExpectedResult = "ab")]
+        public string Prefix_InRange_ReturnsPrefix(string AInput, int ALength)
+            => AInput.Prefix(ALength);
+
+        [Test]
+        public void Suffix_Null_ThrowsArgumentNullException()
+        {
+            string str = null;
+
+            Assert.Throws<ArgumentNullException>(
+                () => _ = str.Suffix(0)
+            );
+        }
+
+        [TestCase("abc", -1)]
+        [TestCase("abc", 4)]
+        public void Suffix_OutOfRange_ThrowsArgumentOutOfRangeException(string AInput, int ALength)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _ = AInput.Suffix(ALength)
+            );
+        }
+
+        [TestCase("abc", 0, ExpectedResult = "")]
+        [TestCase("abc", 2, ExpectedResult = "bc")]
+        public string Suffix_InRange_ReturnsPrefix(string AInput, int ALength)
+            => AInput.Suffix(ALength);
     }
 }
