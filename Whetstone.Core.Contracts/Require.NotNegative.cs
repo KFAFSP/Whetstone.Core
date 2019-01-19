@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace Whetstone.Core.Contracts
 {
-	public static partial class Require
+	public partial class Require
 	{
 		/// <summary>
         /// Require that a parameter is not negative.

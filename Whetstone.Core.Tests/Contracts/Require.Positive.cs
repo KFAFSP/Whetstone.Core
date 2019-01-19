@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Whetstone.Core.Contracts
 {
-    public sealed partial class RequireTests
+    public partial class RequireTests
     {
 		[TestCase(1)]
 		public void Positive_Int8_Positive_ReturnsValue(sbyte AParam)
