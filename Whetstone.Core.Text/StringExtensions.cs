@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 using JetBrains.Annotations;
 
@@ -54,6 +55,66 @@ namespace Whetstone.Core.Text
 
             // Return the quoted string.
             return $"\"{str}\"";
+        }
+
+        /// <summary>
+        /// Make a new string by repeatedly concatenating this string.
+        /// </summary>
+        /// <param name="AChar">The character.</param>
+        /// <param name="ACount">The number of repetitions.</param>
+        /// <returns>
+        /// <paramref name="AChar"/> concatenated <paramref name="ACount"/> times.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="ACount"/> is negative.
+        /// </exception>
+        [Pure]
+        [NotNull]
+        public static string Repeat(this char AChar, int ACount)
+        {
+            Require.NotNegative(ACount, nameof(ACount));
+
+            var result = new StringBuilder();
+
+            result.EnsureCapacity(ACount);
+            for (var I = 0; I < ACount; ++I)
+            {
+                result.Append(AChar);
+            }
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// Make a new string by repeatedly concatenating this string.
+        /// </summary>
+        /// <param name="AString">The string.</param>
+        /// <param name="ACount">The number of repetitions.</param>
+        /// <returns>
+        /// <paramref name="AString"/> concatenated <paramref name="ACount"/> times.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="AString"/> is <see langword="null"/>.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="ACount"/> is negative.
+        /// </exception>
+        [Pure]
+        [NotNull]
+        public static string Repeat([NotNull] this string AString, int ACount)
+        {
+            Require.NotNull(AString, nameof(AString));
+            Require.NotNegative(ACount, nameof(ACount));
+
+            var result = new StringBuilder();
+
+            result.EnsureCapacity(AString.Length * ACount);
+            for (var I = 0; I < ACount; ++I)
+            {
+                result.Append(AString);
+            }
+
+            return result.ToString();
         }
 
         /// <summary>

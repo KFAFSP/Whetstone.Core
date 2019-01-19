@@ -62,6 +62,52 @@ namespace Whetstone.Core.Text
         }
 
         [Test]
+        public void Repeat_Negative_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _ = 'a'.Repeat(-1)
+            );
+        }
+
+        [TestCase(0)]
+        [TestCase(10)]
+        public void Repeat_NotNegative_Repeats(int ACount)
+        {
+            Assert.That(
+                'a'.Repeat(ACount),
+                Is.EqualTo(string.Concat(EnumerableFactory.Repeat('a', ACount)))
+            );
+        }
+
+        [Test]
+        public void Repeat2_Null_ThrowsArgumentNullException()
+        {
+            string str = null;
+
+            Assert.Throws<ArgumentNullException>(
+                () => _ = str.Repeat(1)
+            );
+        }
+
+        [Test]
+        public void Repeat2_Negative_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _ = "abc".Repeat(-1)
+            );
+        }
+
+        [TestCase(0)]
+        [TestCase(10)]
+        public void Repeat2_NotNegative_Repeats(int ACount)
+        {
+            Assert.That(
+                "abc".Repeat(ACount),
+                Is.EqualTo(string.Concat(EnumerableFactory.Repeat("abc", ACount)))
+            );
+        }
+
+        [Test]
         public void Prefix_Null_ThrowsArgumentNullException()
         {
             string str = null;
