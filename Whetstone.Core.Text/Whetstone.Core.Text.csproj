@@ -20,4 +20,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>D:\Repos\Whetstone.Core\Whetstone.Core.Text\Whetstone.Core.Text.doc.xml</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Whetstone.Core.Text.doc.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="10.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Whetstone.Core.Contracts\Whetstone.Core.Contracts.csproj" />
+  </ItemGroup>
 </Project>
