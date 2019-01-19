@@ -6,28 +6,18 @@ using JetBrains.Annotations;
 
 namespace Whetstone.Core.Contracts
 {
-    public static partial class Require
+    public static partial class Ensure
     {
         /// <summary>
-        /// Require that an <see cref="int"/> index is within a [0, length) range.
+        /// Ensure that an <see cref="int"/> index is within a [0, length) range.
         /// </summary>
         /// <param name="ALength">The range length.</param>
         /// <param name="AOffsetParam">The offset parameter.</param>
         /// <param name="AOffsetParamName">The offset parameter name.</param>
         /// <param name="ALengthParam">The length parameter.</param>
         /// <param name="ALengthParamName">The length parameter name.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="AOffsetParam"/> is negative.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="ALengthParam"/> is not within
-        /// [0, <paramref name="ALength"/>-<paramref name="AOffsetParam"/>] U {0}.
-        /// </exception>
-        /// <remarks>
-        /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore
-        /// not part of the stack-trace of the exception that it throws.
-        /// </remarks>
         [DebuggerHidden]
+        [Conditional("DEBUG")]
         public static void IndexRange(
             int ALength,
             int AOffsetParam,
@@ -41,46 +31,34 @@ namespace Whetstone.Core.Contracts
                 return;
             }
 
-            NotNegative(AOffsetParam, AOffsetParamName);
+            Debug.Assert(
+                AOffsetParam >= 0,
+                @"Offset is negative.",
+                @"This indicates a contract violation."
+            );
 
             var limit = ALength - AOffsetParam;
 
-            if (ALengthParam < 0 || ALengthParam > limit)
-            {
-                throw new ArgumentOutOfRangeException(
-                    ALengthParamName,
-                    ALengthParam,
-                    $@"Length is not within range [0, {limit}]."
-                );
-            }
+            Debug.Assert(
+                ALength >= 0 && ALength <= limit,
+                $@"{ALengthParamName} outside [0, {limit}].",
+                @"This indicates a contract violation."
+            );
         }
 
         /// <summary>
-        /// Require that an <see cref="int"/> index is within a <see cref="string"/>.
+        /// Ensure that an <see cref="int"/> index is within a <see cref="string"/>.
         /// </summary>
         /// <param name="AString">The string.</param>
         /// <param name="AOffsetParam">The offset parameter.</param>
         /// <param name="AOffsetParamName">The offset parameter name.</param>
         /// <param name="ALengthParam">The length parameter.</param>
         /// <param name="ALengthParamName">The length parameter name.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="AOffsetParam"/> is negative.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="ALengthParam"/> is not within
-        /// [0, <paramref name="AString"/>.Length-<paramref name="AOffsetParam"/>] U {0}.
-        /// </exception>
         /// <remarks>
-        /// <para>
-        /// If <paramref name="AString"/> is <see langword="null"/>, it is assumed to have length
-        /// 0.
-        /// </para>
-        /// <para>
-        /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore
-        /// not part of the stack-trace of the exception that it throws.
-        /// </para>
+        /// If <paramref name="AString"/> is <see langword="null"/>, it is assumed to have length 0.
         /// </remarks>
         [DebuggerHidden]
+        [Conditional("DEBUG")]
         public static void IndexRange(
             [CanBeNull] string AString,
             int AOffsetParam,
@@ -96,34 +74,21 @@ namespace Whetstone.Core.Contracts
         );
 
         /// <summary>
-        /// Require that an <see cref="int"/> index is within a 1D <see cref="Array"/>.
+        /// Ensure that an <see cref="int"/> index is within a 1D <see cref="Array"/>.
         /// </summary>
         /// <param name="AArray">The string.</param>
         /// <param name="AOffsetParam">The offset parameter.</param>
         /// <param name="AOffsetParamName">The offset parameter name.</param>
         /// <param name="ALengthParam">The length parameter.</param>
         /// <param name="ALengthParamName">The length parameter name.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="AOffsetParam"/> is negative.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="ALengthParam"/> is not within
-        /// [0, <paramref name="AArray"/>.Length-<paramref name="AOffsetParam"/>] U {0}.
-        /// </exception>
         /// <exception cref="OverflowException">
         /// <paramref name="AArray"/> is longer than <see cref="int.MaxValue"/>.
         /// </exception>
         /// <remarks>
-        /// <para>
-        /// If <paramref name="AArray"/> is <see langword="null"/>, it is assumed to have length
-        /// 0.
-        /// </para>
-        /// <para>
-        /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore
-        /// not part of the stack-trace of the exception that it throws.
-        /// </para>
+        /// If <paramref name="AArray"/> is <see langword="null"/>, it is assumed to have length 0.
         /// </remarks>
         [DebuggerHidden]
+        [Conditional("DEBUG")]
         public static void IndexRange<T>(
             [CanBeNull] T[] AArray,
             int AOffsetParam,
@@ -139,7 +104,7 @@ namespace Whetstone.Core.Contracts
         );
 
         /// <summary>
-        /// Require that an <see cref="int"/> index is within a <see cref="ICollection{T}"/>.
+        /// Ensure that an <see cref="int"/> index is within a <see cref="ICollection{T}"/>.
         /// </summary>
         /// <typeparam name="T">The collection item type.</typeparam>
         /// <param name="ACollection">The <see cref="ICollection{T}"/>.</param>
@@ -147,24 +112,12 @@ namespace Whetstone.Core.Contracts
         /// <param name="AOffsetParamName">The offset parameter name.</param>
         /// <param name="ALengthParam">The length parameter.</param>
         /// <param name="ALengthParamName">The length parameter name.</param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="AOffsetParam"/> is negative.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="ALengthParam"/> is not within
-        /// [0, <paramref name="ACollection"/>.Count-<paramref name="AOffsetParam"/>] U {0}.
-        /// </exception>
         /// <remarks>
-        /// <para>
         /// If <paramref name="ACollection"/> is <see langword="null"/>, it is assumed to have 0
         /// elements.
-        /// </para>
-        /// <para>
-        /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore
-        /// not part of the stack-trace of the exception that it throws.
-        /// </para>
         /// </remarks>
         [DebuggerHidden]
+        [Conditional("DEBUG")]
         public static void IndexRange<T>(
             [CanBeNull] ICollection<T> ACollection,
             int AOffsetParam,

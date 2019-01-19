@@ -8,8 +8,6 @@ namespace Whetstone.Core.Contracts
 {
     public static partial class Require
     {
-        const string C_InvalidIndex = @"Value is not an index in range [0, {0}).";
-
         /// <summary>
         /// Require that an <see cref="int"/> index is within a [0, length) range.
         /// </summary>
@@ -36,7 +34,7 @@ namespace Whetstone.Core.Contracts
                 throw new ArgumentOutOfRangeException(
                     AParamName,
                     AParam,
-                    string.Format(C_InvalidIndex, ALength)
+                    $@"Value is not an index in range [0, { ALength })."
                 );
             }
 
@@ -55,8 +53,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         /// <remarks>
         /// <para>
-        /// If <paramref name="AString"/> is <see langword="null"/>, it is assumed to have length
-        /// 0.
+        /// If <paramref name="AString"/> is <see langword="null"/>, it is assumed to have length 0.
         /// </para>
         /// <para>
         /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore
@@ -86,8 +83,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         /// <remarks>
         /// <para>
-        /// If <paramref name="AArray"/> is <see langword="null"/>, it is assumed to have length
-        /// 0.
+        /// If <paramref name="AArray"/> is <see langword="null"/>, it is assumed to have length 0.
         /// </para>
         /// <para>
         /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore

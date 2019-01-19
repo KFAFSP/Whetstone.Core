@@ -32,21 +32,26 @@ namespace Whetstone.Core.Text
 
             if (AString == null)
             {
+                // Return the null literal.
                 return "null";
             }
 
             if (AString.Length > AMaxLength)
             {
+                // Shorten an excerpt and quote it.
                 var excerpt = AString
                     .Substring(0, AMaxLength)
                     .Replace("\"", "\\\"");
 
+                // Return the excerpt and the number of remaining characters.
                 return $"\"{excerpt}\" + {AString.Length - AMaxLength} char(s)";
             }
 
+            // Quote the string.
             var str = AString
                 .Replace("\"", "\\\"");
 
+            // Return the quoted string.
             return $"\"{str}\"";
         }
     }
