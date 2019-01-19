@@ -113,7 +113,7 @@ namespace Whetstone.Core.Contracts
         }
 
         [Test]
-        public void IndexRange_String_Null_ThrowsArgumentOutOfRangeException()
+        public void IndexRange_String_NullNonEmpty_ThrowsArgumentOutOfRangeException()
         {
             string str = null;
 
@@ -122,12 +122,26 @@ namespace Whetstone.Core.Contracts
                     str,
                     0,
                     C_ParamName,
-                    0,
-                    C_ParamName
+                    1,
+                    C_ParamName + "2"
                 )
             );
 
-            Assert.That(ex.ParamName, Is.EqualTo(C_ParamName));
+            Assert.That(ex.ParamName, Is.EqualTo(C_ParamName + "2"));
+        }
+
+        [Test]
+        public void IndexRange_String_NullEmpty_Returns()
+        {
+            string str = null;
+
+            Require.IndexRange(
+                str,
+                0,
+                C_ParamName,
+                0,
+                C_ParamName
+            );
         }
 
         [TestCaseSource(nameof(IndexRangeOffsetOutOfRangeTestCases))]
@@ -181,7 +195,7 @@ namespace Whetstone.Core.Contracts
         }
 
         [Test]
-        public void IndexRange_Array_Null_ThrowsArgumentOutOfRangeException()
+        public void IndexRange_Array_NullNotEmpty_ThrowsArgumentOutOfRangeException()
         {
             int[] array = null;
 
@@ -190,12 +204,26 @@ namespace Whetstone.Core.Contracts
                     array,
                     0,
                     C_ParamName,
-                    0,
-                    C_ParamName
+                    1,
+                    C_ParamName + "2"
                 )
             );
 
-            Assert.That(ex.ParamName, Is.EqualTo(C_ParamName));
+            Assert.That(ex.ParamName, Is.EqualTo(C_ParamName + "2"));
+        }
+
+        [Test]
+        public void IndexRange_Array_NullEmpty_Returns()
+        {
+            int[] array = null;
+
+            Require.IndexRange(
+                array,
+                0,
+                C_ParamName,
+                0,
+                C_ParamName
+            );
         }
 
         [TestCaseSource(nameof(IndexRangeOffsetOutOfRangeTestCases))]
@@ -249,7 +277,7 @@ namespace Whetstone.Core.Contracts
         }
 
         [Test]
-        public void IndexRange_Collection_Null_ThrowsArgumentOutOfRangeException()
+        public void IndexRange_Collection_NullNotEmpty_ThrowsArgumentOutOfRangeException()
         {
             ICollection<int> collection = null;
 
@@ -258,12 +286,26 @@ namespace Whetstone.Core.Contracts
                     collection,
                     0,
                     C_ParamName,
-                    0,
-                    C_ParamName
+                    1,
+                    C_ParamName + "2"
                 )
             );
 
-            Assert.That(ex.ParamName, Is.EqualTo(C_ParamName));
+            Assert.That(ex.ParamName, Is.EqualTo(C_ParamName + "2"));
+        }
+
+        [Test]
+        public void IndexRange_Collection_NullEmpty_Returns()
+        {
+            ICollection<int> collection = null;
+
+            Require.IndexRange(
+                collection,
+                0,
+                C_ParamName,
+                0,
+                C_ParamName
+            );
         }
 
         [UsedImplicitly]
@@ -271,8 +313,7 @@ namespace Whetstone.Core.Contracts
         {
             get
             {
-                yield return new TestCaseData(-1, 0);
-                yield return new TestCaseData(3, 0);
+                yield return new TestCaseData(-1, 1);
             }
         }
 
@@ -285,6 +326,7 @@ namespace Whetstone.Core.Contracts
                 yield return new TestCaseData(0, 4);
                 yield return new TestCaseData(1, 3);
                 yield return new TestCaseData(2, 2);
+                yield return new TestCaseData(3, 1);
             }
         }
 
@@ -296,6 +338,8 @@ namespace Whetstone.Core.Contracts
                 for (var offset = 0; offset < 3; ++offset)
                 for (var length = 3 - offset; length >= 0; --length)
                     yield return new TestCaseData(offset, length);
+
+                yield return new TestCaseData(4, 0);
             }
         }
     }

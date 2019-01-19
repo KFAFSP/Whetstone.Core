@@ -19,11 +19,11 @@ namespace Whetstone.Core.Contracts
         /// <param name="ALengthParam">The length parameter.</param>
         /// <param name="ALengthParamName">The length parameter name.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="AOffsetParam"/> is not within [0, <paramref name="ALength"/>).
+        /// <paramref name="AOffsetParam"/> is negative.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="ALengthParam"/> is not within
-        /// [0, <paramref name="ALength"/>-<paramref name="AOffsetParam"/>].
+        /// [0, <paramref name="ALength"/>-<paramref name="AOffsetParam"/>] U {0}.
         /// </exception>
         /// <remarks>
         /// This method is annotated with the <see cref="DebuggerHiddenAttribute"/> and therefore
@@ -38,7 +38,12 @@ namespace Whetstone.Core.Contracts
             [NotNull] [InvokerParameterName] string ALengthParamName
         )
         {
-            Index(ALength, AOffsetParam, AOffsetParamName);
+            if (ALengthParam == 0)
+            {
+                return;
+            }
+
+            NotNegative(AOffsetParam, AOffsetParamName);
 
             var limit = ALength - AOffsetParam;
 
@@ -61,11 +66,11 @@ namespace Whetstone.Core.Contracts
         /// <param name="ALengthParam">The length parameter.</param>
         /// <param name="ALengthParamName">The length parameter name.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="AOffsetParam"/> is not within [0, <paramref name="AString"/>.Length).
+        /// <paramref name="AOffsetParam"/> is negative.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="ALengthParam"/> is not within
-        /// [0, <paramref name="AString"/>.Length-<paramref name="AOffsetParam"/>].
+        /// [0, <paramref name="AString"/>.Length-<paramref name="AOffsetParam"/>] U {0}.
         /// </exception>
         /// <remarks>
         /// <para>
@@ -101,11 +106,11 @@ namespace Whetstone.Core.Contracts
         /// <param name="ALengthParam">The length parameter.</param>
         /// <param name="ALengthParamName">The length parameter name.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="AOffsetParam"/> is not within [0, <paramref name="AArray"/>.Length).
+        /// <paramref name="AOffsetParam"/> is negative.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="ALengthParam"/> is not within
-        /// [0, <paramref name="AArray"/>.Length-<paramref name="AOffsetParam"/>].
+        /// [0, <paramref name="AArray"/>.Length-<paramref name="AOffsetParam"/>] U {0}.
         /// </exception>
         /// <exception cref="OverflowException">
         /// <paramref name="AArray"/> is longer than <see cref="int.MaxValue"/>.
@@ -145,11 +150,11 @@ namespace Whetstone.Core.Contracts
         /// <param name="ALengthParam">The length parameter.</param>
         /// <param name="ALengthParamName">The length parameter name.</param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="AOffsetParam"/> is not within [0, <paramref name="ACollection"/>.Count).
+        /// <paramref name="AOffsetParam"/> is negative.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="ALengthParam"/> is not within
-        /// [0, <paramref name="ACollection"/>.Count-<paramref name="AOffsetParam"/>].
+        /// [0, <paramref name="ACollection"/>.Count-<paramref name="AOffsetParam"/>] U {0}.
         /// </exception>
         /// <remarks>
         /// <para>
