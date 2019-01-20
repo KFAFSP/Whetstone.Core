@@ -6,8 +6,6 @@ using JetBrains.Annotations;
 
 using NUnit.Framework;
 
-using Whetstone.Core.Contracts;
-
 namespace Whetstone.Core.Text
 {
     [TestFixture]

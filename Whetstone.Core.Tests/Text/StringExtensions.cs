@@ -56,7 +56,7 @@ namespace Whetstone.Core.Text
             {
                 yield return new TestCaseData("00000000001")
                     .Returns("\"0000000000\" + 1 char(s)");
-                yield return new TestCaseData(string.Concat("0".Repeat(100)))
+                yield return new TestCaseData("0".Repeat(100))
                     .Returns("\"0000000000\" + 90 char(s)");
             }
         }

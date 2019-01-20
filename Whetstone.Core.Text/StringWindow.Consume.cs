@@ -331,13 +331,29 @@ namespace Whetstone.Core.Text
         /// Trim whitespaces from the start of the window.
         /// </summary>
         /// <returns>The number of characters removed.</returns>
-        public int TrimStart() => Consume(null, char.IsWhiteSpace);
+        public int TrimStart()
+        {
+            // NOTE: Impossible.
+            // ReSharper disable once ExceptionNotDocumented
+            var find = IndexOf(X => !char.IsWhiteSpace(X));
+            return find == -1
+                ? ConsumeInternal(null, Length)
+                : ConsumeInternal(null, find);
+        }
 
         /// <summary>
         /// Trim whitespaces from the end of the window.
         /// </summary>
         /// <returns>The number of characters removed.</returns>
-        public int TrimEnd() => ConsumeEnd(null, char.IsWhiteSpace);
+        public int TrimEnd()
+        {
+            // NOTE: Impossible.
+            // ReSharper disable once ExceptionNotDocumented
+            var find = LastIndexOf(X => !char.IsWhiteSpace(X));
+            return find == -1
+                ? ConsumeEndInternal(null, Length)
+                : ConsumeEndInternal(null, Length - find - 1);
+        }
 
         /// <summary>
         /// Trim whitespaces from the start and end of the window.

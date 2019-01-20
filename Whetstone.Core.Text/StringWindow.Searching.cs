@@ -75,7 +75,7 @@ namespace Whetstone.Core.Text
         [Pure]
         public int LastIndexOf(char AChar)
         {
-            var find = Base.LastIndexOf(AChar, Offset, Length);
+            var find = Base.LastIndexOf(AChar, Offset + Length - 1, Length);
 
             return find == -1 ? -1 : find - Offset;
         }
@@ -96,7 +96,7 @@ namespace Whetstone.Core.Text
         {
             Require.NotNull(APredicate, nameof(APredicate));
 
-            for (var I = Length; I >= 0; --I)
+            for (var I = Length - 1; I >= 0; --I)
             {
                 if (APredicate(this[I])) return I;
             }
@@ -117,7 +117,7 @@ namespace Whetstone.Core.Text
         [Pure]
         public int LastIndexOfAny([NotNull] params char[] AChars)
         {
-            var find = Base.LastIndexOfAny(AChars, Offset, Length);
+            var find = Base.LastIndexOfAny(AChars, Offset + Length - 1, Length);
 
             return find == -1 ? -1 : find - Offset;
         }

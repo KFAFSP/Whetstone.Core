@@ -24,7 +24,7 @@ namespace Whetstone.Core.Text
         {
             Require.Index(Length + 1, AOffset, nameof(AOffset));
 
-            return Base.Substring(Offset + AOffset, Length);
+            return Base.Substring(Offset + AOffset, Length - AOffset);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 using NUnit.Framework;
 
@@ -11,10 +12,22 @@ namespace Whetstone.Core.Text
     [TestFixture]
     [Category("Text")]
     [TestOf(typeof(StringWindow))]
-    public sealed class StringWindowTests
+    public sealed partial class StringWindowTests
     {
         const string C_String = @"abc,d,e;f";
         const int C_StringLen = 9;
+
+        static readonly StringBuilder _FOut = new StringBuilder();
+        static StringWindow _FEmpty;
+        static StringWindow _FAll;
+
+        [SetUp]
+        public void Setup()
+        {
+            _FOut.Clear();
+            _FEmpty = StringWindow.Of(C_String, 0, 0);
+            _FAll = StringWindow.Of(C_String);
+        }
 
         [Test]
         public void Of_StringIsNull_ThrowsArgumentNullException()
@@ -79,17 +92,16 @@ namespace Whetstone.Core.Text
         public void GetEnumerator_YieldsCharacters()
         {
             var window = StringWindow.Of(C_String, 1, 3);
-
-            Assert.That(
-                string.Concat(window),
-                Is.EqualTo(C_String.Substring(1, 3))
+            CollectionAssert.AreEqual(
+                window,
+                C_String.Substring(1, 3)
             );
         }
 
         [Test]
         public void ToString_ReturnsExcerpt()
         {
-            var str = string.Concat("a".Repeat(100));
+            var str = "a".Repeat(100);
             var window = StringWindow.Of(str);
 
             Assert.That(window.ToString(), Is.EqualTo(str.Excerpt()));
