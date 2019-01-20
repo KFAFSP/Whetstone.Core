@@ -40,7 +40,7 @@ namespace Whetstone.Core.Contracts
         /// <typeparamref name="T"/> is a reference type.
         /// </remarks>
         [Pure]
-        public static int Compare<T>([CanBeNull] T ALhs, [CanBeNull] T ARhs)
+        public static int Compare<T>([CanBeNull] in T ALhs, [CanBeNull] in T ARhs)
             where T : IComparable<T>
         {
             // Special case: reference operand nullity.

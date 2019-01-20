@@ -29,7 +29,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         [MustUseReturnValue]
         public static Result<TOut> AndThen<TOut>(
-            this Result AResult,
+            in this Result AResult,
             [NotNull] [InstantHandle] Func<TOut> AContinuation
         )
         {
@@ -59,7 +59,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         [MustUseReturnValue]
         public static Result<TOut> AndThen<TIn, TOut>(
-            this Result<TIn> AResult,
+            in this Result<TIn> AResult,
             [NotNull] [InstantHandle] Func<TIn, TOut> AContinuation
         )
         {
@@ -85,7 +85,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         [MustUseReturnValue]
         public static Result AndThenTry(
-            this Result AResult,
+            in this Result AResult,
             [NotNull] [InstantHandle] Action AContinuation
         )
         {
@@ -121,7 +121,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         [MustUseReturnValue]
         public static Result<TOut> AndThenTry<TOut>(
-            this Result AResult,
+            in this Result AResult,
             [NotNull] [InstantHandle] Func<TOut> AContinuation
         )
         {
@@ -158,7 +158,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         [MustUseReturnValue]
         public static Result<TOut> AndThenTry<TOut, TIn>(
-            this Result<TIn> AResult,
+            in this Result<TIn> AResult,
             [NotNull] [InstantHandle] Func<TIn, TOut> AContinuation
         )
         {

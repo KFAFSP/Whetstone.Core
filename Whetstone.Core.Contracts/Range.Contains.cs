@@ -17,7 +17,7 @@ namespace Whetstone.Core.Contracts
         /// definitely empty and will always return <see langword="false"/>.
         /// </remarks>
         [Pure]
-        public bool Contains([CanBeNull] T ATest)
+        public bool Contains([CanBeNull] in T ATest)
         {
             // Quick exit: emptiness.
             if (IsEmpty)
@@ -58,7 +58,7 @@ namespace Whetstone.Core.Contracts
         /// </para>
         /// </remarks>
         [Pure]
-        public bool Contains(Range<T> ATest)
+        public bool Contains(in Range<T> ATest)
         {
             // Quick exit: emptiness.
             if (IsEmpty)

@@ -69,7 +69,7 @@ namespace Whetstone.Core.Tasks
         /// <see langword="true"/> if the value was posted; <see langword="false"/> if the future
         /// already exists or is disposed.
         /// </returns>
-        public bool TryPost(TValue AValue) => FSource.TrySetResult(AValue);
+        public bool TryPost(in TValue AValue) => FSource.TrySetResult(AValue);
         /// <summary>
         /// Post the value.
         /// </summary>
@@ -79,7 +79,7 @@ namespace Whetstone.Core.Tasks
         /// <remarks>
         /// Use this method in contexts where there is no contention on the future.
         /// </remarks>
-        public void Post(TValue AValue)
+        public void Post(in TValue AValue)
         {
             if (TryPost(AValue)) return;
 

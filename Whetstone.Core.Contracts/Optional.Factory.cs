@@ -14,11 +14,11 @@ namespace Whetstone.Core.Contracts
         [Pure]
         public static Optional<T> Absent<T>() => Optional<T>.Absent;
 
-        /// <inheritdoc cref="Optional{T}.Present(T)"/>
+        /// <inheritdoc cref="Optional{T}.Present(in T)"/>
         /// <typeparam name="T">The value type.</typeparam>
         [ExcludeFromCodeCoverage]
         [Pure]
-        public static Optional<T> Present<T>([NoEnumeration] T AValue)
+        public static Optional<T> Present<T>([NoEnumeration] in T AValue)
             => Optional<T>.Present(AValue);
 
         /// <summary>

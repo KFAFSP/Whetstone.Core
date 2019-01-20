@@ -42,9 +42,9 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [Pure]
         public static Range<T> Of(
-            [CanBeNull] T ALower,
+            [CanBeNull] in T ALower,
             bool AIncludesLower,
-            [CanBeNull] T AUpper,
+            [CanBeNull] in T AUpper,
             bool AIncludesUpper
         )
         {
@@ -71,7 +71,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="AFlags">The <see cref="RangeFlags"/>.</param>
         /// <param name="ALower">The lower bound.</param>
         /// <param name="AUpper">The upper bound.</param>
-        Range(RangeFlags AFlags, T ALower, T AUpper)
+        Range(RangeFlags AFlags, in T ALower, in T AUpper)
         {
             Flags = AFlags;
             Lower = ALower;
@@ -101,7 +101,7 @@ namespace Whetstone.Core.Contracts
         /// </list>
         /// </returns>
         [Pure]
-        public int CompareWith([CanBeNull] T ATest)
+        public int CompareWith([CanBeNull] in T ATest)
         {
             // Quick exit: reference argument nullity.
             if (!typeof(T).IsValueType && ReferenceEquals(ATest, null))
@@ -121,15 +121,18 @@ namespace Whetstone.Core.Contracts
             return CompareToInternal(ATest);
         }
 
-        #region IEquatable<Range<T>>
-        /// <inheritdoc />
+        /// <inheritdoc cref="IEquatable{T}.Equals(T)" />
         [Pure]
-        public bool Equals(Range<T> ARange)
+        public bool Equals(in Range<T> ARange)
         {
             return Flags == ARange.Flags
                 && WeakOrdering.Compare(Lower, ARange.Lower) == 0
                 && WeakOrdering.Compare(Upper, ARange.Upper) == 0;
         }
+
+        #region IEquatable<Range<T>>
+        [Pure]
+        bool IEquatable<Range<T>>.Equals(Range<T> ARange) => Equals(in ARange);
         #endregion
 
         #region System.Object overrides
@@ -213,7 +216,7 @@ namespace Whetstone.Core.Contracts
         /// otherwise <see langword="false"/>.
         /// </returns>
         [Pure]
-        public static bool operator ==(Range<T> ALhs, Range<T> ARhs)
+        public static bool operator ==(in Range<T> ALhs, in Range<T> ARhs)
             => ALhs.Equals(ARhs);
         /// <summary>
         /// Check whether two <see cref="Range{T}"/> instances are unequal.
@@ -225,7 +228,7 @@ namespace Whetstone.Core.Contracts
         /// otherwise <see langword="false"/>.
         /// </returns>
         [Pure]
-        public static bool operator !=(Range<T> ALhs, Range<T> ARhs)
+        public static bool operator !=(in Range<T> ALhs, in Range<T> ARhs)
             => !ALhs.Equals(ARhs);
     }
 

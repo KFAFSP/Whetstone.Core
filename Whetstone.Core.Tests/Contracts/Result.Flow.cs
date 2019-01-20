@@ -2,6 +2,7 @@
 
 using NUnit.Framework;
 
+// ReSharper disable ExceptionNotDocumented
 // ReSharper disable MustUseReturnValue
 // ReSharper disable AssignNullToNotNullAttribute
 

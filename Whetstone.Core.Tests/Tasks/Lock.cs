@@ -4,6 +4,8 @@ using System.Threading;
 
 using NUnit.Framework;
 
+// ReSharper disable ExceptionNotDocumented
+
 namespace Whetstone.Core.Tasks
 {
     [TestFixture]

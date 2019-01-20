@@ -22,7 +22,7 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [DebuggerHidden]
         public static sbyte Positive(
-            sbyte AParam,
+            in sbyte AParam,
             [NotNull] [InvokerParameterName] string AParamName
         )
         {
@@ -53,7 +53,7 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [DebuggerHidden]
         public static short Positive(
-            short AParam,
+            in short AParam,
             [NotNull] [InvokerParameterName] string AParamName
         )
         {
@@ -84,7 +84,7 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [DebuggerHidden]
         public static int Positive(
-            int AParam,
+            in int AParam,
             [NotNull] [InvokerParameterName] string AParamName
         )
         {
@@ -115,7 +115,7 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [DebuggerHidden]
         public static long Positive(
-            long AParam,
+            in long AParam,
             [NotNull] [InvokerParameterName] string AParamName
         )
         {
@@ -146,7 +146,7 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [DebuggerHidden]
         public static float Positive(
-            float AParam,
+            in float AParam,
             [NotNull] [InvokerParameterName] string AParamName
         )
         {
@@ -177,7 +177,7 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [DebuggerHidden]
         public static double Positive(
-            double AParam,
+            in double AParam,
             [NotNull] [InvokerParameterName] string AParamName
         )
         {
@@ -208,7 +208,7 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [DebuggerHidden]
         public static decimal Positive(
-            decimal AParam,
+            in decimal AParam,
             [NotNull] [InvokerParameterName] string AParamName
         )
         {

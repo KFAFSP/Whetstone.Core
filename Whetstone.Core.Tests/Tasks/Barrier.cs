@@ -3,6 +3,7 @@ using System.Threading;
 
 using NUnit.Framework;
 
+// ReSharper disable ExceptionNotDocumented
 // ReSharper disable AssignmentIsFullyDiscarded
 
 namespace Whetstone.Core.Tasks

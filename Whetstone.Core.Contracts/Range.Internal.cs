@@ -17,9 +17,9 @@ namespace Whetstone.Core.Contracts
         /// </returns>
         [Pure]
         static bool MustBeEmpty(
-            [CanBeNull] T ALower,
+            [CanBeNull] in T ALower,
             bool AIncludesLower,
-            [CanBeNull] T AUpper,
+            [CanBeNull] in T AUpper,
             bool AIncludesUpper
         )
         {
@@ -79,7 +79,7 @@ namespace Whetstone.Core.Contracts
         /// </list>
         /// </returns>
         [Pure]
-        int CompareToInternal([NotNull] T ATest)
+        int CompareToInternal([NotNull] in T ATest)
         {
             // Compare against the lower boundary.
             var lower = ATest.CompareTo(Lower);

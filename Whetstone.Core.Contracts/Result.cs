@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 using JetBrains.Annotations;
 
@@ -170,14 +169,13 @@ namespace Whetstone.Core.Contracts
             return this;
         }
 
-        #region IEquatable<Result>
-        /// <inheritdoc />
+        /// <inheritdoc cref="IEquatable{T}.Equals(T)" />
         /// <remarks>
         /// Two <see cref="Result"/>s are equal if either both are successful or both are erroneous
         /// and their <see cref="Error"/>s are the same instance.
         /// </remarks>
         [Pure]
-        public bool Equals(Result AResult)
+        public bool Equals(in Result AResult)
         {
             if (IsSuccess)
             {
@@ -186,6 +184,10 @@ namespace Whetstone.Core.Contracts
 
             return !AResult.IsSuccess && ReferenceEquals(UnpackError, AResult.UnpackError);
         }
+
+        #region IEquatable<Result>
+        [Pure]
+        bool IEquatable<Result>.Equals(Result AResult) => Equals(in AResult);
         #endregion
 
         #region System.Object overrides
@@ -241,7 +243,7 @@ namespace Whetstone.Core.Contracts
         /// </summary>
         /// <param name="AResult">The <see cref="Result"/>.</param>
         [Pure]
-        public static implicit operator bool(Result AResult) => AResult.IsSuccess;
+        public static implicit operator bool(in Result AResult) => AResult.IsSuccess;
 
         /// <summary>
         /// Implicitly initialize a successful <see cref="Result"/>.
@@ -290,7 +292,7 @@ namespace Whetstone.Core.Contracts
         /// </summary>
         /// <param name="AValue">The result value.</param>
         [Pure]
-        public static Result<T> Ok(T AValue) => new Result<T>(AValue);
+        public static Result<T> Ok(in T AValue) => new Result<T>(AValue);
         /// <summary>
         /// Get an erroneous <see cref="Result{T}"/>.
         /// </summary>
@@ -314,7 +316,7 @@ namespace Whetstone.Core.Contracts
         /// Initialize a successful <see cref="Result{T}"/>.
         /// </summary>
         /// <param name="AValue">The result value.</param>
-        Result(T AValue)
+        Result(in T AValue)
         {
             IsSuccess = true;
             FError = null;
@@ -447,15 +449,14 @@ namespace Whetstone.Core.Contracts
             return this;
         }
 
-        #region IEquatable<Result>
-        /// <inheritdoc />
+        /// <inheritdoc cref="IEquatable{T}.Equals(T)" />
         /// <remarks>
         /// Two <see cref="Result{T}"/>s are equal if either both are successful and their values
         /// are equal according to the default (<see cref="EqualityComparer{T}.Default"/>) equality
         /// comparison; or both are erroneous and their <see cref="Error"/>s are the same instance.
         /// </remarks>
         [Pure]
-        public bool Equals(Result<T> AResult)
+        public bool Equals(in Result<T> AResult)
         {
             if (IsSuccess)
             {
@@ -465,6 +466,10 @@ namespace Whetstone.Core.Contracts
 
             return !AResult.IsSuccess && ReferenceEquals(UnpackError, AResult.UnpackError);
         }
+
+        #region IEquatable<Result<T>>
+        [Pure]
+        bool IEquatable<Result<T>>.Equals(Result<T> AResult) => Equals(in AResult);
         #endregion
 
         #region System.Object overrides
@@ -514,19 +519,22 @@ namespace Whetstone.Core.Contracts
         /// <inheritdoc cref="Result.Error" select="remarks"/>
         [ItemNotNull]
         public Optional<Exception> Error => !IsSuccess ? Optional.Present(UnpackError) : default;
+
+        // NOTE: Exceptional does not detect the throw in this expression body.
+        // ReSharper disable once ExceptionNotThrown
         /// <summary>
         /// Get the successful value of this <see cref="Result{T}"/>; otherwise throws the contained
         /// <see cref="Exception"/>.
         /// </summary>
         /// <exception cref="Exception">The <see cref="Result{T}"/> is erroneous.</exception>
-        public T Value => IsSuccess ? UnpackValue : throw UnpackError;
+        public T Value => IsSuccess? UnpackValue : throw UnpackError;
 
         /// <summary>
         /// Implicitly get the <see cref="IsSuccess"/> value of this <see cref="Result{T}"/>.
         /// </summary>
         /// <param name="AResult">The <see cref="Result{T}"/>.</param>
         [Pure]
-        public static implicit operator bool(Result<T> AResult) => AResult.IsSuccess;
+        public static implicit operator bool(in Result<T> AResult) => AResult.IsSuccess;
 
         /// <summary>
         /// Explicitly get the <see cref="Value"/> of this <see cref="Result{T}"/>.
@@ -534,14 +542,14 @@ namespace Whetstone.Core.Contracts
         /// <param name="AResult">The <see cref="Result{T}"/>.</param>
         /// <exception cref="Exception">The <see cref="Result{T}"/> is erroneous.</exception>
         [Pure]
-        public static explicit operator T(Result<T> AResult) => AResult.Value;
+        public static explicit operator T(in Result<T> AResult) => AResult.Value;
 
         /// <summary>
         /// Implicitly initialize a successful <see cref="Result{T}"/>.
         /// </summary>
         /// <param name="AValue">The result value.</param>
         [Pure]
-        public static implicit operator Result<T>([NoEnumeration] T AValue) => Ok(AValue);
+        public static implicit operator Result<T>([NoEnumeration] in T AValue) => Ok(AValue);
         /// <summary>
         /// Implicitly initialize an erroneous <see cref="Result{T}"/> from
         /// an <see cref="Exception"/>.

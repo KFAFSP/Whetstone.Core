@@ -5,6 +5,8 @@ using JetBrains.Annotations;
 
 using NUnit.Framework;
 
+// ReSharper disable ExceptionNotDocumented
+
 namespace Whetstone.Core.Contracts
 {
     public partial class RangeTests

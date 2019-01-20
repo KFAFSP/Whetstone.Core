@@ -17,7 +17,7 @@ namespace Whetstone.Core.Contracts
         [DebuggerHidden]
         [Conditional("DEBUG")]
         public static void NotNull<T>(
-            [NoEnumeration] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] T AParam,
+            [NoEnumeration] [AssertionCondition(AssertionConditionType.IS_NOT_NULL)] in T AParam,
             [NotNull] [InvokerParameterName] string AParamName
         ) where T : class
         {

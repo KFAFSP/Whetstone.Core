@@ -25,7 +25,7 @@ namespace Whetstone.Core.Contracts
         /// </remarks>
         [Pure]
 		[CanBeNull]
-        public static T Min<T>([CanBeNull] T ALhs, [CanBeNull] T ARhs)
+        public static T Min<T>([CanBeNull] in T ALhs, [CanBeNull] in T ARhs)
 		    where T : IComparable<T>
         {
             // Special case: reference operand nullity.
@@ -132,8 +132,9 @@ namespace Whetstone.Core.Contracts
         /// <exception cref="ArgumentException"><paramref name="AOperands"/> is empty.</exception>
         /// <remarks>
         /// This implementation is a slightly more optimized version of folding
-        /// <paramref name="AOperands"/> with <see cref="Min{T}(T, T)"/> since it handles quick-exit
-        /// on reaching <see langword="null"/> for reference type <typeparamref name="T"/>s.
+        /// <paramref name="AOperands"/> with <see cref="Min{T}(in T, in T)"/> since it handles
+        /// quick-exit on reaching <see langword="null"/> for reference type
+        /// <typeparamref name="T"/>s.
         /// </remarks>
         [Pure]
         [CanBeNull]

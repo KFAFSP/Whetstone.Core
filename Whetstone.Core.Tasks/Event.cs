@@ -38,7 +38,7 @@ namespace Whetstone.Core.Tasks
         /// </summary>
         /// <param name="AData">The event data.</param>
         /// <exception cref="ObjectDisposedException">This instance is disposed.</exception>
-        public void Post(TData AData)
+        public void Post(in TData AData)
         {
             ThrowIfDisposed();
 

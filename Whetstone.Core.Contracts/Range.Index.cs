@@ -14,7 +14,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="ACount">The exclusive upper limit.</param>
         /// <returns>The [0, <paramref name="ACount"/>) <see cref="Range{T}"/>.</returns>
         [Pure]
-        public static Range<int> Indices(this int ACount)
+        public static Range<int> Indices(in this int ACount)
             => Of(0, true, ACount, false);
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="ACount">The exclusive upper limit.</param>
         /// <returns>The [0, <paramref name="ACount"/>) <see cref="Range{T}"/>.</returns>
         [Pure]
-        public static Range<long> LongIndices(this long ACount)
+        public static Range<long> LongIndices(in this long ACount)
             => Of(0L, true, ACount, false);
 
         /// <summary>

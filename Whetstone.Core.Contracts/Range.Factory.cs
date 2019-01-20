@@ -7,14 +7,14 @@ namespace Whetstone.Core.Contracts
 {
     public static partial class Range
     {
-        /// <inheritdoc cref="Range{T}.Of(T, bool, T, bool)"/>
+        /// <inheritdoc cref="Range{T}.Of(in T, bool, in T, bool)"/>
         /// <typeparam name="T">The type that implements <see cref="IComparable{T}"/>.</typeparam>
         [ExcludeFromCodeCoverage]
         [Pure]
         public static Range<T> Of<T>(
-            [CanBeNull] T ALower,
+            [CanBeNull] in T ALower,
             bool AIncludesLower,
-            [CanBeNull] T AUpper,
+            [CanBeNull] in T AUpper,
             bool AIncludesUpper
         ) where T : IComparable<T>
             => Range<T>.Of(ALower, AIncludesLower, AUpper, AIncludesUpper);
@@ -27,7 +27,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="ALower">The new lower bound.</param>
         /// <returns>A copy of <paramref name="ARange"/> with a different lower bound.</returns>
         [Pure]
-        public static Range<T> WithLower<T>(this Range<T> ARange, [CanBeNull] T ALower)
+        public static Range<T> WithLower<T>(in this Range<T> ARange, [CanBeNull] in T ALower)
             where T : IComparable<T>
             => Range<T>.Of(ALower, ARange.IncludesLower, ARange.Upper, ARange.IncludesUpper);
         /// <summary>
@@ -38,7 +38,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="AIncludesLower">Whether the lower bound is included.</param>
         /// <returns>A copy of <paramref name="ARange"/> with a different lower bound.</returns>
         [Pure]
-        public static Range<T> WithLower<T>(this Range<T> ARange, bool AIncludesLower)
+        public static Range<T> WithLower<T>(in this Range<T> ARange, bool AIncludesLower)
             where T : IComparable<T>
             => Range<T>.Of(ARange.Lower, AIncludesLower, ARange.Upper, ARange.IncludesUpper);
         /// <summary>
@@ -51,8 +51,8 @@ namespace Whetstone.Core.Contracts
         /// <returns>A copy of <paramref name="ARange"/> with a different lower bound.</returns>
         [Pure]
         public static Range<T> WithLower<T>(
-            this Range<T> ARange,
-            [CanBeNull] T ALower,
+            in this Range<T> ARange,
+            [CanBeNull] in T ALower,
             bool AIncludesLower
         ) where T : IComparable<T>
             => Range<T>.Of(ALower, AIncludesLower, ARange.Upper, ARange.IncludesUpper);
@@ -65,7 +65,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="AUpper">The new upper bound.</param>
         /// <returns>A copy of <paramref name="ARange"/> with a different upper bound.</returns>
         [Pure]
-        public static Range<T> WithUpper<T>(this Range<T> ARange, [CanBeNull] T AUpper)
+        public static Range<T> WithUpper<T>(in this Range<T> ARange, [CanBeNull] in T AUpper)
             where T : IComparable<T>
             => Range<T>.Of(ARange.Lower, ARange.IncludesLower, AUpper, ARange.IncludesUpper);
         /// <summary>
@@ -76,7 +76,7 @@ namespace Whetstone.Core.Contracts
         /// <param name="AIncludesUpper">Whether the upper bound is included.</param>
         /// <returns>A copy of <paramref name="ARange"/> with a different upper bound.</returns>
         [Pure]
-        public static Range<T> WithUpper<T>(this Range<T> ARange, bool AIncludesUpper)
+        public static Range<T> WithUpper<T>(in this Range<T> ARange, bool AIncludesUpper)
             where T : IComparable<T>
             => Range<T>.Of(ARange.Lower, ARange.IncludesLower, ARange.Upper, AIncludesUpper);
         /// <summary>
@@ -89,8 +89,8 @@ namespace Whetstone.Core.Contracts
         /// <returns>A copy of <paramref name="ARange"/> with a different upper bound.</returns>
         [Pure]
         public static Range<T> WithUpper<T>(
-            this Range<T> ARange,
-            [CanBeNull] T AUpper,
+            in this Range<T> ARange,
+            [CanBeNull] in T AUpper,
             bool AIncludesUpper
         ) where T : IComparable<T>
             => Range<T>.Of(ARange.Lower, ARange.IncludesLower, AUpper, AIncludesUpper);

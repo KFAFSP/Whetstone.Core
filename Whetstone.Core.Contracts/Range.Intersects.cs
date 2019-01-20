@@ -23,7 +23,7 @@ namespace Whetstone.Core.Contracts
         /// </para>
         /// <para>
         /// Optimized for the quantitative intersection result. If only the qualitative result is
-        /// needed, use <see cref="Intersects(Range{T})"/> instead.
+        /// needed, use <see cref="Intersects(in Range{T})"/> instead.
         /// </para>
         /// </remarks>
         [Pure]
@@ -107,7 +107,7 @@ namespace Whetstone.Core.Contracts
         /// </para>
         /// </remarks>
         [Pure]
-        public bool Intersects(Range<T> ATest)
+        public bool Intersects(in Range<T> ATest)
         {
             if (IsEmpty || ATest.IsEmpty)
             {

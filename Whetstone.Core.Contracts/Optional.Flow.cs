@@ -29,7 +29,7 @@ namespace Whetstone.Core.Contracts
         [MustUseReturnValue]
         [Pure]
         public static Optional<T> That<T>(
-            this Optional<T> AOptional,
+            in this Optional<T> AOptional,
             [NotNull] [InstantHandle] Predicate<T> APredicate
         )
         {
@@ -55,7 +55,7 @@ namespace Whetstone.Core.Contracts
         /// </exception>
         /// <exception cref="Exception"><paramref name="AAction"/> threw an exception.</exception>
         public static bool Forward<T>(
-            this Optional<T> AOptional,
+            in this Optional<T> AOptional,
             [NotNull] [InstantHandle] Action<T> AAction
         )
         {
@@ -89,7 +89,7 @@ namespace Whetstone.Core.Contracts
         [MustUseReturnValue]
         [Pure]
         public static Optional<TOut> Map<TIn, TOut>(
-            this Optional<TIn> AOptional,
+            in this Optional<TIn> AOptional,
             [NotNull] [InstantHandle] Func<TIn, TOut> AFunc
         )
         {
@@ -110,7 +110,7 @@ namespace Whetstone.Core.Contracts
         /// <paramref name="ADefault"/> if the value is absent; otherwise the present value.
         /// </returns>
         [Pure]
-        public static T OrDefault<T>(this Optional<T> AOptional, T ADefault = default)
+        public static T OrDefault<T>(in this Optional<T> AOptional, T ADefault = default)
             => AOptional.IsPresent ? AOptional.Unpack : ADefault;
     }
 }

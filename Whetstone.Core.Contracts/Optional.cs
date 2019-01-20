@@ -29,7 +29,7 @@ namespace Whetstone.Core.Contracts
         /// A present <see cref="Optional{T}"/> with value <paramref name="AValue"/>.
         /// </returns>
         [Pure]
-        public static Optional<T> Present([NoEnumeration] T AValue) => new Optional<T>(AValue);
+        public static Optional<T> Present([NoEnumeration] in T AValue) => new Optional<T>(AValue);
         /// <summary>
         /// Get an absent <see cref="Optional{T}"/>.
         /// </summary>
@@ -39,7 +39,7 @@ namespace Whetstone.Core.Contracts
         /// Initialize a present <see cref="Optional{T}"/>.
         /// </summary>
         /// <param name="AValue">The present value.</param>
-        Optional([NoEnumeration] T AValue)
+        Optional([NoEnumeration] in T AValue)
         {
             FValue = AValue;
             IsPresent = true;
@@ -94,15 +94,14 @@ namespace Whetstone.Core.Contracts
         }
         #endregion
 
-        #region IEquatable<Optional<T>>
-        /// <inheritdoc />
+        /// <inheritdoc cref="IEquatable{T}" />
         /// <remarks>
         /// Two <see cref="Optional{T}"/> instances are equal if either both are absent or both are
         /// present and their contained <see cref="Value"/>s are equal using the default
         /// (<see cref="EqualityComparer{T}.Default"/>) equality comparison.
         /// </remarks>
         [Pure]
-        public bool Equals(Optional<T> AOther)
+        public bool Equals(in Optional<T> AOther)
         {
             if (!IsPresent)
             {
@@ -113,6 +112,10 @@ namespace Whetstone.Core.Contracts
             // Default equality comparison for T.
             return AOther.IsPresent && EqualityComparer<T>.Default.Equals(Unpack, AOther.Unpack);
         }
+
+        #region IEquatable<Optional<T>>
+        [Pure]
+        bool IEquatable<Optional<T>>.Equals(Optional<T> AOther) => Equals(in AOther);
         #endregion
 
         #region System.Object overrides
@@ -155,6 +158,8 @@ namespace Whetstone.Core.Contracts
         /// Gets a value indicating whether the optional value is present.
         /// </summary>
         public bool IsPresent { get; }
+        // NOTE: Exceptional does not detect the throw in this expression body.
+        // ReSharper disable once ExceptionNotThrown
         /// <summary>
         /// Gets the value if present; otherwise throws an <see cref="InvalidOperationException"/>.
         /// </summary>
@@ -166,7 +171,7 @@ namespace Whetstone.Core.Contracts
         /// </summary>
         /// <param name="AValue">The present value.</param>
         [Pure]
-        public static implicit operator Optional<T>([NoEnumeration] T AValue) => Present(AValue);
+        public static implicit operator Optional<T>([NoEnumeration] in T AValue) => Present(AValue);
         /// <summary>
         /// Explicitly unwrap the <see cref="Value"/> of an <see cref="Optional{T}"/>.
         /// </summary>
@@ -175,7 +180,7 @@ namespace Whetstone.Core.Contracts
         /// <paramref name="AOptional"/> is absent.
         /// </exception>
         [Pure]
-        public static explicit operator T(Optional<T> AOptional) => AOptional.Value;
+        public static explicit operator T(in Optional<T> AOptional) => AOptional.Value;
 
         /// <summary>
         /// Check whether two <see cref="Optional{T}"/> instances are equal.
@@ -187,7 +192,8 @@ namespace Whetstone.Core.Contracts
         /// equal; otherwise <see langword="false"/>.
         /// </returns>
         [Pure]
-        public static bool operator ==(Optional<T> ALhs, Optional<T> ARhs) => ALhs.Equals(ARhs);
+        public static bool operator ==(in Optional<T> ALhs, in Optional<T> ARhs)
+            => ALhs.Equals(ARhs);
         /// <summary>
         /// Check whether two <see cref="Optional{T}"/> instances are unequal.
         /// </summary>
@@ -198,7 +204,8 @@ namespace Whetstone.Core.Contracts
         /// unequal; otherwise <see langword="false"/>.
         /// </returns>
         [Pure]
-        public static bool operator !=(Optional<T> ALhs, Optional<T> ARhs) => !ALhs.Equals(ARhs);
+        public static bool operator !=(in Optional<T> ALhs, in Optional<T> ARhs)
+            => !ALhs.Equals(ARhs);
     }
 
     /// <summary>

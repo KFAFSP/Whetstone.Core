@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 
 using NUnit.Framework;
 
+// ReSharper disable ExceptionNotDocumented
 // ReSharper disable AssignmentIsFullyDiscarded
 // ReSharper disable ImpureMethodCallOnReadonlyValueField
 // ReSharper disable AssignNullToNotNullAttribute

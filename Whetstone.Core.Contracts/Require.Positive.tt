@@ -35,7 +35,7 @@ public void Emit(NumberType AType)
         /// </remarks>
         [DebuggerHidden]
         public static <#= AType.Keyword #> Positive(
-            <#= AType.Keyword #> AParam,
+            in <#= AType.Keyword #> AParam,
             [NotNull] [InvokerParameterName] string AParamName
         )
         {
