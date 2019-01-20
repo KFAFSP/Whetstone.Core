@@ -10,7 +10,7 @@ using Whetstone.Core.Contracts;
 namespace Whetstone.Core.Text
 {
     /// <summary>
-    /// Provides methods to read a contiguous window into a <see cref="string"/>.
+    /// Provides methods to read a contiguous window of a <see cref="string"/>.
     /// </summary>
     /// <remarks>
     /// While <see cref="StringBuilder"/>s are used to build strings in memory using a backing
@@ -81,6 +81,12 @@ namespace Whetstone.Core.Text
             return new StringWindow(AString, AOffset, ALength);
         }
 
+        /// <summary>
+        /// Create a new <see cref="StringWindow"/>.
+        /// </summary>
+        /// <param name="ABase">The underlying <see cref="string"/>.</param>
+        /// <param name="AOffset">The start offset in <paramref name="ABase"/>.</param>
+        /// <param name="ALength">The window length.</param>
         StringWindow([NotNull] string ABase, int AOffset, int ALength)
         {
             Ensure.NotNull(ABase, nameof(ABase));

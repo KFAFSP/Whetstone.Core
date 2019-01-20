@@ -10,6 +10,12 @@ namespace Whetstone.Core.Text
     public partial class StringWindow
     {
         #region Consume
+        /// <summary>
+        /// Consume characters from the start of the window.
+        /// </summary>
+        /// <param name="AOut">Optional output <see cref="StringBuilder"/>.</param>
+        /// <param name="ACount">The number of characters to consume.</param>
+        /// <returns>The number of characters consumed.</returns>
         int ConsumeInternal([CanBeNull] StringBuilder AOut, int ACount)
         {
             Ensure.That(
@@ -56,6 +62,9 @@ namespace Whetstone.Core.Text
         /// <param name="AOut">Optional output <see cref="StringBuilder"/>.</param>
         /// <param name="ALength">The prefix length.</param>
         /// <returns><paramref name="ALength"/> if consumed; otherwise 0.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="ALength"/> is negative.
+        /// </exception>
         /// <remarks>
         /// <para>
         /// If <paramref name="AOut"/> is <see langword="null"/>, the characters will be discarded.
@@ -177,6 +186,12 @@ namespace Whetstone.Core.Text
         #endregion
 
         #region ConsumeEnd
+        /// <summary>
+        /// Consume characters from the end of the window.
+        /// </summary>
+        /// <param name="AOut">Optional output <see cref="StringBuilder"/>.</param>
+        /// <param name="ACount">The number of characters to consume.</param>
+        /// <returns>The number of characters consumed.</returns>
         int ConsumeEndInternal([CanBeNull] StringBuilder AOut, int ACount)
         {
             Ensure.That(

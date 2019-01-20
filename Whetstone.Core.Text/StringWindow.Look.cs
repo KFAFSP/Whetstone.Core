@@ -10,6 +10,12 @@ namespace Whetstone.Core.Text
     public partial class StringWindow
     {
         #region Look
+        /// <summary>
+        /// Peek characters from the start of the window.
+        /// </summary>
+        /// <param name="AOut">Optional output <see cref="StringBuilder"/>.</param>
+        /// <param name="ACount">The number of characters to peek.</param>
+        /// <returns>The number of characters peeked.</returns>
         [Pure]
         int LookInternal([CanBeNull] StringBuilder AOut, int ACount)
         {
@@ -76,6 +82,12 @@ namespace Whetstone.Core.Text
         #endregion
 
         #region LookEnd
+        /// <summary>
+        /// Peek characters from the end of the window.
+        /// </summary>
+        /// <param name="AOut">Optional output <see cref="StringBuilder"/>.</param>
+        /// <param name="ACount">The number of characters to peek.</param>
+        /// <returns>The number of characters peeked.</returns>
         [Pure]
         int LookEndInternal([CanBeNull] StringBuilder AOut, int ACount)
         {
