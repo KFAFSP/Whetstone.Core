@@ -7,19 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Contracts\Require.NotNegative.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Require.NotNegative.tt</DependentUpon>
-    </None>
-    <None Include="Contracts\Require.Positive.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Require.Positive.tt</DependentUpon>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />

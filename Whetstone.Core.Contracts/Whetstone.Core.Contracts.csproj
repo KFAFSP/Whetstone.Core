@@ -24,29 +24,7 @@
     <None Remove="Whetstone.Core.Contracts.doc.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Require.NotNegative.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Require.NotNegative.tt</DependentUpon>
-    </None>
-    <None Include="Require.Positive.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Require.Positive.tt</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="10.2.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Update="Require.NotNegative.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Require.NotNegative.cs</LastGenOutput>
-    </None>
-    <None Update="Require.Positive.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Require.Positive.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
@@ -62,5 +40,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Require.Positive.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Require.NotNegative.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Require.NotNegative.cs</LastGenOutput>
+    </None>
+    <None Update="Require.Positive.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Require.Positive.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>
