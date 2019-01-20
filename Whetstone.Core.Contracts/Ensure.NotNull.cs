@@ -24,7 +24,7 @@ namespace Whetstone.Core.Contracts
             Debug.Assert(
 				AParam != null,
 				$@"{AParamName} is null.",
-				"This indicates a contract violation."
+				@"This indicates a contract violation."
             );
         }
     }

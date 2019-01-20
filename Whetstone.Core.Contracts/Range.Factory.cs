@@ -16,7 +16,7 @@ namespace Whetstone.Core.Contracts
             bool AIncludesLower,
             [CanBeNull] T AUpper,
             bool AIncludesUpper
-         ) where T : IComparable<T>
+        ) where T : IComparable<T>
             => Range<T>.Of(ALower, AIncludesLower, AUpper, AIncludesUpper);
 
         /// <summary>

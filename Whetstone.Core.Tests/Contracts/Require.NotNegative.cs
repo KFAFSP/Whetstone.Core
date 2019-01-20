@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace Whetstone.Core.Contracts
 {
-    public sealed partial class RequireTests
+    public partial class RequireTests
     {
 		[TestCase(0)]
 		[TestCase(1)]

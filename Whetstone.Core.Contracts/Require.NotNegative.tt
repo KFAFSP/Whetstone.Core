@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 
 namespace Whetstone.Core.Contracts
 {
-	public static partial class Require
+	public partial class Require
 	{
 <#
 		foreach (var type in NumberType.All) Emit(type);

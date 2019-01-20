@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Whetstone.Core.Contracts
 {
-    public sealed partial class RequireTests
+    public partial class RequireTests
     {
 <#
 		foreach (var type in NumberType.All) Emit(type);
