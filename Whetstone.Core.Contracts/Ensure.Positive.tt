@@ -1,0 +1,43 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="$(SolutionDir)T4\NumberType.tt" #>
+using System.Diagnostics;
+
+using JetBrains.Annotations;
+
+namespace Whetstone.Core.Contracts
+{
+	public partial class Ensure
+	{
+<#
+		foreach (var type in NumberType.All) Emit(type);
+#>
+	}
+}
+<#+
+public void Emit(NumberType AType)
+{
+	if (!AType.IsSigned) return;
+#>
+		/// <summary>
+        /// Ensure that a parameter is positive.
+        /// </summary>
+        /// <param name="AParam">The parameter value.</param>
+        /// <param name="AParamName">The parameter name.</param>
+        [Conditional("DEBUG")]
+		[DebuggerHidden]
+        public static void Positive(
+            in <#= AType.Keyword #> AParam,
+            [NotNull] [InvokerParameterName] string AParamName
+        )
+        {
+            Debug.Assert(
+				AParam > <#= AType.Literal(0) #>,
+				$@"{AParamName} is zero or negative.",
+				@"This indicates a contract violation."
+			);
+        }
+
+<#+
+}
+#>

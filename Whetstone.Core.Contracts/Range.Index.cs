@@ -25,7 +25,7 @@ namespace Whetstone.Core.Contracts
         /// <paramref name="ALength"/> is negative.
         /// </exception>
         [Pure]
-        public static Range<int> Span(in int AOffset, in int ALength)
+        public static Range<int> Span(in this int AOffset, in int ALength)
         {
             Require.NotNegative(AOffset, nameof(AOffset));
             Require.NotNegative(ALength, nameof(ALength));
@@ -78,7 +78,7 @@ namespace Whetstone.Core.Contracts
         /// <paramref name="ALength"/> is negative.
         /// </exception>
         [Pure]
-        public static Range<long> Span(in long AOffset, in long ALength)
+        public static Range<long> Span(in this long AOffset, in long ALength)
         {
             Require.NotNegative(AOffset, nameof(AOffset));
             Require.NotNegative(ALength, nameof(ALength));

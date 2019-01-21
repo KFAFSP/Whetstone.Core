@@ -30,6 +30,16 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Ensure.NotNegative.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Ensure.NotNegative.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Ensure.Positive.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Ensure.Positive.tt</DependentUpon>
+    </Compile>
     <Compile Update="Require.NotNegative.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -42,6 +52,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Update="Ensure.NotNegative.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Ensure.NotNegative.cs</LastGenOutput>
+    </None>
+    <None Update="Ensure.Positive.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Ensure.Positive.cs</LastGenOutput>
+    </None>
     <None Update="Require.NotNegative.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Require.NotNegative.cs</LastGenOutput>
