@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 using JetBrains.Annotations;
 
@@ -157,7 +158,7 @@ namespace Whetstone.Core.Contracts
 
         [TestCaseSource(nameof(EqualsRangeTestCases))]
         public bool Equals_Range(Range<int> ALhs, Range<int> ARhs)
-            => ALhs.Equals(ARhs);
+            => (ALhs as IEquatable<Range<int>>).Equals(ARhs);
 
         [UsedImplicitly]
         static IEnumerable EqualsRangeTestCases

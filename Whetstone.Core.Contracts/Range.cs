@@ -24,6 +24,57 @@ namespace Whetstone.Core.Contracts
         where T : IComparable<T>
     {
         /// <summary>
+        /// Check whether a specified range must be empty.
+        /// </summary>
+        /// <param name="ALower">The lower bound of the range.</param>
+        /// <param name="AIncludesLower">Whether the lower bound is included.</param>
+        /// <param name="AUpper">The upper bound of the range.</param>
+        /// <param name="AIncludesUpper">Whether the upper bound is included.</param>
+        /// <returns>
+        /// <see langword="true"/> if one of the strong emptiness criteria applies;
+        /// <see langword="false"/> otherwise.
+        /// </returns>
+        [Pure]
+        static bool MustBeEmpty(
+            [CanBeNull] in T ALower,
+            bool AIncludesLower,
+            [CanBeNull] in T AUpper,
+            bool AIncludesUpper
+        )
+        {
+            // Special case: reference bound nullity.
+            if (!typeof(T).IsValueType && ReferenceEquals(AUpper, null))
+            {
+                // See WeakOrdering.Compare<T>(T, T) for more information.
+                // In this case, this special case saves us from dealing with null anywhere else.
+
+                // Any range with an upper bound of null is empty except the [null, null] range.
+                return !AIncludesLower || !AIncludesUpper || !ReferenceEquals(ALower, null);
+            }
+
+            // Compare the bounds.
+            // NOTE: Because of our nullity handling, AUpper is guaranteed not-null.
+            // ReSharper disable once PossibleNullReferenceException
+            var compare = AUpper.CompareTo(ALower);
+
+            // Check strong criteria: Upper < Lower.
+            if (compare < 0)
+            {
+                // Any range where the bounds are reversed must be empty.
+                return true;
+            }
+
+            // Check strong criteria: Upper == Lower AND Upper not in range
+            if (compare == 0)
+            {
+                // Any range with same bounds that is not fully inclusive is empty.
+                return !AIncludesLower || !AIncludesUpper;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// Make a <see cref="Range{T}"/> between two values.
         /// </summary>
         /// <param name="ALower">The lower bound of the range.</param>

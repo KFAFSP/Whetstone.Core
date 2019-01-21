@@ -72,7 +72,7 @@ namespace Whetstone.Core.Contracts
 
         [TestCaseSource(nameof(EqualsOptionalTestCases))]
         public bool Equals_Optional(Optional<int> ALhs, Optional<int> ARhs)
-            => ALhs.Equals(ARhs);
+            => (ALhs as IEquatable<Optional<int>>).Equals(ARhs);
 
         [UsedImplicitly]
         static IEnumerable EqualsOptionalTestCases

@@ -137,8 +137,8 @@ namespace Whetstone.Core.Contracts
         }
 
         [TestCaseSource(nameof(EqualsResultTestCases))]
-        public bool Equals_Optional(Result ALhs, Result ARhs)
-            => ALhs.Equals(ARhs);
+        public bool Equals_Result(Result ALhs, Result ARhs)
+            => (ALhs as IEquatable<Result>).Equals(ARhs);
 
         [UsedImplicitly]
         static IEnumerable EqualsResultTestCases
@@ -373,8 +373,8 @@ namespace Whetstone.Core.Contracts
         }
 
         [TestCaseSource(nameof(EqualsResultTestCases))]
-        public bool Equals_Optional(Result<int> ALhs, Result<int> ARhs)
-            => ALhs.Equals(ARhs);
+        public bool Equals_Result(Result<int> ALhs, Result<int> ARhs)
+            => (ALhs as IEquatable<Result<int>>).Equals(ARhs);
 
         [UsedImplicitly]
         static IEnumerable EqualsResultTestCases
