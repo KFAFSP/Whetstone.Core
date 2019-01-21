@@ -8,6 +8,113 @@ namespace Whetstone.Core.Contracts
 {
     public partial class Range
     {
+        #region Int32 Span
+        /// <summary>
+        /// Initialize a [offset, offset + length) <see cref="int"/> index <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="AOffset">The start offset.</param>
+        /// <param name="ALength">The span length.</param>
+        /// <returns>
+        /// The [<paramref name="AOffset"/>, <paramref name="AOffset"/> + <paramref name="ALength"/>)
+        /// <see cref="Range{T}"/>.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="AOffset"/> is negative.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="ALength"/> is negative.
+        /// </exception>
+        [Pure]
+        public static Range<int> Span(in int AOffset, in int ALength)
+        {
+            Require.NotNegative(AOffset, nameof(AOffset));
+            Require.NotNegative(ALength, nameof(ALength));
+
+            return Of(AOffset, true, AOffset + ALength, false);
+        }
+
+        /// <summary>
+        /// Get the lowest index in the <see cref="int"/> index <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="ASpan">The <see cref="Range{T}"/>.</param>
+        /// <returns>The lowest index in the span.</returns>
+        [Pure]
+        public static int Offset(in this Range<int> ASpan)
+            => ASpan.Lower + (ASpan.IncludesLower ? 0 : 1);
+
+        /// <summary>
+        /// Get the smallest index greater than the <see cref="int"/> index <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="ASpan">The <see cref="Range{T}"/>.</param>
+        /// <returns>The highest index in the span + 1.</returns>
+        [Pure]
+        public static int Limit(in this Range<int> ASpan)
+            => ASpan.Upper + (ASpan.IncludesUpper ? 1 : 0);
+
+        /// <summary>
+        /// Get the length of the <see cref="int"/> index <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="ASpan">The <see cref="Range{T}"/>.</param>
+        /// <returns>The length of the span.</returns>
+        [Pure]
+        public static int Length(in this Range<int> ASpan)
+            => ASpan.Limit() - ASpan.Offset();
+        #endregion
+
+        #region Int64 Span
+        /// <summary>
+        /// Initialize a [offset, offset + length) <see cref="long"/> index <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="AOffset">The start offset.</param>
+        /// <param name="ALength">The span length.</param>
+        /// <returns>
+        /// The [<paramref name="AOffset"/>, <paramref name="AOffset"/> + <paramref name="ALength"/>)
+        /// <see cref="Range{T}"/>.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="AOffset"/> is negative.
+        /// </exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="ALength"/> is negative.
+        /// </exception>
+        [Pure]
+        public static Range<long> Span(in long AOffset, in long ALength)
+        {
+            Require.NotNegative(AOffset, nameof(AOffset));
+            Require.NotNegative(ALength, nameof(ALength));
+
+            return Of(AOffset, true, AOffset + ALength, false);
+        }
+
+        /// <summary>
+        /// Get the lowest index in the <see cref="long"/> index <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="ASpan">The <see cref="Range{T}"/>.</param>
+        /// <returns>The lowest index in the span.</returns>
+        [Pure]
+        public static long Offset(in this Range<long> ASpan)
+            => ASpan.Lower + (ASpan.IncludesLower ? 0L : 1L);
+
+        /// <summary>
+        /// Get the smallest index greater than the <see cref="long"/> index <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="ASpan">The <see cref="Range{T}"/>.</param>
+        /// <returns>The highest index in the span + 1.</returns>
+        [Pure]
+        public static long Limit(in this Range<long> ASpan)
+            => ASpan.Upper + (ASpan.IncludesUpper ? 1L : 0L);
+
+        /// <summary>
+        /// Get the length of the <see cref="long"/> index <see cref="Range{T}"/>.
+        /// </summary>
+        /// <param name="ASpan">The <see cref="Range{T}"/>.</param>
+        /// <returns>The length of the span.</returns>
+        [Pure]
+        public static long Length(in this Range<long> ASpan)
+            => ASpan.Limit() - ASpan.Offset();
+        #endregion
+
+        #region Int32 Index ranges
         /// <summary>
         /// Initialize a [0, count) <see cref="int"/> index <see cref="Range{T}"/>.
         /// </summary>
@@ -79,7 +186,9 @@ namespace Whetstone.Core.Contracts
         [Pure]
         public static Range<int> Indices<T>([CanBeNull] this ICollection<T> ACollection)
             => Indices(ACollection?.Count ?? 0);
+        #endregion
 
+        #region Int64 Index ranges
         /// <summary>
         /// Initialize a [0, count) <see cref="long"/> index <see cref="Range{T}"/>.
         /// </summary>
@@ -107,5 +216,6 @@ namespace Whetstone.Core.Contracts
         [Pure]
         public static Range<long> LongIndices<T>([CanBeNull] this T[] AArray)
             => LongIndices(AArray?.LongLength ?? 0L);
+        #endregion
     }
 }

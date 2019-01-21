@@ -14,7 +14,6 @@ namespace Whetstone.Core.Contracts
         /// <param name="AMinimum">The inclusive minimum.</param>
         /// <param name="AParam">The parameter value.</param>
         /// <param name="AParamName">The parameter name.</param>
-        /// <returns><paramref name="AParam"/>.</returns>
         [Conditional("DEBUG")]
         [DebuggerHidden]
         public static void AtLeast<T>(
@@ -37,7 +36,6 @@ namespace Whetstone.Core.Contracts
         /// <param name="AMinimum">The exclusive minimum.</param>
         /// <param name="AParam">The parameter value.</param>
         /// <param name="AParamName">The parameter name.</param>
-        /// <returns><paramref name="AParam"/>.</returns>
         [Conditional("DEBUG")]
         [DebuggerHidden]
         public static void GreaterThan<T>(
@@ -60,7 +58,6 @@ namespace Whetstone.Core.Contracts
         /// <param name="AMaximum">The inclusive maximum.</param>
         /// <param name="AParam">The parameter value.</param>
         /// <param name="AParamName">The parameter name.</param>
-        /// <returns><paramref name="AParam"/>.</returns>
         [Conditional("DEBUG")]
         [DebuggerHidden]
         public static void AtMost<T>(
@@ -83,7 +80,6 @@ namespace Whetstone.Core.Contracts
         /// <param name="AMaximum">The exclusive maximum.</param>
         /// <param name="AParam">The parameter value.</param>
         /// <param name="AParamName">The parameter name.</param>
-        /// <returns><paramref name="AParam"/>.</returns>
         [Conditional("DEBUG")]
         [DebuggerHidden]
         public static void LessThan<T>(
@@ -107,7 +103,6 @@ namespace Whetstone.Core.Contracts
         /// <param name="AParam">The parameter value.</param>
         /// <param name="AParamName">The parameter name.</param>
         /// <param name="AMaximum">The inclusive maximum.</param>
-        /// <returns><paramref name="AParam"/>.</returns>
         [Conditional("DEBUG")]
         [DebuggerHidden]
         public static void Between<T>(

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using JetBrains.Annotations;
@@ -13,6 +14,114 @@ namespace Whetstone.Core.Contracts
     {
         static readonly List<int> _FEmptyList = new List<int>();
         static readonly List<int> _FShortList = new List<int>{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+        [Test]
+        public void Span_Int32_OffsetNegative_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _ = Range.Span(-1, 0)
+            );
+        }
+
+        [Test]
+        public void Span_Int32_LengthNegative_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _ = Range.Span(0, -1)
+            );
+        }
+
+        [TestCaseSource(nameof(SpanInt32TestCases))]
+        public Range<int> Span_Int32_ReturnsSpan(int AOffset, int ALength)
+            => Range.Span(AOffset, ALength);
+
+        [UsedImplicitly]
+        static IEnumerable SpanInt32TestCases
+        {
+            get
+            {
+                yield return new TestCaseData(0, 0)
+                    .Returns(Range.Of(0, true, 0, false));
+                yield return new TestCaseData(0, 1)
+                    .Returns(Range.Of(0, true, 1, false));
+                yield return new TestCaseData(10, 5)
+                    .Returns(Range.Of(10, true, 15, false));
+            }
+        }
+
+        [TestCaseSource(nameof(OffsetLimitLengthInt32TestCases))]
+        public (int, int, int) OffsetLimitLength_Int32(Range<int> ARange)
+            => (ARange.Offset(), ARange.Limit(), ARange.Length());
+
+        [UsedImplicitly]
+        static IEnumerable OffsetLimitLengthInt32TestCases
+        {
+            get
+            {
+                yield return new TestCaseData(Range.Of(0, true, 0, false))
+                    .Returns((0, 0, 0));
+                yield return new TestCaseData(Range.Of(0, true, 1, false))
+                    .Returns((0, 1, 1));
+                yield return new TestCaseData(Range.Of(10, true, 15, false))
+                    .Returns((10, 15, 5));
+                yield return new TestCaseData(Range.Of(10, false, 15, true))
+                    .Returns((11, 16, 5));
+            }
+        }
+
+        [Test]
+        public void Span_Int64_OffsetNegative_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _ = Range.Span(-1L, 0L)
+            );
+        }
+
+        [Test]
+        public void Span_Int64_LengthNegative_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(
+                () => _ = Range.Span(0L, -1L)
+            );
+        }
+
+        [TestCaseSource(nameof(SpanInt64TestCases))]
+        public Range<long> Span_Int64_ReturnsSpan(long AOffset, long ALength)
+            => Range.Span(AOffset, ALength);
+
+        [UsedImplicitly]
+        static IEnumerable SpanInt64TestCases
+        {
+            get
+            {
+                yield return new TestCaseData(0L, 0L)
+                    .Returns(Range.Of(0L, true, 0L, false));
+                yield return new TestCaseData(0L, 1L)
+                    .Returns(Range.Of(0L, true, 1L, false));
+                yield return new TestCaseData(10L, 5L)
+                    .Returns(Range.Of(10L, true, 15L, false));
+            }
+        }
+
+        [TestCaseSource(nameof(OffsetLimitLengthInt64TestCases))]
+        public (long, long, long) OffsetLimitLength_Int64(Range<long> ARange)
+            => (ARange.Offset(), ARange.Limit(), ARange.Length());
+
+        [UsedImplicitly]
+        static IEnumerable OffsetLimitLengthInt64TestCases
+        {
+            get
+            {
+                yield return new TestCaseData(Range.Of(0L, true, 0L, false))
+                    .Returns((0L, 0L, 0L));
+                yield return new TestCaseData(Range.Of(0L, true, 1L, false))
+                    .Returns((0L, 1L, 1L));
+                yield return new TestCaseData(Range.Of(10L, true, 15L, false))
+                    .Returns((10L, 15L, 5L));
+                yield return new TestCaseData(Range.Of(10L, false, 15L, true))
+                    .Returns((11L, 16L, 5L));
+            }
+        }
 
         [TestCaseSource(nameof(IndicesInt32TestCases))]
         public Range<int> Indices_Int32_ReturnsIndexRange(int AValue)
