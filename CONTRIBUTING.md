@@ -12,7 +12,8 @@ Thank you for showing interest in this project. This document lists some of the 
 ## Issues
 
 > **TODO** |
-> ---
+> --- |
+> 
 > TBD ;)
 
 ## Pull requests
@@ -21,7 +22,8 @@ If you would like to make contributions to the code, consider this section caref
 All contributions should follow the [Code style](#code-style) that is laid out in this document. In addition, all contributions should provide appropriate tests in the shared test project. If you add functionality or types that are part of the broader interface, other documentation besides XML comments might be in order. Be sure to coordinate wiki contributions with me as well.
 
 > **TODO** |
-> ---
+> --- |
+> 
 > TBD ;)
 
 ## Code Style
@@ -90,7 +92,7 @@ Code element                    | Rule
 Namespace                       | `UpperCamelCase`
 Class, Struct                   | `UpperCamelCase`
 Interface                       | `IUpperCamelCase`
-|
+ | |
 Method                          | `UpperCamelCase`
 Property                        | `UpperCamelCase`
 Event                           | `UpperCamelCase`
@@ -98,11 +100,11 @@ Field (`private`)               | `FUpperCamelCase`
 Field (`static`, `private`)     | `_FUpperCamelCase`
 Constant                        | `C_UpperCamelCase`
 Enum member                     | `UpperCamelCase`
-|
+ | |
 Parameter                       | `AUpperCamelCase`, `BUpperCamelCase`
 Type parameter                  | `TUpperCamelCase`
 Lambda parameter                | `X`, `Y`, Parameter
-|
+ | |
 Local variable                  | `lowerCamelCase`
 Local constant                  | `C_UpperCamelCase`
 Local function                  | `UpperCamelCase`
