@@ -45,7 +45,7 @@ namespace Whetstone.Core.Tasks
         }
 
         long FOwner = TaskContext.C_NoId;
-        int FStrength;
+        long FStrength;
 
         [NotNull]
         readonly Queue FQueue = new Queue();
