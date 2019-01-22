@@ -12,7 +12,19 @@ namespace Whetstone.Core.Tasks
     /// Represents a waiting queue.
     /// </summary>
     /// <remarks>
+    /// <para>
     /// Essentially implements a mutex lock.
+    /// </para>
+    /// <para>
+    /// In a <see cref="Queue"/>, the order of the awaiters is strictly preserved, but turns may
+    /// still be ceded to successors using cancellation.
+    /// </para>
+    /// <para>
+    /// All awaiters advance automatically in the <see cref="Queue"/> as soon as their predecessor
+    /// finishes their turn. Any awaiter that reaches the head automatically begins their turn and
+    /// unblocks. If this is not desired, and the release of the head should be controlled manually
+    /// instead, use a <see cref="Turnstile"/>.
+    /// </para>
     /// </remarks>
     [PublicAPI]
     public sealed class Queue : Disposable, ISynchronizationSource
