@@ -192,7 +192,7 @@ namespace Whetstone.Core.Contracts
 
         #region System.Object overrides
         /// <inheritdoc />
-        /// <remarks>See <see cref="Equals(Result)"/> for details on equality.</remarks>
+        /// <remarks>See <see cref="Equals(in Result)"/> for details on equality.</remarks>
         [Pure]
         public override bool Equals(object AOther)
         {
@@ -474,7 +474,7 @@ namespace Whetstone.Core.Contracts
 
         #region System.Object overrides
         /// <inheritdoc />
-        /// <remarks>See <see cref="Equals(Result{T})"/> for details on equality.</remarks>
+        /// <remarks>See <see cref="Equals(in Result{T})"/> for details on equality.</remarks>
         [Pure]
         public override bool Equals(object AOther)
         {

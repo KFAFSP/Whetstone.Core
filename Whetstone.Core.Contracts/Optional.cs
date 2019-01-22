@@ -120,7 +120,7 @@ namespace Whetstone.Core.Contracts
 
         #region System.Object overrides
         /// <inheritdoc />
-        /// <remarks>See <see cref="Equals(Optional{T})"/> for details on equality.</remarks>
+        /// <remarks>See <see cref="Equals(in Optional{T})"/> for details on equality.</remarks>
         [Pure]
         public override bool Equals(object AOther)
         {
