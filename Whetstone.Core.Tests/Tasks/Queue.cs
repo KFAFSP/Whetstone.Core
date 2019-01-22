@@ -26,20 +26,26 @@ namespace Whetstone.Core.Tasks
         {
             var queue = new Queue();
 
-            var awaiters = new[]
+            using (var cts = new CancellationTokenSource())
             {
-                queue.WaitAsync(),
-                queue.WaitAsync(),
-                queue.WaitAsync()
-            };
+                var awaiters = new[]
+                {
+                    queue.WaitAsync(),
+                    queue.WaitAsync(cts.Token),
+                    queue.WaitAsync(),
+                    queue.WaitAsync()
+                };
 
-            queue.Dispose();
+                cts.Cancel();
+                queue.Dispose();
 
-            using (TaskAssert.Completed(awaiters.First())) { }
+                using (TaskAssert.Completed(awaiters[0])) { }
+                TaskAssert.Cancelled(awaiters[1]);
 
-            foreach (var awaiter in awaiters.Skip(1))
-            {
-                TaskAssert.Faulted<ObjectDisposedException>(awaiter);
+                foreach (var awaiter in awaiters.Skip(2))
+                {
+                    TaskAssert.Faulted<ObjectDisposedException>(awaiter);
+                }
             }
         }
 

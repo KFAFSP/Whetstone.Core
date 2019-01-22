@@ -64,6 +64,7 @@ namespace Whetstone.Core.Tasks
         {
             if (ADisposing)
             {
+                // Fault all remaining awaiters.
                 FHead.Fault();
             }
 
@@ -82,22 +83,36 @@ namespace Whetstone.Core.Tasks
             ThrowIfDisposed();
             ACancel.ThrowIfCancellationRequested();
 
+            // Make a handle to end this turn.
             var handle = new Handle();
+            // Update the tail to reserve our position whilst getting our immediate predecessor.
             // NOTE: Exception cannot be thrown.
             // ReSharper disable once ExceptionNotDocumented
             var predecessor = Interlocked.Exchange(ref FTail, handle);
 
             try
             {
+                // Wait for our predecessor to finish their turn.
                 await predecessor.Released.WaitAsync(ACancel);
             }
             catch (OperationCanceledException)
             {
+                // Waiting was canceled. Bypass our turn for all successors.
                 // NOTE: This continuation runs synchronously at the parent task.
 #pragma warning disable 4014
                 predecessor.Released.WaitAsync()
                     .ContinueWith(
-                        A => handle.Dispose(),
+                        A =>
+                        {
+                            if (A.IsFaulted)
+                            {
+                                handle.Fault();
+                            }
+                            else
+                            {
+                                handle.Dispose();
+                            }
+                        },
                         TaskContinuationOptions.ExecuteSynchronously
                     );
 #pragma warning restore 4014
@@ -105,10 +120,12 @@ namespace Whetstone.Core.Tasks
             }
             catch (ObjectDisposedException)
             {
+                // The queue was disposed. Propagate to all successors.
                 handle.Fault();
                 throw;
             }
 
+            // Our turn is now, update the head.
             FHead = handle;
             return handle;
         }
