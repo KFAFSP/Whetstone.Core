@@ -72,7 +72,7 @@ namespace Whetstone.Core.Tasks
         /// </summary>
         /// <returns>
         /// <see langword="true"/> if the condition was set; <see langword="false"/> if it was
-        /// already set.
+        /// already set or disposed.
         /// </returns>
         public bool TrySet()
         {
@@ -106,7 +106,7 @@ namespace Whetstone.Core.Tasks
         /// </summary>
         /// <returns>
         /// <see langword="true"/> if the condition was reset; <see langword="false"/> if it was
-        /// already reset.
+        /// already reset or disposed.
         /// </returns>
         public bool TryReset()
         {
