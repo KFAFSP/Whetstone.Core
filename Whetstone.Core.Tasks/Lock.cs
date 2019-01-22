@@ -65,13 +65,25 @@ namespace Whetstone.Core.Tasks
         }
         #endregion
 
+        /// <summary>
+        /// Strengthen the lock.
+        /// </summary>
         void Strengthen()
         {
             Interlocked.Increment(ref FStrength);
         }
+        /// <summary>
+        /// Weaken the lock, and release it if strength reached zero.
+        /// </summary>
         void Weaken()
         {
-            if (Interlocked.Decrement(ref FStrength) == 0)
+            var strength = Interlocked.Decrement(ref FStrength);
+            Ensure.That(
+                strength >= 0,
+                @"Unbalanced Strengthen/Weaken."
+            );
+
+            if (strength == 0)
             {
                 FOwner = TaskContext.C_NoId;
                 FHead?.Dispose();
@@ -91,32 +103,34 @@ namespace Whetstone.Core.Tasks
 
             var id = TaskContext.CurrentId;
 
+            // Strengthen the lock to prevent release (temporarily).
             Strengthen();
-            // NOTE: Exception cannot be thrown.
-            // ReSharper disable once ExceptionNotDocumented
-            var previous = Interlocked.CompareExchange(
-                ref FOwner,
-                id,
-                TaskContext.C_NoId
-            );
 
-            if (previous == id)
+            if (FOwner == id)
             {
+                // Re-enter the lock.
                 return new Handle(this);
             }
 
-            if (previous != TaskContext.C_NoId)
+            // The lock is either unacquired or acquired by some other context.
+            Task<SynchronizationHandle> turn;
+            try
             {
-                Weaken();
-                FHead = await FQueue.WaitAsync(ACancel);
-                Strengthen();
-                FOwner = id;
+                // Acquire an awaitable to await our turn.
+                turn = FQueue.WaitAsync(ACancel);
             }
-            else
+            finally
             {
-                FHead = await FQueue.WaitAsync(ACancel);
+                // Weak the lock to allow release again.
+                Weaken();
             }
 
+            // Await our turn.
+            FHead = await turn;
+
+            // We now have exclusive access.
+            FOwner = id;
+            Strengthen();
             return new Handle(this);
         }
         #endregion

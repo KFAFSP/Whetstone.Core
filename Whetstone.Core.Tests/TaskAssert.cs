@@ -15,7 +15,7 @@ namespace Whetstone.Core
         const int C_Timeout = 10;
 
         [NotNull]
-        public static Task Detach([NotNull] Func<Task> ADelegate)
+        public static Task Detach([NotNull] [InstantHandle] Func<Task> ADelegate)
         {
             Require.NotNull(ADelegate, nameof(ADelegate));
 
@@ -24,7 +24,9 @@ namespace Whetstone.Core
         }
 
         [NotNull]
-        public static Task<TResult> Detach<TResult>([NotNull] Func<Task<TResult>> ADelegate)
+        public static Task<TResult> Detach<TResult>(
+            [NotNull] [InstantHandle] Func<Task<TResult>> ADelegate
+        )
         {
             Require.NotNull(ADelegate, nameof(ADelegate));
 

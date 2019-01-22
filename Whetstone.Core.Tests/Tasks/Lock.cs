@@ -35,20 +35,26 @@ namespace Whetstone.Core.Tasks
         {
             var lck = new Lock();
 
-            var awaiters = new[]
+            using (var cts = new CancellationTokenSource())
             {
-                TaskAssert.Detach(lck.WaitAsync),
-                TaskAssert.Detach(lck.WaitAsync),
-                TaskAssert.Detach(lck.WaitAsync)
-            };
+                var awaiters = new[]
+                {
+                    TaskAssert.Detach(lck.WaitAsync),
+                    TaskAssert.Detach(() => lck.WaitAsync(cts.Token)),
+                    TaskAssert.Detach(lck.WaitAsync),
+                    TaskAssert.Detach(lck.WaitAsync)
+                };
 
-            lck.Dispose();
+                cts.Cancel();
+                lck.Dispose();
 
-            using (TaskAssert.Completed(awaiters.First())) { }
+                using (TaskAssert.Completed(awaiters[0])) { }
+                TaskAssert.Cancelled(awaiters[1]);
 
-            foreach (var awaiter in awaiters.Skip(1))
-            {
-                TaskAssert.Faulted<ObjectDisposedException>(awaiter);
+                foreach (var awaiter in awaiters.Skip(2))
+                {
+                    TaskAssert.Faulted<ObjectDisposedException>(awaiter);
+                }
             }
         }
 
@@ -113,10 +119,7 @@ namespace Whetstone.Core.Tasks
             using (var lck = new Lock())
             {
                 var t1 = TaskAssert.Detach(lck.WaitAsync);
-                // NOTE: We wait for the task to complete.
-                // ReSharper disable AccessToDisposedClosure
                 var t2 = TaskAssert.Detach(() => lck.WaitAsync(cts.Token));
-                // ReSharper enable AccessToDisposedClosure
                 var t3 = TaskAssert.Detach(lck.WaitAsync);
 
                 TaskAssert.DoesNotEnd(t2);
