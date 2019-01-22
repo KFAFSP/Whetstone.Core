@@ -40,6 +40,7 @@ namespace Whetstone.Core.Tasks
                 Dispose();
             }
 
+            [NotNull]
             public Era Released { get; } = new Era();
         }
 

@@ -16,10 +16,13 @@ namespace Whetstone.Core.Tasks
     {
         sealed class Handle : SynchronizationHandle
         {
+            [NotNull]
             readonly Lock FParent;
 
             public Handle([NotNull] Lock AParent)
             {
+                Ensure.NotNull(AParent, nameof(AParent));
+
                 FParent = AParent;
                 Id = AParent.FOwner;
             }
@@ -80,6 +83,7 @@ namespace Whetstone.Core.Tasks
         /// <exception cref="OperationCanceledException">
         /// <paramref name="ACancel"/> was canceled.
         /// </exception>
+        /// <exception cref="ObjectDisposedException">This instance is disposed.</exception>
         public async Task<SynchronizationHandle> WaitAsync(CancellationToken ACancel)
         {
             ThrowIfDisposed();
