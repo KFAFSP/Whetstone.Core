@@ -71,7 +71,17 @@ namespace Whetstone.Core.Tasks
             {
                 // Await the next release.
                 FRelease.TryReset();
-                await FRelease.WaitAsync(ACancel);
+                try
+                {
+                    // Await release by the external control.
+                    await FRelease.WaitAsync(ACancel);
+                }
+                catch (OperationCanceledException)
+                {
+                    // Indicate that we ceded our turn.
+                    FRelease.TrySet();
+                    throw;
+                }
             }
         }
         #endregion

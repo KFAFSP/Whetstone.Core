@@ -116,5 +116,23 @@ namespace Whetstone.Core.Tasks
                 Assert.That(!turnstile.Turn());
             }
         }
+
+        [Test]
+        public void HasWaiting_DetectsCeded()
+        {
+            using (var cts = new CancellationTokenSource())
+            using (var turnstile = new Turnstile())
+            {
+                var awaiter = turnstile.WaitAsync(cts.Token);
+
+                TaskAssert.DoesNotEnd(awaiter);
+                Assert.That(turnstile.HasWaiting);
+
+                cts.Cancel();
+
+                TaskAssert.Cancelled(awaiter);
+                Assert.That(!turnstile.HasWaiting);
+            }
+        }
     }
 }

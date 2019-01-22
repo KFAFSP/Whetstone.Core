@@ -124,5 +124,25 @@ namespace Whetstone.Core.Tasks
                 Assert.That(queue.IsEmpty);
             }
         }
+
+        [Test]
+        public void IsEmpty_DetectsCeded()
+        {
+            using (var cts = new CancellationTokenSource())
+            using (var queue = new Queue())
+            {
+                var block = queue.WaitAsync();
+                var awaiter = queue.WaitAsync(cts.Token);
+
+                TaskAssert.DoesNotEnd(awaiter);
+                Assert.That(!queue.IsEmpty);
+
+                cts.Cancel();
+
+                using (TaskAssert.Completed(block)) { }
+                TaskAssert.Cancelled(awaiter);
+                Assert.That(queue.IsEmpty);
+            }
+        }
     }
 }
