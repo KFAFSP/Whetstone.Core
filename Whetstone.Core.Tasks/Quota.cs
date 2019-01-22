@@ -79,7 +79,8 @@ namespace Whetstone.Core.Tasks
         void Release()
         {
             // Exit the section.
-            Interlocked.Decrement(ref FActive);
+            var active = Interlocked.Decrement(ref FActive);
+            Ensure.That(active >= 0, @"Multiple release.");
 
             // Increase the balance.
             if (Interlocked.Increment(ref FBalance) <= 0)

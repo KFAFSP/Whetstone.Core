@@ -30,6 +30,8 @@ namespace Whetstone.Core.Contracts
         [Pure]
         int CompareToInternal([NotNull] in T ATest)
         {
+            Ensure.NotNull(ATest, nameof(ATest));
+
             // Compare against the lower boundary.
             var lower = ATest.CompareTo(Lower);
             if (lower < 0 || !IncludesLower && lower == 0)
