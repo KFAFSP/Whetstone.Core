@@ -84,6 +84,60 @@ namespace Whetstone.Core.Tasks
         }
         #endregion
 
+        /// <summary>
+        /// Try to skip ahead to the front of the queue.
+        /// </summary>
+        /// <param name="AHandle">
+        /// If skipping was successful, this holds the <see cref="SynchronizationHandle"/> for the
+        /// acquired turn.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> if the caller now holds the turn at the head of the queue;
+        /// otherwise <see langword="false"/>.
+        /// </returns>
+        /// <remarks>
+        /// If <see langword="true"/> was returned, <paramref name="AHandle"/> must be disposed.
+        /// </remarks>
+        public bool TrySkip(out SynchronizationHandle AHandle)
+        {
+            AHandle = null;
+
+            // Make a handle to end this turn.
+            var handle = new Handle();
+            // Update the tail to reserve our position whilst getting our immediate predecessor.
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
+            var predecessor = Interlocked.Exchange(ref FTail, handle);
+
+            // See if we are at the head.
+            if (predecessor.Released.HasEnded)
+            {
+                // Skipping ahead was successful.
+                AHandle = handle;
+                return true;
+            }
+
+            // Skipping ahead has failed, place a bypass.
+#pragma warning disable 4014
+            predecessor.Released.WaitAsync()
+                .ContinueWith(
+                    A =>
+                    {
+                        if (A.IsFaulted)
+                        {
+                            handle.Fault();
+                        }
+                        else
+                        {
+                            handle.Dispose();
+                        }
+                    },
+                    TaskContinuationOptions.ExecuteSynchronously
+                );
+#pragma warning restore 4014
+            return false;
+        }
+
         #region ISynchronizationSource
         /// <inheritdoc />
         /// <exception cref="OperationCanceledException">
