@@ -13,6 +13,25 @@ namespace Whetstone.Core.Tasks
     [PublicAPI]
     public abstract class SynchronizationHandle : IDisposable
     {
+        sealed class DummyHandle : SynchronizationHandle
+        {
+            public DummyHandle()
+            {
+                Dispose();
+            }
+
+            #region SynchronizationHandle overrides
+            /// <inheritdoc />
+            protected override void Release() { }
+            #endregion
+        }
+
+        /// <summary>
+        /// Get the released dummy <see cref="SynchronizationHandle"/>.
+        /// </summary>
+        [NotNull]
+        public static SynchronizationHandle Released { get; } = new DummyHandle();
+
         /// <inheritdoc />
         [ExcludeFromCodeCoverage]
         ~SynchronizationHandle()

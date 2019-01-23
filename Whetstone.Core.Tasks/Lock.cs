@@ -49,8 +49,8 @@ namespace Whetstone.Core.Tasks
 
         [NotNull]
         readonly Queue FQueue = new Queue();
-        [CanBeNull]
-        SynchronizationHandle FHead;
+        [NotNull]
+        SynchronizationHandle FHead = SynchronizationHandle.Released;
 
         #region Disposable overrides
         /// <inheritdoc />
@@ -86,7 +86,7 @@ namespace Whetstone.Core.Tasks
             if (strength == 0)
             {
                 FOwner = TaskContext.C_NoId;
-                FHead?.Dispose();
+                FHead.Dispose();
             }
         }
 
