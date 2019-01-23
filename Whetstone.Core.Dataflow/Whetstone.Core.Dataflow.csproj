@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/KFAFSP/Whetstone.Core/raw/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/KFAFSP/Whetstone.Core/</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <AssemblyVersion>0.2.0.0</AssemblyVersion>
+    <FileVersion>0.2.0.0</FileVersion>
+    <Authors>Karl F. A. Friebel</Authors>
+    <Version>0.2.0</Version>
+    <Copyright>Copyright (c) Karl F. A. Friebel 2018</Copyright>
+    <PackageReleaseNotes>Preview build.</PackageReleaseNotes>
+    <Description>Provides dataflow primitives based on Whetstone.Core.Tasks.</Description>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="10.2.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Whetstone.Core.Contracts\Whetstone.Core.Contracts.csproj" />
+    <ProjectReference Include="..\Whetstone.Core.Tasks\Whetstone.Core.Tasks.csproj" />
+  </ItemGroup>
+</Project>
