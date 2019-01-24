@@ -42,18 +42,18 @@ namespace Whetstone.Core.Tasks
             /// <inheritdoc />
             protected override void Release()
             {
-                Released.TryEnd();
+                Turn.TryEnd();
             }
             #endregion
 
             public void Fault()
             {
-                Released.Dispose();
+                Turn.Dispose();
                 Dispose();
             }
 
             [NotNull]
-            public Era Released { get; } = new Era();
+            public Era Turn { get; } = new Era();
         }
 
         [NotNull]
@@ -84,6 +84,72 @@ namespace Whetstone.Core.Tasks
         }
         #endregion
 
+        /// <summary>
+        /// Try to skip to the head of the queue.
+        /// </summary>
+        /// <param name="AHandle">
+        /// The output <see cref="SynchronizationHandle"/> for the skipped turn.
+        /// </param>
+        /// <returns>
+        /// <see langword="true"/> if skipping was successful and <paramref name="AHandle"/> is
+        /// live; otherwise <see langword="false"/>.
+        /// </returns>
+        /// <remarks>
+        /// <para>
+        /// Skipping means entering an empty queue to immediately start a turn. Internally, the
+        /// caller enters the queue regardless of state but cancels any wait immediately, reporting
+        /// failure instead.
+        /// </para>
+        /// <para>
+        /// When the result is <see langword="true"/>, <paramref name="AHandle"/> is acquired and
+        /// live and must be disposed!
+        /// </para>
+        /// </remarks>
+        public bool TrySkip(out SynchronizationHandle AHandle)
+        {
+            AHandle = null;
+
+            if (IsDisposed)
+            {
+                // Cannot skip a disposed queue.
+                return false;
+            }
+
+            // Make a handle to end this turn.
+            var handle = new Handle();
+            // Update the tail to reserve our position whilst getting our immediate predecessor.
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
+            var predecessor = Interlocked.Exchange(ref FTail, handle);
+
+            if (predecessor.IsReleased)
+            {
+                // Successfully skipped to the head of the queue.
+                AHandle = handle;
+                return true;
+            }
+
+            // Immediately bypass to cede our turn.
+#pragma warning disable 4014
+            predecessor.Turn.WaitAsync()
+                .ContinueWith(
+                    A =>
+                    {
+                        if (A.IsFaulted)
+                        {
+                            handle.Fault();
+                        }
+                        else
+                        {
+                            handle.Dispose();
+                        }
+                    },
+                    TaskContinuationOptions.ExecuteSynchronously
+                );
+#pragma warning restore 4014
+            return false;
+        }
+
         #region ISynchronizationSource
         /// <inheritdoc />
         /// <exception cref="OperationCanceledException">
@@ -105,14 +171,14 @@ namespace Whetstone.Core.Tasks
             try
             {
                 // Wait for our predecessor to finish their turn.
-                await predecessor.Released.WaitAsync(ACancel);
+                await predecessor.Turn.WaitAsync(ACancel);
             }
             catch (OperationCanceledException)
             {
                 // Waiting was canceled. Bypass our turn for all successors.
                 // NOTE: This continuation runs synchronously at the parent task.
 #pragma warning disable 4014
-                predecessor.Released.WaitAsync()
+                predecessor.Turn.WaitAsync()
                     .ContinueWith(
                         A =>
                         {

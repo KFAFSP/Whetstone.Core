@@ -36,6 +36,8 @@ namespace Whetstone.Core.Tasks
                     queue.WaitAsync()
                 };
 
+                Assert.That(!queue.TrySkip(out _));
+
                 cts.Cancel();
                 queue.Dispose();
 
@@ -46,6 +48,50 @@ namespace Whetstone.Core.Tasks
                 {
                     TaskAssert.Faulted<ObjectDisposedException>(awaiter);
                 }
+            }
+        }
+
+        [Test]
+        public void TrySkip_Disposed_ReturnsFalse()
+        {
+            var queue = new Queue();
+            queue.Dispose();
+
+            Assert.That(!queue.TrySkip(out _));
+        }
+
+        [Test]
+        public void TrySkip_Empty_ReturnsTrueAndSkips()
+        {
+            using (var queue = new Queue())
+            {
+                Assert.That(queue.TrySkip(out var handle));
+                var t1 = queue.WaitAsync();
+
+                using (handle)
+                {
+                    TaskAssert.DoesNotEnd(t1);
+                }
+
+                using (TaskAssert.Completed(t1)) { }
+
+                Assert.That(queue.IsEmpty);
+            }
+        }
+
+        [Test]
+        public void TrySkip_NotEmpty_ReturnsFalse()
+        {
+            using (var queue = new Queue())
+            {
+                var t1 = queue.WaitAsync();
+
+                using (TaskAssert.Completed(t1))
+                {
+                    Assert.That(!queue.TrySkip(out _));
+                }
+
+                Assert.That(queue.IsEmpty);
             }
         }
 
