@@ -45,6 +45,43 @@ namespace Whetstone.Core.Tasks
         }
         #endregion
 
+        /// <summary>
+        /// Try to skip the barrier.
+        /// </summary>
+        /// <returns>
+        /// <see langword="true"/> if the barrier was skipped; otherwise <see langword="false"/>.
+        /// </returns>
+        /// <remarks>
+        /// Skipping the barrier means signalling it if that would unblock all awaiters; otherwise
+        /// doing nothing. If the barrier is waiting for more than 1 task, it will not be signalled
+        /// and instead left in the same state as it was before.
+        /// </remarks>
+        public bool TrySkip()
+        {
+            if (IsDisposed)
+            {
+                // Cannot skip disposed barriers.
+                return false;
+            }
+
+            // Attempt to do the last decrement operation.
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
+            var result = Interlocked.CompareExchange(ref FWaitingFor, 0, 1);
+            if (result != 1)
+            {
+                // There are more tasks left to await.
+                return false;
+            }
+
+            // We were the final task.
+            FRelease.Fire();
+            // NOTE: Exception cannot be thrown.
+            // ReSharper disable once ExceptionNotDocumented
+            Interlocked.Increment(ref FWaitingFor);
+            return true;
+        }
+
         #region IAwaitable
         /// <inheritdoc />
         /// <exception cref="OperationCanceledException">
